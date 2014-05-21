@@ -10,5 +10,4 @@
 
 @interface MPConnectCell : UITableViewCell
 @property (nonatomic, strong) UIButton *masterPassButton;
-@property (nonatomic, strong) UIButton *learnMoreButton;
 @end

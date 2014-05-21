@@ -12,6 +12,7 @@
 #import "CardManager.h"
 #import "MasterPassConnectViewController.h"
 #import "MPLinkedCell.h"
+#import "MPLearnMoreCell.h"
 
 @interface UserProfileViewController ()
 @property(nonatomic, weak) IBOutlet UITableView *profileTable;
@@ -26,12 +27,6 @@
         [self.profileTable setSeparatorInset:UIEdgeInsetsZero];
     }
     self.profileTable.tableFooterView = [[UIView alloc] init];
-    
-    
-    /*UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.profileTable.frame.size.width, 100)];
-    header.backgroundColor = [UIColor deepBlueColor];
-    
-    self.profileTable.tableHeaderView = header;*/
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (connected) name:@"ConnectedMasterPass" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (connectMasterPass) name:@"mp_connect" object:nil];
@@ -95,7 +90,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;    //count of section
+    return 3;    //count of section
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -103,6 +98,7 @@
     switch (section) {
         case 0:return 3;
         case 1:return 1;
+        case 2:return 1;
         default: return 0;
     }
 }
@@ -113,12 +109,13 @@
         case 1:{
             CardManager *cm = [CardManager getInstance];
             if (cm.isLinkedToMasterPass) {
-                return 50;
+                return 60;
             }
             else {
-                return 180;
+                return 100;
             }
         }
+        case 2:return 60;
         default: return 0;
     }
 }
@@ -161,6 +158,7 @@
     static NSString *processCellId = @"ProcessOrerCellId";
     static NSString *textFieldCellId = @"TextFieldCell";
     static NSString *linkedCell = @"MPLinkedCell";
+    static NSString *learnmoreCell = @"MPLearnMoreCell";
     
     if (indexPath.section == 0) {
         
@@ -196,7 +194,7 @@
         return cell;
         
     }
-    if (indexPath.section == 1) {
+    else if (indexPath.section == 1) {
         CardManager *cm = [CardManager getInstance];
         if (cm.isLinkedToMasterPass) {
             MPLinkedCell *cell = [tableView dequeueReusableCellWithIdentifier:linkedCell];
@@ -220,6 +218,18 @@
             }
             return cell;
         }
+        
+    }
+    else if (indexPath.section == 2) {
+        MPLearnMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:learnmoreCell];
+        
+        if (cell == nil)
+        {
+            cell = [[MPLearnMoreCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:learnmoreCell];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        return cell;
         
     }
     
