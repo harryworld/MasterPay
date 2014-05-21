@@ -84,6 +84,7 @@
 -(void)addCard:(NSNotification *)notification{
     self.isPairing = NO;
     self.selectedCard = nil;
+    self.selectedShippingInfo = nil;
     self.buttonType = kButtonTypeProcess;
     [self.containerTable reloadData];
 }
@@ -91,6 +92,7 @@
 -(void)pairMP:(NSNotification *)notification{
     self.isPairing = YES;
     self.selectedCard = nil;
+    self.selectedShippingInfo = nil;
     self.buttonType = kButtonTypeMasterPass;
     [self.containerTable reloadData];
 }
@@ -460,25 +462,25 @@
         switch (indexPath.row) {
             case 0:
                 cell.textLabel.text = @"Street Address";
-                if (self.selectedCard) {
+                if (self.selectedShippingInfo) {
                     cell.textField.text = self.selectedShippingInfo.street;
                 }
                 break;
             case 1:
                 cell.textLabel.text = @"City";
-                if (self.selectedCard) {
+                if (self.selectedShippingInfo) {
                     cell.textField.text = self.selectedShippingInfo.city;
                 }
                 break;
             case 2:
                 cell.textLabel.text = @"State";
-                if (self.selectedCard) {
+                if (self.selectedShippingInfo) {
                     cell.textField.text = self.selectedShippingInfo.state;
                 }
                 break;
             case 3:
                 cell.textLabel.text = @"Zip";
-                if (self.selectedCard) {
+                if (self.selectedShippingInfo) {
                     cell.textField.text = self.selectedShippingInfo.zip;
                 }
                 break;
