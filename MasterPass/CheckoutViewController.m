@@ -18,12 +18,14 @@
 #import "Card.h"
 #import "TextFieldCell.h"
 #import "MasterPassConnectViewController.h"
+#import "ShippingInfo.h"
 
 @interface CheckoutViewController ()
 @property(nonatomic, strong)SwipeView *cardSwipeView;
 @property(nonatomic, weak) IBOutlet UITableView *containerTable;
 @property(nonatomic, strong)ProcessOrderCell *processOrderCell;
 @property(nonatomic, strong)Card *selectedCard;
+@property(nonatomic, strong)ShippingInfo *selectedShippingInfo;
 @property(nonatomic, assign)BOOL isPairing;
 @property(nonatomic, strong)UIButton *cardSelectorButton;
 @property(nonatomic, strong)NSString *cardType;
@@ -31,6 +33,8 @@
 @end
 
 @implementation CheckoutViewController
+
+#pragma mark Inherited Methods
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -48,11 +52,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (addCard:) name:@"CheckoutNewCardSelected" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (processOrder:) name:@"order_processed" object:nil];
+    
+    CardManager *cm = [CardManager getInstance];
+    self.selectedShippingInfo = [[cm shippingDetails] firstObject];
+    
 }
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
+
+#pragma mark - Event Responding
 
 -(void)switchCards:(NSNotification *)notification{
     NSDictionary *dict = [notification userInfo];
@@ -85,11 +95,39 @@
     [self.containerTable reloadData];
 }
 
+#pragma mark - Shipping Address
+
+-(void)editShipping{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Shipping Details" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    CardManager *cm = [CardManager getInstance];
+    
+    [cm.shippingDetails each:^(ShippingInfo *si) {
+        [alert addButtonWithTitle:si.street];
+    }];
+    
+    [alert addButtonWithTitle:@"Create New Address"];
+    alert.tag = kCheckoutAlertTypeShippingInfo;
+    [alert show];
+}
+
+-(void)selectShipping:(int)index{
+    CardManager *cm = [CardManager getInstance];
+    if ((index < ([[cm shippingDetails] count])) && (index > -1)) {
+        self.selectedShippingInfo = (ShippingInfo *)[[cm shippingDetails] objectAtIndex:index];
+    }
+    else {
+        self.selectedShippingInfo = nil;
+    }
+    [self.containerTable reloadData];
+}
+
+#pragma mark - UIAlertViewDelegate
+
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1 && alertView.tag == 1) {
+    if (buttonIndex == 1 && alertView.tag == kCheckoutAlertTypeMasterPassPassword) { // MasterPass Password Alert
         [self confirmOrder];
     }
-    else if (alertView.tag == 2){
+    else if (alertView.tag == kCheckoutAlertTypeCardType){ // Card Type Alert
         if (buttonIndex == 1) {
             self.cardType = @"MasterCard";
         }
@@ -104,14 +142,37 @@
         }
         [self.containerTable reloadData];
     }
+    else if(alertView.tag == kCheckoutAlertTypeShippingInfo){ //Shipping Info Alert
+        [self selectShipping:(int)(buttonIndex - 1)];
+    }
 }
+
+#pragma mark - Card Types
+
+-(void)chooseCardType{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Choose Card Type" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"MasterCard",@"Visa",@"Discover",@"American Express", nil];
+    alert.tag = kCheckoutAlertTypeCardType;
+    [alert show];
+}
+
+#pragma mark - Data Formatting
+
+-(NSString *)formatCurrency:(NSNumber *)price{
+    double currency = [price doubleValue];
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    NSString *numberAsString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:currency]];
+    return numberAsString;
+}
+
+#pragma mark - Processing Orders
 
 -(void)processOrder:(NSNotification *)notification{
     CardManager *cm = [CardManager getInstance];
     if (cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue] && !cm.isExpressEnabled) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Enter MasterPass Password" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
         [alert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-        alert.tag = 1;
+        alert.tag = kCheckoutAlertTypeMasterPassPassword;
         [alert show];
     }
     else if (self.isPairing) {
@@ -208,6 +269,23 @@
         [title makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(view);
             make.center.equalTo(view);
+        }];
+        
+        UIButton *shippingButton = [[UIButton alloc]initWithFrame:CGRectZero];
+        [shippingButton setTitle:@"Edit" forState:UIControlStateNormal];
+        [shippingButton setBackgroundColor:[UIColor brightOrangeColor]];
+        [shippingButton.layer setCornerRadius:6];
+        [view addSubview:shippingButton];
+        
+        [shippingButton bk_addEventHandler:^(id sender) {
+            [self editShipping];
+        } forControlEvents:UIControlEventTouchUpInside];
+        
+        [shippingButton makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@30);
+            make.width.equalTo(@50);
+            make.right.equalTo(view).with.offset(-10);
+            make.centerY.equalTo(view);
         }];
         
         return view;
@@ -320,8 +398,8 @@
         self.cardSelectorButton = nil;
         cell.textField.userInteractionEnabled = YES;
         
-        if ([cell.contentView viewWithTag:2]) {
-            [[cell.contentView viewWithTag:2] removeFromSuperview];
+        if ([cell.contentView viewWithTag:kCheckoutAlertTypeCardType]) {
+            [[cell.contentView viewWithTag:kCheckoutAlertTypeCardType] removeFromSuperview];
         }
         
         switch (indexPath.row) {
@@ -335,7 +413,7 @@
                 self.cardSelectorButton = [[UIButton alloc]initWithFrame:CGRectZero];
                 [self.cardSelectorButton setTitle:@"Select Card Type" forState:UIControlStateNormal];
                 [self.cardSelectorButton setTitleColor:[UIColor steelColor] forState:UIControlStateNormal];
-                self.cardSelectorButton.tag = 2;
+                self.cardSelectorButton.tag = kCheckoutAlertTypeCardType;
                 [self.cardSelectorButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
                 self.cardSelectorButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
                 [cell.contentView addSubview:self.cardSelectorButton];
@@ -383,25 +461,25 @@
             case 0:
                 cell.textLabel.text = @"Street Address";
                 if (self.selectedCard) {
-                    cell.textField.text = self.selectedCard.street;
+                    cell.textField.text = self.selectedShippingInfo.street;
                 }
                 break;
             case 1:
                 cell.textLabel.text = @"City";
                 if (self.selectedCard) {
-                    cell.textField.text = self.selectedCard.city;
+                    cell.textField.text = self.selectedShippingInfo.city;
                 }
                 break;
             case 2:
                 cell.textLabel.text = @"State";
                 if (self.selectedCard) {
-                    cell.textField.text = self.selectedCard.state;
+                    cell.textField.text = self.selectedShippingInfo.state;
                 }
                 break;
             case 3:
                 cell.textLabel.text = @"Zip";
                 if (self.selectedCard) {
-                    cell.textField.text = self.selectedCard.zip;
+                    cell.textField.text = self.selectedShippingInfo.zip;
                 }
                 break;
             default:
@@ -435,19 +513,5 @@
     //fallback
     return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                   reuseIdentifier:@"DefaultCell"];
-}
-
--(void)chooseCardType{
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Choose Card Type" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"MasterCard",@"Visa",@"Discover",@"American Express", nil];
-    alert.tag = 2;
-    [alert show];
-}
-
--(NSString *)formatCurrency:(NSNumber *)price{
-    double currency = [price doubleValue];
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-    NSString *numberAsString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:currency]];
-    return numberAsString;
 }
 @end

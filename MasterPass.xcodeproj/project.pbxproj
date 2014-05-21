@@ -10,6 +10,7 @@
 		936E59227FEB448A801A00EA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88E6AC0A76634904AFF81993 /* libPods.a */; };
 		C31C83A2192CF8380093751D /* MPLinkedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83A1192CF8380093751D /* MPLinkedCell.m */; };
 		C31C83A7192D15990093751D /* MPLearnMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83A6192D15990093751D /* MPLearnMoreCell.m */; };
+		C31C83AB192D1E200093751D /* ShippingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83AA192D1E200093751D /* ShippingInfo.m */; };
 		C3212D2D1906BE460072BA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3212D2C1906BE460072BA80 /* Foundation.framework */; };
 		C3212D2F1906BE460072BA80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3212D2E1906BE460072BA80 /* CoreGraphics.framework */; };
 		C3212D311906BE460072BA80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3212D301906BE460072BA80 /* UIKit.framework */; };
@@ -124,6 +125,8 @@
 		C31C83A1192CF8380093751D /* MPLinkedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLinkedCell.m; sourceTree = "<group>"; };
 		C31C83A5192D15990093751D /* MPLearnMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLearnMoreCell.h; sourceTree = "<group>"; };
 		C31C83A6192D15990093751D /* MPLearnMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLearnMoreCell.m; sourceTree = "<group>"; };
+		C31C83A9192D1E200093751D /* ShippingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingInfo.h; sourceTree = "<group>"; };
+		C31C83AA192D1E200093751D /* ShippingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingInfo.m; sourceTree = "<group>"; };
 		C3212D291906BE460072BA80 /* MasterPass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterPass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3212D2C1906BE460072BA80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C3212D2E1906BE460072BA80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -297,6 +300,15 @@
 				C31C83A6192D15990093751D /* MPLearnMoreCell.m */,
 			);
 			name = "MP Learn More";
+			sourceTree = "<group>";
+		};
+		C31C83A8192D1E0D0093751D /* Shipping Info */ = {
+			isa = PBXGroup;
+			children = (
+				C31C83A9192D1E200093751D /* ShippingInfo.h */,
+				C31C83AA192D1E200093751D /* ShippingInfo.m */,
+			);
+			name = "Shipping Info";
 			sourceTree = "<group>";
 		};
 		C3212D201906BE460072BA80 = {
@@ -500,6 +512,7 @@
 		C38B3B07191A77E200FBB01C /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				C31C83A8192D1E0D0093751D /* Shipping Info */,
 				C39007DD1924DBC300902B6E /* Card */,
 				C39007D91924DBAB00902B6E /* Product */,
 			);
@@ -993,6 +1006,7 @@
 				C3B10754192277E20045EBC0 /* DrawerViewController.m in Sources */,
 				C38B36D1190E041400FBB01C /* CheckoutViewController.m in Sources */,
 				C39007D01924D44200902B6E /* SubtotalItemCell.m in Sources */,
+				C31C83AB192D1E200093751D /* ShippingInfo.m in Sources */,
 				C39007EF19252E1500902B6E /* OrderConfirmationViewController.m in Sources */,
 				C39007EB19251B6300902B6E /* ProcessOrderCell.m in Sources */,
 				C38B3AFB1919485700FBB01C /* ProductPreviewCell.m in Sources */,

@@ -15,5 +15,6 @@
 
 + (CardManager *) getInstance;
 - (NSArray *)cards;
+- (NSArray *)shippingDetails;
 - (UIImage *)cardBackgroundImage;
 @end

@@ -14,6 +14,8 @@
 
 @interface ProductsListViewController ()
 @property (nonatomic, strong) NSMutableArray *productsData;
+@property (nonatomic, strong) NSMutableArray *col1Data;
+@property (nonatomic, strong) NSMutableArray *col2Data;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *productFilter;
 @property(nonatomic, weak) IBOutlet KLScrollSelect *productScrollSelect;
 @end

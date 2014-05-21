@@ -8,6 +8,7 @@
 
 #import "CardManager.h"
 #import "Card.h"
+#import "ShippingInfo.h"
 
 @implementation CardManager
 static CardManager *sharedInstance;
@@ -35,10 +36,6 @@ static CardManager *sharedInstance;
     cardOne.iconName = @"blue_cc.png";
     cardOne.isMasterPass = @1;
     cardOne.expDate = @"03/17";
-    cardOne.street = @"1453 Main Street";
-    cardOne.city = @"Reston";
-    cardOne.state = @"VA";
-    cardOne.zip = @"20191";
     
     Card *cardTwo = [Card new];
     cardTwo.lastFour = @"9023";
@@ -46,12 +43,24 @@ static CardManager *sharedInstance;
     cardTwo.iconName = @"black_cc.png";
     cardTwo.isMasterPass = @1;
     cardTwo.expDate = @"08/15";
-    cardTwo.street = @"83928 Runway Lane";
-    cardTwo.city = @"San Francisco";
-    cardTwo.state = @"CA";
-    cardTwo.zip = @"94117";
     
     return @[cardOne,cardTwo];
+}
+
+-(NSArray *)shippingDetails{
+    ShippingInfo *si1 = [ShippingInfo new];
+    si1.street = @"1453 Main Street";
+    si1.city = @"Reston";
+    si1.state = @"VA";
+    si1.zip = @"20191";
+    
+    ShippingInfo *si2 = [ShippingInfo new];
+    si2.street = @"83928 Runway Lane";
+    si2.city = @"San Francisco";
+    si2.state = @"CA";
+    si2.zip = @"94117";
+    
+    return @[si1,si2];
 }
 
 - (UIImage *)cardBackgroundImage{

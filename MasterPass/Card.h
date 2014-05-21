@@ -14,8 +14,4 @@
 @property(nonatomic, strong) NSString *iconName;
 @property(nonatomic, strong) NSNumber *isMasterPass;
 @property(nonatomic, strong) NSString *expDate;
-@property(nonatomic, strong) NSString *street;
-@property(nonatomic, strong) NSString *city;
-@property(nonatomic, strong) NSString *state;
-@property(nonatomic, strong) NSString *zip;
 @end
