@@ -454,8 +454,8 @@
         }
         
         cell.textField.userInteractionEnabled = YES;
-        if ([cell.contentView viewWithTag:2]) {
-            [[cell.contentView viewWithTag:2] removeFromSuperview];
+        if ([cell.contentView viewWithTag:kCheckoutAlertTypeCardType]) {
+            [[cell.contentView viewWithTag:kCheckoutAlertTypeCardType] removeFromSuperview];
         }
         
         cell.textField.text = nil;
