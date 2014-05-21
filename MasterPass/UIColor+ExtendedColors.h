@@ -8,6 +8,7 @@
 
 @interface UIColor (ExtendedColors)
 +(UIColor *)deepBlueColor;
++(UIColor *)brightBlueColor;
 +(UIColor *)selectedDeepBlueColor;
 +(UIColor *)fireOrangeColor;
 +(UIColor *)brightOrangeColor;

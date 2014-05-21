@@ -22,7 +22,6 @@
 		C3212D4E1906BE470072BA80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3212D301906BE460072BA80 /* UIKit.framework */; };
 		C3212D561906BE470072BA80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3212D541906BE470072BA80 /* InfoPlist.strings */; };
 		C3212D581906BE470072BA80 /* MasterPassTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3212D571906BE470072BA80 /* MasterPassTests.m */; };
-		C373A26D191A814A0012F40D /* UIImage+ExtendedImages.m in Sources */ = {isa = PBXBuildFile; fileRef = C373A26C191A814A0012F40D /* UIImage+ExtendedImages.m */; };
 		C38B36C5190DD0C800FBB01C /* ProductsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36C4190DD0C800FBB01C /* ProductsListViewController.m */; };
 		C38B36C8190DD19A00FBB01C /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36C7190DD19A00FBB01C /* Product.m */; };
 		C38B36CB190DDD6000FBB01C /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36CA190DDD6000FBB01C /* CartViewController.m */; };
@@ -139,8 +138,6 @@
 		C3212D531906BE470072BA80 /* MasterPassTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MasterPassTests-Info.plist"; sourceTree = "<group>"; };
 		C3212D551906BE470072BA80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C3212D571906BE470072BA80 /* MasterPassTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterPassTests.m; sourceTree = "<group>"; };
-		C373A26B191A814A0012F40D /* UIImage+ExtendedImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ExtendedImages.h"; sourceTree = "<group>"; };
-		C373A26C191A814A0012F40D /* UIImage+ExtendedImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ExtendedImages.m"; sourceTree = "<group>"; };
 		C38B36C3190DD0C800FBB01C /* ProductsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsListViewController.h; sourceTree = "<group>"; };
 		C38B36C4190DD0C800FBB01C /* ProductsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsListViewController.m; sourceTree = "<group>"; };
 		C38B36C6190DD19A00FBB01C /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
@@ -367,15 +364,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C373A26A191A812F0012F40D /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				C373A26B191A814A0012F40D /* UIImage+ExtendedImages.h */,
-				C373A26C191A814A0012F40D /* UIImage+ExtendedImages.m */,
-			);
-			name = Images;
-			sourceTree = "<group>";
-		};
 		C38B3AFC191A774700FBB01C /* Singletons */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,7 +540,6 @@
 			isa = PBXGroup;
 			children = (
 				C38B3B15191A7FC400FBB01C /* Colors */,
-				C373A26A191A812F0012F40D /* Images */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -995,7 +982,6 @@
 				C39007D01924D44200902B6E /* SubtotalItemCell.m in Sources */,
 				C39007EF19252E1500902B6E /* OrderConfirmationViewController.m in Sources */,
 				C39007EB19251B6300902B6E /* ProcessOrderCell.m in Sources */,
-				C373A26D191A814A0012F40D /* UIImage+ExtendedImages.m in Sources */,
 				C38B3AFB1919485700FBB01C /* ProductPreviewCell.m in Sources */,
 				C38B36C8190DD19A00FBB01C /* Product.m in Sources */,
 				C3B1075B192279710045EBC0 /* ICSDrawerController.m in Sources */,

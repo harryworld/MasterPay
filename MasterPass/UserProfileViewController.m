@@ -11,6 +11,7 @@
 #import "MPConnectCell.h"
 #import "CardManager.h"
 #import "MasterPassConnectViewController.h"
+#import "MPLinkedCell.h"
 
 @interface UserProfileViewController ()
 @property(nonatomic, weak) IBOutlet UITableView *profileTable;
@@ -81,6 +82,8 @@
     CardManager *cm = [CardManager getInstance];
     cm.isLinkedToMasterPass = YES;
     
+    [self.profileTable reloadData];
+    
     SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Connect with MasterPass" andMessage:@"Your account is now paired with your MasterPass wallet. The next time you checkout, you will simply need to enter your MasterPass password to process the order."];
     
     [alert addButtonWithTitle:@"Submit" type:SIAlertViewButtonTypeCancel handler:nil];
@@ -107,7 +110,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
         case 0:return 44;
-        case 1: return 180;
+        case 1:{
+            CardManager *cm = [CardManager getInstance];
+            if (cm.isLinkedToMasterPass) {
+                return 50;
+            }
+            else {
+                return 180;
+            }
+        }
         default: return 0;
     }
 }
@@ -149,6 +160,7 @@
 {
     static NSString *processCellId = @"ProcessOrerCellId";
     static NSString *textFieldCellId = @"TextFieldCell";
+    static NSString *linkedCell = @"MPLinkedCell";
     
     if (indexPath.section == 0) {
         
@@ -185,16 +197,29 @@
         
     }
     if (indexPath.section == 1) {
-        
-        MPConnectCell *cell = [tableView dequeueReusableCellWithIdentifier:processCellId];
-        
-        if (cell == nil)
-        {
-            cell = [[MPConnectCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                       reuseIdentifier:processCellId];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        CardManager *cm = [CardManager getInstance];
+        if (cm.isLinkedToMasterPass) {
+            MPLinkedCell *cell = [tableView dequeueReusableCellWithIdentifier:linkedCell];
+            
+            if (cell == nil)
+            {
+                cell = [[MPLinkedCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:linkedCell];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            return cell;
         }
-        return cell;
+        else {
+            MPConnectCell *cell = [tableView dequeueReusableCellWithIdentifier:processCellId];
+            
+            if (cell == nil)
+            {
+                cell = [[MPConnectCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:processCellId];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            return cell;
+        }
         
     }
     

@@ -12,6 +12,9 @@
 +(UIColor *)deepBlueColor{
     return [UIColor colorWithRed:39./255 green:41./255 blue:50./255 alpha:1];
 }
++(UIColor *)brightBlueColor{
+    return [UIColor colorWithRed:31./255 green:120./255 blue:213./255 alpha:1];
+}
 +(UIColor *)selectedDeepBlueColor{
     return [UIColor colorWithRed:29./255 green:30./255 blue:39./255 alpha:1];
 }
