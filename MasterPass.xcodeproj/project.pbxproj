@@ -11,6 +11,7 @@
 		C31C83A2192CF8380093751D /* MPLinkedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83A1192CF8380093751D /* MPLinkedCell.m */; };
 		C31C83A7192D15990093751D /* MPLearnMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83A6192D15990093751D /* MPLearnMoreCell.m */; };
 		C31C83AB192D1E200093751D /* ShippingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83AA192D1E200093751D /* ShippingInfo.m */; };
+		C31C83AF192D41B40093751D /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83AE192D41B40093751D /* BaseNavigationController.m */; };
 		C3212D2D1906BE460072BA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3212D2C1906BE460072BA80 /* Foundation.framework */; };
 		C3212D2F1906BE460072BA80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3212D2E1906BE460072BA80 /* CoreGraphics.framework */; };
 		C3212D311906BE460072BA80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3212D301906BE460072BA80 /* UIKit.framework */; };
@@ -127,6 +128,8 @@
 		C31C83A6192D15990093751D /* MPLearnMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLearnMoreCell.m; sourceTree = "<group>"; };
 		C31C83A9192D1E200093751D /* ShippingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingInfo.h; sourceTree = "<group>"; };
 		C31C83AA192D1E200093751D /* ShippingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingInfo.m; sourceTree = "<group>"; };
+		C31C83AD192D41B40093751D /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
+		C31C83AE192D41B40093751D /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		C3212D291906BE460072BA80 /* MasterPass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterPass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3212D2C1906BE460072BA80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C3212D2E1906BE460072BA80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -311,6 +314,15 @@
 			name = "Shipping Info";
 			sourceTree = "<group>";
 		};
+		C31C83AC192D419A0093751D /* Base Nav */ = {
+			isa = PBXGroup;
+			children = (
+				C31C83AD192D41B40093751D /* BaseNavigationController.h */,
+				C31C83AE192D41B40093751D /* BaseNavigationController.m */,
+			);
+			name = "Base Nav";
+			sourceTree = "<group>";
+		};
 		C3212D201906BE460072BA80 = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +413,7 @@
 		C38B3AFD191A776000FBB01C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C31C83AC192D419A0093751D /* Base Nav */,
 				C390083B1926CFC900902B6E /* Settings */,
 				C39007EC19252CEE00902B6E /* Order Confirmation */,
 				C3F901941923BE1300400BF3 /* Base */,
@@ -995,6 +1008,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C31C83AF192D41B40093751D /* BaseNavigationController.m in Sources */,
 				C390086A192AA37B00902B6E /* ContinueShoppingCell.m in Sources */,
 				C39007E11924EC6600902B6E /* SubtotalTitleItemCell.m in Sources */,
 				C38B3B10191A7AEB00FBB01C /* Constants.m in Sources */,

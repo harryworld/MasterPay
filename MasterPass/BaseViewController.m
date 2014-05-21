@@ -7,6 +7,7 @@
 //
 
 #import "BaseViewController.h"
+#import "BaseNavigationController.h"
 
 @implementation BaseViewController
 
@@ -31,28 +32,9 @@
 }
 
 -(IBAction)toggleDrawer{
-    [self.drawer open];
-}
-
-#pragma mark - ICSDrawerControllerPresenting
-
-- (void)drawerControllerWillOpen:(ICSDrawerController *)drawerController
-{
-    self.view.userInteractionEnabled = NO;
-}
-
-- (void)drawerControllerDidOpen:(ICSDrawerController *)drawerController
-{
-    self.view.userInteractionEnabled = YES;
-}
-
-- (void)drawerControllerWillClose:(ICSDrawerController *)drawerController
-{
-    self.view.userInteractionEnabled = NO;
-}
-
-- (void)drawerControllerDidClose:(ICSDrawerController *)drawerController
-{
-    self.view.userInteractionEnabled = YES;
+    if (self.navigationController) {
+        BaseNavigationController *bnc = (BaseNavigationController *)self.navigationController;
+        [bnc toggleDrawer];
+    }
 }
 @end

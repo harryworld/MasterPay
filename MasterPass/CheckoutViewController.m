@@ -19,6 +19,7 @@
 #import "TextFieldCell.h"
 #import "MasterPassConnectViewController.h"
 #import "ShippingInfo.h"
+#import "BaseNavigationController.h"
 
 @interface CheckoutViewController ()
 @property(nonatomic, strong)SwipeView *cardSwipeView;
@@ -179,7 +180,7 @@
     }
     else if (self.isPairing) {
         [self performSegueWithIdentifier:@"MPConnect" sender:nil withBlock:^(id sender, id destinationVC) {
-            MasterPassConnectViewController *dest = [[((UINavigationController *)destinationVC) viewControllers] firstObject];
+            MasterPassConnectViewController *dest = [[((BaseNavigationController *)destinationVC) viewControllers] firstObject];
             unless(cm.isExpressEnabled) {
                 dest.path = [[NSBundle mainBundle] pathForResource:@"mp1-checkout" ofType:@"html"];
             }

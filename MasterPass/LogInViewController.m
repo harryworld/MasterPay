@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import <M13Checkbox/M13Checkbox.h>
 #import <BButton/BButton.h>
+#import "BaseNavigationController.h"
 
 @interface LogInViewController ()
 @property(nonatomic, weak)IBOutlet UIView *container;
@@ -126,11 +127,14 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
                                                          bundle: nil];
     
-    UINavigationController *products = [storyboard instantiateViewControllerWithIdentifier:@"ProductsList"];
+    BaseNavigationController *products = [storyboard instantiateViewControllerWithIdentifier:@"ProductsList"];
+    
     DrawerViewController *drawer = [[DrawerViewController alloc] init];
     
     ICSDrawerController *drawerController = [[ICSDrawerController alloc] initWithLeftViewController:drawer
                                                                                centerViewController:products];
+    
+    
     
     // Animate root view change
     [UIView

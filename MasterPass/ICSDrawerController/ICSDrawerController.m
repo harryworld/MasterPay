@@ -407,6 +407,17 @@ typedef NS_ENUM(NSUInteger, ICSDrawerControllerState)
     }
 }
 
+#pragma mark - Toggle Drawer
+
+-(void)toggle{
+    if (self.drawerState == ICSDrawerControllerStateClosed) {
+        [self open];
+    }
+    else if (self.drawerState == ICSDrawerControllerStateOpen){
+        [self close];
+    }
+}
+
 #pragma mark - Opening the drawer
 
 - (void)open

@@ -8,6 +8,7 @@
 
 #import "DrawerViewController.h"
 #import "DrawerItemCell.h"
+#import "BaseNavigationController.h"
 
 @implementation DrawerViewController
 
@@ -96,25 +97,24 @@
                                                          bundle: nil];
     switch (indexPath.row) {
         case 0:{
-            UINavigationController *products = [storyboard instantiateViewControllerWithIdentifier:@"ProductsList"];
+            BaseNavigationController *products = [storyboard instantiateViewControllerWithIdentifier:@"ProductsList"];
             [self.drawer replaceCenterViewControllerWithViewController:products];
             break;
         }
         case 1:{
-            UINavigationController *cart = [storyboard instantiateViewControllerWithIdentifier:@"Cart"];
-            //UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:cart];
+            BaseNavigationController *cart = [storyboard instantiateViewControllerWithIdentifier:@"Cart"];
             [self.drawer replaceCenterViewControllerWithViewController:cart];
             break;
         }
         case 2:{
             UIViewController *cart = [storyboard instantiateViewControllerWithIdentifier:@"UserProfile"];
-            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:cart];
+            BaseNavigationController *nav = [[BaseNavigationController alloc]initWithRootViewController:cart];
             [self.drawer replaceCenterViewControllerWithViewController:nav];
             break;
         }
         case 3:{
             UIViewController *settings = [storyboard instantiateViewControllerWithIdentifier:@"Settings"];
-            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:settings];
+            BaseNavigationController *nav = [[BaseNavigationController alloc]initWithRootViewController:settings];
             [self.drawer replaceCenterViewControllerWithViewController:nav];
             break;
         }

@@ -8,6 +8,5 @@
 
 #import <UIKit/UIKit.h>
 #import "ICSDrawerController.h"
-@interface BaseViewController : UIViewController <ICSDrawerControllerChild, ICSDrawerControllerPresenting>
-@property(nonatomic, weak) ICSDrawerController *drawer;
+@interface BaseViewController : UIViewController
 @end

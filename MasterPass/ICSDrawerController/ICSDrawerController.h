@@ -104,6 +104,8 @@
  @name Drawer functionality
  */
 
+-(void)toggle;
+
 /**
  Opens the drawer.
 
