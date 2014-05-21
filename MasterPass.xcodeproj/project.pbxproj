@@ -323,6 +323,14 @@
 			name = "Base Nav";
 			sourceTree = "<group>";
 		};
+		C31C83B0192D451D0093751D /* Navigation Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C31C83AC192D419A0093751D /* Base Nav */,
+			);
+			name = "Navigation Controllers";
+			sourceTree = "<group>";
+		};
 		C3212D201906BE460072BA80 = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +368,7 @@
 			children = (
 				C38B3B11191A7ECD00FBB01C /* Categories */,
 				C38B3B0A191A7A3300FBB01C /* Constants */,
+				C31C83B0192D451D0093751D /* Navigation Controllers */,
 				C38B3B07191A77E200FBB01C /* Objects */,
 				C38B3B08191A77F300FBB01C /* Resources */,
 				C38B3AFC191A774700FBB01C /* Singletons */,
@@ -374,9 +383,9 @@
 		C3212D331906BE460072BA80 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C3212D341906BE460072BA80 /* MasterPass-Info.plist */,
 				C3212D351906BE460072BA80 /* InfoPlist.strings */,
 				C3212D381906BE460072BA80 /* main.m */,
+				C3212D341906BE460072BA80 /* MasterPass-Info.plist */,
 				C3212D3A1906BE460072BA80 /* MasterPass-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -403,9 +412,9 @@
 		C38B3AFC191A774700FBB01C /* Singletons */ = {
 			isa = PBXGroup;
 			children = (
+				C38B3B05191A77D000FBB01C /* App Delegate */,
 				C39007D81924DAA100902B6E /* Card Manager */,
 				C38B3B06191A77D800FBB01C /* Cart Manager */,
-				C38B3B05191A77D000FBB01C /* App Delegate */,
 			);
 			name = Singletons;
 			sourceTree = "<group>";
@@ -413,17 +422,16 @@
 		C38B3AFD191A776000FBB01C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C31C83AC192D419A0093751D /* Base Nav */,
-				C390083B1926CFC900902B6E /* Settings */,
-				C39007EC19252CEE00902B6E /* Order Confirmation */,
 				C3F901941923BE1300400BF3 /* Base */,
-				C3B1075D19227F7F0045EBC0 /* Log In */,
-				C3B10751192277BD0045EBC0 /* Drawer */,
-				C38B3B02191A77A700FBB01C /* UserProfile */,
-				C38B3B01191A779800FBB01C /* MasterPass Connect */,
-				C38B3B00191A778D00FBB01C /* Checkout */,
 				C38B3AFF191A778000FBB01C /* Cart */,
+				C38B3B00191A778D00FBB01C /* Checkout */,
+				C3B10751192277BD0045EBC0 /* Drawer */,
+				C3B1075D19227F7F0045EBC0 /* Log In */,
+				C38B3B01191A779800FBB01C /* MasterPass Connect */,
+				C39007EC19252CEE00902B6E /* Order Confirmation */,
 				C38B3AFE191A777300FBB01C /* Product List */,
+				C390083B1926CFC900902B6E /* Settings */,
+				C38B3B02191A77A700FBB01C /* UserProfile */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -476,21 +484,21 @@
 		C38B3B03191A77B700FBB01C /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				C31C83A4192D15830093751D /* MP Learn More */,
-				C31C839F192CF8130093751D /* MPLinked Cell */,
+				C39007D41924D77100902B6E /* CardSelect */,
+				C3D909401922263200F6630D /* CartProduct */,
 				C3900867192AA35A00902B6E /* ContinueShopping */,
-				C3900845192A272A00902B6E /* OrderConfirmation */,
+				C3A3CF761923B2C300EFAE44 /* DrawerItem */,
+				C31C83A4192D15830093751D /* MP Learn More */,
 				C390082D1926919C00902B6E /* MPConnect Cell */,
+				C31C839F192CF8130093751D /* MPLinked Cell */,
+				C3900845192A272A00902B6E /* OrderConfirmation */,
+				C39007E819251B3100902B6E /* Process Order */,
+				C38B3B04191A77C100FBB01C /* ProductPreview */,
+				C39007CD1924D37000902B6E /* SubtotalItem */,
+				C39007DE1924EC3400902B6E /* SubtotalTitleItem */,
 				C39008211926457900902B6E /* TextField Cell */,
 				C39007F019252F8600902B6E /* TextView Cell */,
-				C39007E819251B3100902B6E /* Process Order */,
 				C39007E21924EDCD00902B6E /* TotalItem */,
-				C39007DE1924EC3400902B6E /* SubtotalTitleItem */,
-				C39007D41924D77100902B6E /* CardSelect */,
-				C39007CD1924D37000902B6E /* SubtotalItem */,
-				C3A3CF761923B2C300EFAE44 /* DrawerItem */,
-				C3D909401922263200F6630D /* CartProduct */,
-				C38B3B04191A77C100FBB01C /* ProductPreview */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -525,9 +533,9 @@
 		C38B3B07191A77E200FBB01C /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				C31C83A8192D1E0D0093751D /* Shipping Info */,
 				C39007DD1924DBC300902B6E /* Card */,
 				C39007D91924DBAB00902B6E /* Product */,
+				C31C83A8192D1E0D0093751D /* Shipping Info */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -535,12 +543,11 @@
 		C38B3B08191A77F300FBB01C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C3900849192A309300902B6E /* connect_with_masterpass.png */,
-				C390084319297DF500902B6E /* orange_cc.png */,
 				C390082719266A6B00902B6E /* bank-logo.png */,
 				C390082819266A6B00902B6E /* black_cc.png */,
 				C390082919266A6B00902B6E /* blue_cc.png */,
 				C3900825192654F200902B6E /* buy-with-masterpass.png */,
+				C3900849192A309300902B6E /* connect_with_masterpass.png */,
 				C39008011926411F00902B6E /* Icon-40.png */,
 				C39008021926411F00902B6E /* Icon-40@2x.png */,
 				C39008031926411F00902B6E /* Icon-60.png */,
@@ -555,13 +562,14 @@
 				C390080C1926411F00902B6E /* Icon-Small@2x.png */,
 				C390080D1926411F00902B6E /* Icon.png */,
 				C390080E1926411F00902B6E /* Icon@2x.png */,
+				C3212D441906BE470072BA80 /* Images.xcassets */,
 				C390080F1926411F00902B6E /* iTunesArtwork.png */,
 				C39008101926411F00902B6E /* iTunesArtwork@2x.png */,
-				C39007F419253BEF00902B6E /* PairingSite */,
-				C39007E61925084100902B6E /* masterpass-small-logo.png */,
 				C3B107611922A34C0045EBC0 /* logo.png */,
-				C3212D441906BE470072BA80 /* Images.xcassets */,
 				C3212D3E1906BE460072BA80 /* Main.storyboard */,
+				C39007E61925084100902B6E /* masterpass-small-logo.png */,
+				C390084319297DF500902B6E /* orange_cc.png */,
+				C39007F419253BEF00902B6E /* PairingSite */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
