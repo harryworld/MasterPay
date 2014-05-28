@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIImageView *masterPassImage;
 @property (nonatomic, strong) UIImageView *providerImage;
 @property (nonatomic, strong) UILabel *cardNumber;
+@property (nonatomic, strong) UILabel *expDate;
 @end
 
 @implementation CardSelectCell
@@ -53,7 +54,7 @@
             make.centerX.equalTo(self.contentView);
         }];
         
-        CGFloat bottomOffset = -10;
+        CGFloat bottomOffset = 5;
         
         UIView *providerImageContainer = [[UIView alloc]initWithFrame:CGRectZero];
         providerImageContainer.backgroundColor = [UIColor clearColor];
@@ -62,7 +63,7 @@
             make.width.equalTo(@150);
             make.height.equalTo(@40);
             make.centerX.equalTo(self.contentView);
-            make.bottom.equalTo(self.contentView).with.offset(bottomOffset);
+            make.bottom.equalTo(self.contentView).with.offset(-bottomOffset);
         }];
         
         self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
@@ -72,7 +73,7 @@
             make.height.equalTo(@30);
             make.width.equalTo(@45);
             make.centerY.equalTo(providerImageContainer);
-            make.left.equalTo(providerImageContainer).with.offset(5);
+            make.left.equalTo(providerImageContainer).with.offset(bottomOffset);
         }];
         
         self.providerImage = [[UIImageView alloc]initWithFrame:CGRectZero];
@@ -82,21 +83,33 @@
             make.height.equalTo(@30);
             make.width.equalTo(@80);
             make.centerY.equalTo(providerImageContainer);
-            make.right.equalTo(providerImageContainer).with.offset(-5);
+            make.right.equalTo(providerImageContainer).with.offset(-bottomOffset);
         }];
         
         
         self.cardNumber = [[UILabel alloc]initWithFrame:CGRectZero];
         self.cardNumber.font = [UIFont systemFontOfSize:11.5];
         self.cardNumber.backgroundColor = [UIColor superGreyColor];
-        self.cardNumber.tag = 2;
         self.cardNumber.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.cardNumber];
         [self.cardNumber makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@22);
+            make.height.equalTo(@18);
             make.width.equalTo(@150);
             make.centerX.equalTo(self.contentView);
-            make.centerY.equalTo(self.contentView).with.offset(35);
+            make.centerY.equalTo(self.contentView).with.offset(32);
+        }];
+        
+        
+        self.expDate = [[UILabel alloc]initWithFrame:CGRectZero];
+        self.expDate.font = [UIFont systemFontOfSize:10];
+        self.expDate.backgroundColor = [UIColor superGreyColor];
+        self.expDate.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:self.expDate];
+        [self.expDate makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@15);
+            make.width.equalTo(@150);
+            make.centerX.equalTo(self.contentView);
+            make.centerY.equalTo(self.contentView).with.offset(47);
         }];
         
         [self refreshCurrentCardUI:self.cardSwipeView];
@@ -152,26 +165,13 @@
         cardImage = [[UIImageView alloc] initWithFrame:CGRectMake((view.bounds.size.width /2) - (cardImageWidth / 2), (view.bounds.size.height /2) - (cardImageHeight / 2) - padding, cardImageWidth, cardImageHeight)];
         [cardImage.layer setCornerRadius:4];
         cardImage.tag = 1;
+        cardImage.backgroundColor = [UIColor superGreyColor];
         [view addSubview:cardImage];
         [cardImage makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@85);
             make.width.equalTo(@150);
             make.centerX.equalTo(view);
             make.centerY.equalTo(view).with.offset(-padding);
-        }];
-        
-        
-        expDate = [[UILabel alloc]initWithFrame:CGRectZero];
-        expDate.font = [UIFont boldSystemFontOfSize:13];
-        expDate.backgroundColor = [UIColor brightOrangeColor];
-        [expDate.layer setCornerRadius:6];
-        expDate.tag = 3;
-        [cardImage addSubview:expDate];
-        [expDate makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@20);
-            make.width.equalTo(@40);
-            make.left.equalTo(cardImage).with.offset(5);
-            make.bottom.equalTo(cardImage).with.offset(-1);
         }];
     }
     else
@@ -182,23 +182,13 @@
     }
     
     if (currentCard) {
-        expDate.hidden = NO;
         cardImage.image = [UIImage imageNamed:currentCard.iconName];
-        cardImage.backgroundColor = [UIColor superGreyColor];
-        expDate.text = currentCard.expDate;
     }
     else if((!cm.isLinkedToMasterPass) && (index == 0)) {
-        expDate.hidden = YES;
         cardImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
-        cardImage.backgroundColor = [UIColor superGreyColor];
-        expDate.text = nil;
     }
     else {
-        expDate.hidden = YES;
-        cardImage.image = nil;
         cardImage.image = [UIImage imageNamed:@"orange_cc.png"];
-        cardImage.backgroundColor = [UIColor superGreyColor];
-        expDate.text = nil;
     }
 
     return view;
@@ -218,6 +208,8 @@
     }
     
     if (currentCard) {
+        self.expDate.hidden = NO;
+        self.expDate.text = [NSString stringWithFormat:@"Expires: %@",currentCard.expDate];
         self.cardNumber.hidden = NO;
         self.cardNumber.text = [NSString stringWithFormat:@"Card ending in %@",currentCard.lastFour];
         
@@ -237,6 +229,8 @@
         }
     }
     else {
+        self.expDate.hidden = YES;
+        self.expDate.text = nil;
         self.cardNumber.hidden = NO;
         self.cardNumber.text = @"Enter Credit Card Details";
         self.providerImage.hidden = YES;
