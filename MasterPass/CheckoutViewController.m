@@ -20,6 +20,7 @@
 #import "MasterPassConnectViewController.h"
 #import "ShippingInfo.h"
 #import "BaseNavigationController.h"
+#import "TextViewCell.h"
 
 @interface CheckoutViewController ()
 @property(nonatomic, strong)SwipeView *cardSwipeView;
@@ -30,7 +31,7 @@
 @property(nonatomic, assign)BOOL isPairing;
 @property(nonatomic, strong)UIButton *cardSelectorButton;
 @property(nonatomic, strong)NSString *cardType;
-@property(nonatomic, assign) ProcessButtonType buttonType;
+@property(nonatomic, assign)ProcessButtonType buttonType;
 @end
 
 @implementation CheckoutViewController
@@ -195,6 +196,10 @@
     }
 }
 
+-(void)readyOrder{
+    
+}
+
 -(void)confirmOrder {
     if (self.navigationController.visibleViewController == self) {
         // Fake Delay and then proceed to confirmation
@@ -212,7 +217,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 7;    //count of section
+    return 8;    //count of section
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -241,7 +246,15 @@
                 return 4;
             }
         }
-        case 6:return 1;  // Process Order Button
+        case 6:{            // TextView Cell
+            if (self.isPairing) {
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        case 7:return 1;  // Process Order Button
         default:return 0;
     }
 }
@@ -254,7 +267,8 @@
         case 3:return 200; // Card Selector
         case 4:return 44;  // Card Info Form
         case 5:return 44;  // Shipping Info Form
-        case 6:   {        // Process Order Button
+        case 6:return 44;  // TextView Cell
+        case 7:   {        // Process Order Button
             if (self.selectedCard && self.selectedCard.isMasterPass) {
                 return 80;
             }
@@ -349,6 +363,7 @@
     static NSString *cardSelectCellId = @"CardSelectCell";
     static NSString *processOrderCellId = @"ProcessOrderCell";
     static NSString *textFieldCellId = @"TextFieldCell";
+    static NSString *textViewCellId = @"TextViewCell";
     
     if (indexPath.section == 0) { // Subtotal Title
         
@@ -534,7 +549,26 @@
         return cell;
         
     }
-    else if (indexPath.section == 6) { // Process order
+    else if (indexPath.section == 6) { // TextView
+        
+        TextViewCell *cell = [tableView dequeueReusableCellWithIdentifier:textViewCellId];
+        
+        if (cell == nil)
+        {
+            cell = [[TextViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                           reuseIdentifier:textViewCellId];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        cell.textView.text = @"Tap below to connect to your MasterPass wallet";
+        cell.textView.textAlignment = NSTextAlignmentCenter;
+        cell.textView.scrollEnabled = NO;
+        cell.contentView.backgroundColor = [UIColor superLightGreyColor];
+        cell.textView.backgroundColor = [UIColor superLightGreyColor];
+        return cell;
+        
+    }
+    else if (indexPath.section == 7) { // Process order
         
         ProcessOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:processOrderCellId];
         
@@ -546,7 +580,7 @@
         }
         self.processOrderCell = cell;
         [cell setButtonType:self.buttonType];
-
+        
         return cell;
         
     }
