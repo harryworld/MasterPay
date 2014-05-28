@@ -41,7 +41,7 @@ static CartManager *sharedInstance;
 }
 
 -(double)shipping{
-    return [self subtotal] *0.37;
+    return [[self products] count] * 4.37;
 }
 
 -(double)total{
