@@ -11,6 +11,7 @@
 #import "CartViewController.h"
 #import "CartManager.h"
 #import "ProductPreviewCell.h"
+#import "BBBadgeBarButtonItem.h"
 
 @interface ProductsListViewController ()
 @property (nonatomic, strong) NSMutableArray *productsData;
@@ -282,15 +283,23 @@
 
 -(void)refreshCartBadge{
     
-    NSString *buttonTitle = [NSString stringWithFormat:@"Cart (%lu)",(unsigned long)[CartManager getInstance].products.count];
+    FAKFontAwesome *cartIcon = [FAKFontAwesome shoppingCartIconWithSize:20];
+    [cartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *rightImage = [cartIcon imageWithSize:CGSizeMake(20, 20)];
+    cartIcon.iconFontSize = 15;
     
-    CGRect frame = CGRectMake(10, 6, 60, 30);
-    UIButton *customButton = [[UIButton alloc] initWithFrame:frame];
-    [customButton setTitle:buttonTitle forState:UIControlStateNormal];
-    [customButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    UIButton *customButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
     [customButton addTarget:self action:@selector(goToCart) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:customButton];
-    [self.navigationItem setRightBarButtonItem:rightButton];
+    [customButton setBackgroundImage:rightImage forState:UIControlStateNormal];
+    
+    BBBadgeBarButtonItem *rightBarButton = [[BBBadgeBarButtonItem alloc]initWithCustomUIButton:customButton];
+    rightBarButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[CartManager getInstance].products.count];
+    rightBarButton.shouldAnimateBadge = YES;
+    rightBarButton.shouldHideBadgeAtZero = YES;
+    rightBarButton.badgePadding = 2.5;
+    rightBarButton.badgeFont = [UIFont boldSystemFontOfSize:11];
+    
+    [self.navigationItem setRightBarButtonItem:rightBarButton];
 }
 
 -(void)goToCart{
