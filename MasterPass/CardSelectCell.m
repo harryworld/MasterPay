@@ -228,7 +228,6 @@
             self.providerImage.hidden = YES;
         }
         
-        
         // Selected card
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutCardSelected" object:nil userInfo:@{@"card":[[cm cards] objectAtIndex:swipeView.currentPage],@"index":[NSNumber numberWithInteger:swipeView.currentPage]}];
     }

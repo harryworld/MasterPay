@@ -197,7 +197,14 @@
 
 -(void)confirmOrder {
     if (self.navigationController.visibleViewController == self) {
-        [self performSegueWithIdentifier:@"ConfirmOrder" sender:nil];
+        // Fake Delay and then proceed to confirmation
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeIndeterminate;
+        hud.labelText = @"Processing Your Payment";
+        [self bk_performBlock:^(id obj) {
+            [hud hide:YES];
+            [self performSegueWithIdentifier:@"ConfirmOrder" sender:nil];
+        } afterDelay:2.5];
     }
 }
 
