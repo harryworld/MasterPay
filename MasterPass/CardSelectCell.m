@@ -238,7 +238,7 @@
     }
     else {
         self.cardNumber.hidden = NO;
-        self.cardNumber.text = @" Enter Credit Card";
+        self.cardNumber.text = @"Enter Credit Card Details";
         self.providerImage.hidden = YES;
         self.masterPassImage.alpha = 0;
     }
