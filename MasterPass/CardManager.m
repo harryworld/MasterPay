@@ -20,7 +20,7 @@ static CardManager *sharedInstance;
     {
         initialized = YES;
         sharedInstance = [[CardManager alloc] init];
-        sharedInstance.isLinkedToMasterPass = YES;
+        sharedInstance.isLinkedToMasterPass = NO;
         sharedInstance.isExpressEnabled = NO;
     }
 }
