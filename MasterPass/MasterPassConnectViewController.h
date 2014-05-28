@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MasterPassConnectViewController : UIViewController
+@interface MasterPassConnectViewController : UIViewController <UIWebViewDelegate>
 @property(nonatomic, strong)NSString *path;
 @end
