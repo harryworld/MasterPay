@@ -213,19 +213,29 @@
     switch (section) {
         case 0:return 1;  // Subtotal Title
         case 1:return 3;  // Subtotal items
-        case 2: return 1; // Total
-        case 3: return 1; // Card Selector
-        case 4:  {         // Card Info Form
+        case 2:return 1;  // Total
+        case 3:return 1;  // Card Selector
+        case 4:  {        // Card Info Form
             if (self.selectedCard && self.selectedCard.isMasterPass) {
+                return 0;
+            }
+            else if (self.isPairing){
                 return 0;
             }
             else {
                 return 4;
             }
         }
-        case 5: return 4; // Shipping Info Form
-        case 6: return 1; // Process Order Button
-        default: return 0;
+        case 5:  {         // Shipping Info Form
+            if (self.isPairing){
+                return 0;
+            }
+            else {
+                return 4;
+            }
+        }
+        case 6:return 1;  // Process Order Button
+        default:return 0;
     }
 }
 
@@ -234,23 +244,29 @@
         case 0:return 26;  // Subtotal Title
         case 1:return 26;  // Subtotal items
         case 2:return 26;  // Total
-        case 3: return 200;// Card Selector
-        case 4: return 44; // Card Info Form
-        case 5: return 44; // Shipping Info Form
-        case 6:   {         // Process Order Button
+        case 3:return 200; // Card Selector
+        case 4:return 44;  // Card Info Form
+        case 5:return 44;  // Shipping Info Form
+        case 6:   {        // Process Order Button
             if (self.selectedCard && self.selectedCard.isMasterPass) {
+                return 80;
+            }
+            else if (self.isPairing){
                 return 80;
             }
             else {
                 return 60;
             }
         }
-        default: return 0;
+        default:return 0;
     }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 5) {
+    if (section == 4 && !self.selectedCard && !self.isPairing){
+        return 44;
+    }
+    else if (section == 5 && !self.isPairing) {
         return 44;
     }
     else {
@@ -260,36 +276,54 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    if (section == 5) {
+    if ((section == 4 || section == 5) && !self.isPairing) {
         
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 44)];
         view.backgroundColor = [UIColor superGreyColor];
         
         UILabel *title = [[UILabel alloc]initWithFrame:CGRectZero];
         title.textAlignment = NSTextAlignmentCenter;
-        title.text = @"Shipping Information";
         [view addSubview:title];
         [title makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(view);
             make.center.equalTo(view);
         }];
         
-        UIButton *shippingButton = [[UIButton alloc]initWithFrame:CGRectZero];
-        [shippingButton setTitle:@"Edit" forState:UIControlStateNormal];
-        [shippingButton setBackgroundColor:[UIColor brightOrangeColor]];
-        [shippingButton.layer setCornerRadius:6];
-        [view addSubview:shippingButton];
         
-        [shippingButton bk_addEventHandler:^(id sender) {
-            [self editShipping];
-        } forControlEvents:UIControlEventTouchUpInside];
+        // Edit Shipping button
+        if (section == 5) {
+            UIButton *shippingButton = [[UIButton alloc]initWithFrame:CGRectZero];
+            [shippingButton setTitle:@"Edit" forState:UIControlStateNormal];
+            [shippingButton setBackgroundColor:[UIColor brightOrangeColor]];
+            [shippingButton.layer setCornerRadius:6];
+            [view addSubview:shippingButton];
+            
+            [shippingButton bk_addEventHandler:^(id sender) {
+                [self editShipping];
+            } forControlEvents:UIControlEventTouchUpInside];
+            
+            [shippingButton makeConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(@30);
+                make.width.equalTo(@50);
+                make.right.equalTo(view).with.offset(-10);
+                make.centerY.equalTo(view);
+            }];
+        }
         
-        [shippingButton makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@30);
-            make.width.equalTo(@50);
-            make.right.equalTo(view).with.offset(-10);
-            make.centerY.equalTo(view);
-        }];
+        
+        // Set Text
+        
+        switch (section) {
+            case 4:
+                title.text = @"Credit Card Details";
+                break;
+            case 5:
+                title.text = @"Shipping Information";
+                break;
+            default:
+                title.text = nil;
+                break;
+        }
         
         return view;
     }

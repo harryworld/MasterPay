@@ -227,25 +227,31 @@
         else {
             self.providerImage.hidden = YES;
         }
-    }
-    else {
-        self.expDate.hidden = YES;
-        self.expDate.text = nil;
-        self.cardNumber.hidden = NO;
-        self.cardNumber.text = @"Enter Credit Card Details";
-        self.providerImage.hidden = YES;
-        self.masterPassImage.alpha = 0;
-    }
-    
-    if (currentCard) {
+        
+        
         // Selected card
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutCardSelected" object:nil userInfo:@{@"card":[[cm cards] objectAtIndex:swipeView.currentPage],@"index":[NSNumber numberWithInteger:swipeView.currentPage]}];
     }
     else if((!cm.isLinkedToMasterPass) && (swipeView.currentPage == 0)){
+        self.expDate.hidden = YES;
+        self.expDate.text = nil;
+        self.cardNumber.hidden = NO;
+        self.cardNumber.text = nil;
+        self.providerImage.hidden = YES;
+        self.masterPassImage.alpha = 0;
+        
         // pairing
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutPairSelected" object:nil];
     }
     else {
+        
+        self.expDate.hidden = YES;
+        self.expDate.text = nil;
+        self.cardNumber.hidden = NO;
+        self.cardNumber.text = @"New Credit Card";
+        self.providerImage.hidden = YES;
+        self.masterPassImage.alpha = 0;
+        
         // add new card
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutNewCardSelected" object:nil];
     }
