@@ -28,12 +28,18 @@
     [super viewDidLoad];
     
     // Nav Bar Logo
+    
+    UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];
     UIImage* logoImage = [UIImage imageNamed:@"logo.png"];
-    CGSize orig = logoImage.size;
-    CGRect frame = CGRectMake(0, 0, 100, orig.height / 1.5);
-    UIImageView *iv = [[UIImageView alloc] initWithFrame:frame];
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectZero];
     [iv setImage:logoImage];
-    self.navigationItem.titleView = iv;
+    [header addSubview:iv];
+    [iv makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@30);
+        make.width.equalTo(@140);
+        make.center.equalTo(header);
+    }];
+    self.navigationItem.titleView = header;
     
     [self refreshCartBadge];
     
