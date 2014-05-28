@@ -505,10 +505,7 @@
         }
         self.processOrderCell = cell;
         [cell setButtonType:self.buttonType];
-        
 
-        
-        
         return cell;
         
     }

@@ -81,8 +81,7 @@
 -(void)processOrder:(UIButton *)sender{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"order_processed"
                                                         object:nil
-                                                      userInfo:@{
-                                                                 @"isMasterPass": ((sender == self.masterPassButton) ? @1 : @0)}
+                                                      userInfo:@{@"isMasterPass": ((sender == self.masterPassButton) ? @1 : @0)}
      ];
 }
 @end

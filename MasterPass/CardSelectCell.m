@@ -14,24 +14,28 @@
 @interface CardSelectCell ()
 @property (nonatomic, strong) UIImageView *masterPassImage;
 @property (nonatomic, strong) UIImageView *providerImage;
+@property (nonatomic, strong) UILabel *cardNumber;
 @end
 
 @implementation CardSelectCell
+
+#pragma mark - View Setup
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.contentView.backgroundColor = [UIColor superGreyColor];
         
         self.cardSwipeView = [[SwipeView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 200)];
+        self.cardSwipeView.alignment = SwipeViewAlignmentCenter;
+        self.cardSwipeView.dataSource = self;
+        self.cardSwipeView.delegate = self;
+        
         [self.contentView addSubview:self.cardSwipeView];
         
         [self.cardSwipeView makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
             make.center.equalTo(self.contentView);
         }];
-        
-        self.cardSwipeView.dataSource = self;
-        self.cardSwipeView.delegate = self;
         
         CGFloat padding = 5;
         
@@ -49,6 +53,8 @@
             make.centerX.equalTo(self.contentView);
         }];
         
+        CGFloat bottomOffset = -10;
+        
         UIView *providerImageContainer = [[UIView alloc]initWithFrame:CGRectZero];
         providerImageContainer.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:providerImageContainer];
@@ -56,7 +62,7 @@
             make.width.equalTo(@150);
             make.height.equalTo(@40);
             make.centerX.equalTo(self.contentView);
-            make.centerY.equalTo(self.contentView).with.offset(45);
+            make.bottom.equalTo(self.contentView).with.offset(bottomOffset);
         }];
         
         self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
@@ -80,6 +86,19 @@
         }];
         
         
+        self.cardNumber = [[UILabel alloc]initWithFrame:CGRectZero];
+        self.cardNumber.font = [UIFont systemFontOfSize:11.5];
+        self.cardNumber.backgroundColor = [UIColor superGreyColor];
+        self.cardNumber.tag = 2;
+        self.cardNumber.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:self.cardNumber];
+        [self.cardNumber makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@22);
+            make.width.equalTo(@150);
+            make.centerX.equalTo(self.contentView);
+            make.centerY.equalTo(self.contentView).with.offset(35);
+        }];
+        
         [self refreshCurrentCardUI:self.cardSwipeView];
         
     };
@@ -101,6 +120,10 @@
     }
 }
 
+-(CGSize)swipeViewItemSize:(SwipeView *)swipeView{
+    return CGSizeMake(200, swipeView.bounds.size.height);
+}
+
 - (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
     CardManager *cm = [CardManager getInstance];
@@ -111,7 +134,6 @@
     }
 
     UIImageView *cardImage = nil;
-    UILabel *cardNumber = nil;
     UILabel *expDate = nil;
     
     static CGFloat cardImageWidth = 150;
@@ -121,12 +143,8 @@
     //create new view if no view is available for recycling
     if (view == nil)
     {
-        //don't do anything specific to the index within
-        //this `if (view == nil) {...}` statement because the view will be
-        //recycled and used with other index values later
         
-        CGRect viewFrame = self.cardSwipeView.bounds;
-        
+        CGRect viewFrame = swipeView.bounds;
         view = [[UIView alloc] initWithFrame:viewFrame];
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         view.backgroundColor = [UIColor superGreyColor];
@@ -135,18 +153,11 @@
         [cardImage.layer setCornerRadius:4];
         cardImage.tag = 1;
         [view addSubview:cardImage];
-        
-        cardNumber = [[UILabel alloc]initWithFrame:CGRectZero];
-        cardNumber.font = [UIFont boldSystemFontOfSize:13];
-        cardNumber.backgroundColor = [UIColor brightOrangeColor];
-        [cardNumber.layer setCornerRadius:6];
-        cardNumber.tag = 2;
-        [cardImage addSubview:cardNumber];
-        [cardNumber makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@22);
-            make.width.equalTo(cardImage);
-            make.left.equalTo(cardImage).with.offset(-padding);
-            make.centerY.equalTo(cardImage);
+        [cardImage makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@85);
+            make.width.equalTo(@150);
+            make.centerX.equalTo(view);
+            make.centerY.equalTo(view).with.offset(-padding);
         }];
         
         
@@ -167,31 +178,22 @@
     {
         //get a reference to the label in the recycled view
         cardImage = (UIImageView *)[view viewWithTag:1];
-        cardNumber = (UILabel *)[view viewWithTag:2];
         expDate = (UILabel *)[view viewWithTag:3];
     }
     
-    [cardImage setFrame:CGRectMake((view.bounds.size.width /2) - (cardImageWidth / 2), (view.bounds.size.height /2) - (cardImageHeight / 2) - padding, cardImageWidth, cardImageHeight)];
-    
     if (currentCard) {
         expDate.hidden = NO;
-        cardNumber.hidden = NO;
-        cardNumber.text = [NSString stringWithFormat:@" XXXX XXXX XXXX %@",currentCard.lastFour];
         cardImage.image = [UIImage imageNamed:currentCard.iconName];
         cardImage.backgroundColor = [UIColor superGreyColor];
         expDate.text = currentCard.expDate;
     }
     else if((!cm.isLinkedToMasterPass) && (index == 0)) {
-        cardNumber.hidden = YES;
-        cardNumber.text = @" MasterPass Link";
         expDate.hidden = YES;
         cardImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
         cardImage.backgroundColor = [UIColor superGreyColor];
         expDate.text = nil;
     }
     else {
-        cardNumber.hidden = NO;
-        cardNumber.text = @" Enter Credit Card";
         expDate.hidden = YES;
         cardImage.image = nil;
         cardImage.image = [UIImage imageNamed:@"orange_cc.png"];
@@ -202,14 +204,11 @@
     return view;
 }
 
-- (CGSize)swipeViewItemSize:(SwipeView *)swipeView
-{
-    return self.cardSwipeView.bounds.size;
-}
-
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView{
     [self refreshCurrentCardUI:swipeView];
 }
+
+#pragma mark - Refresh UI
 
 -(void)refreshCurrentCardUI:(SwipeView *)swipeView{
     CardManager *cm = [CardManager getInstance];
@@ -219,6 +218,9 @@
     }
     
     if (currentCard) {
+        self.cardNumber.hidden = NO;
+        self.cardNumber.text = [NSString stringWithFormat:@"Card ending in %@",currentCard.lastFour];
+        
         if ([currentCard.isMasterPass boolValue]) {
             self.masterPassImage.alpha = 1;
         }
@@ -235,6 +237,8 @@
         }
     }
     else {
+        self.cardNumber.hidden = NO;
+        self.cardNumber.text = @" Enter Credit Card";
         self.providerImage.hidden = YES;
         self.masterPassImage.alpha = 0;
     }
@@ -244,6 +248,7 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutCardSelected" object:nil userInfo:@{@"card":[[cm cards] objectAtIndex:swipeView.currentPage],@"index":[NSNumber numberWithInteger:swipeView.currentPage]}];
     }
     else if((!cm.isLinkedToMasterPass) && (swipeView.currentPage == 0)){
+        // pairing
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutPairSelected" object:nil];
     }
     else {
@@ -252,6 +257,7 @@
     }
 }
 
+#pragma mark - Memory Management
 - (void)dealloc
 {
     _cardSwipeView.delegate = nil;
