@@ -38,7 +38,7 @@
     
     self.productsData = [[NSMutableArray alloc]init];
     self.productScrollSelect.backgroundColor = [UIColor colorWithRed:201./255. green:203./255. blue:214./255. alpha:1.];
-    
+    [self.productScrollSelect setAutoScrollEnabled:NO];
     
     [self.productFilter bk_addEventHandler:^(UISegmentedControl * sender) {
         NSInteger index = [sender selectedSegmentIndex];
@@ -173,7 +173,6 @@
 #pragma mark - KLScrollSelect Delegate
 
 - (CGFloat)scrollRateForColumnAtIndex: (NSInteger) index {
-    
     return 15 + index * 15;
 }
 - (NSInteger)scrollSelect:(KLScrollSelect *)scrollSelect numberOfRowsInColumnAtIndex:(NSInteger)index{
