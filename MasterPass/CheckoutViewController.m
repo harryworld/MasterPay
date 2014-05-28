@@ -560,7 +560,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        cell.textView.text = @"Tap below to connect to your MasterPass wallet";
+        cell.textView.text = @"Tap to log into your MasterPass wallet account";
         cell.textView.textAlignment = NSTextAlignmentCenter;
         cell.textView.scrollEnabled = NO;
         cell.contentView.backgroundColor = [UIColor superLightGreyColor];
