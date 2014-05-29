@@ -27,6 +27,7 @@
 @property(nonatomic, weak) IBOutlet UITableView *containerTable;
 @property(nonatomic, strong)ProcessOrderCell *processOrderCell;
 @property(nonatomic, strong)Card *selectedCard;
+@property(nonatomic, strong)Card *oneTimePairedCard;
 @property(nonatomic, strong)ShippingInfo *selectedShippingInfo;
 @property(nonatomic, assign)BOOL isPairing;
 @property(nonatomic, strong)UIButton *cardSelectorButton;
@@ -45,7 +46,7 @@
     if ([self.containerTable respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.containerTable setSeparatorInset:UIEdgeInsetsZero];
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (confirmOrder) name:@"ConnectedMasterPass" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (oneTimePairingComplete) name:@"ConnectedMasterPass" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (switchCards:) name:@"CheckoutCardSelected" object:nil];
     
@@ -179,6 +180,9 @@
         alert.tag = kCheckoutAlertTypeMasterPassPassword;
         [alert show];
     }
+    else if (self.isPairing && self.oneTimePairedCard){
+        [self confirmOrder];
+    }
     else if (self.isPairing) {
         [self performSegueWithIdentifier:@"MPConnect" sender:nil withBlock:^(id sender, id destinationVC) {
             MasterPassConnectViewController *dest = [[((BaseNavigationController *)destinationVC) viewControllers] firstObject];
@@ -196,8 +200,11 @@
     }
 }
 
--(void)readyOrder{
-    
+-(void)oneTimePairingComplete{
+    CardManager *cm = [CardManager getInstance];
+    self.oneTimePairedCard = cm.cards.firstObject;
+    [self selectShipping:0];
+    [self.containerTable reloadData];
 }
 
 -(void)confirmOrder {
@@ -231,6 +238,9 @@
             if (self.selectedCard && self.selectedCard.isMasterPass) {
                 return 0;
             }
+            else if (self.isPairing && self.oneTimePairedCard){
+                return 2;
+            }
             else if (self.isPairing){
                 return 0;
             }
@@ -239,7 +249,10 @@
             }
         }
         case 5:  {         // Shipping Info Form
-            if (self.isPairing){
+            if (self.isPairing && self.oneTimePairedCard) {
+                return 4;
+            }
+            else if (self.isPairing){
                 return 0;
             }
             else {
@@ -247,7 +260,7 @@
             }
         }
         case 6:{            // TextView Cell
-            if (self.isPairing) {
+            if (self.isPairing && !self.oneTimePairedCard) {
                 return 1;
             }
             else{
@@ -284,10 +297,10 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 4 && !self.selectedCard && !self.isPairing){
+    if (section == 4 && !self.selectedCard && (!self.isPairing || self.oneTimePairedCard)){
         return 44;
     }
-    else if (section == 5 && !self.isPairing) {
+    else if (section == 5 && (!self.isPairing || self.oneTimePairedCard)) {
         return 44;
     }
     else {
@@ -297,7 +310,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    if ((section == 4 || section == 5) && !self.isPairing) {
+    if ((section == 4 || section == 5) && (!self.isPairing || self.oneTimePairedCard)) {
         
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 44)];
         view.backgroundColor = [UIColor superGreyColor];
@@ -461,39 +474,56 @@
             [[cell.contentView viewWithTag:kCheckoutAlertTypeCardType] removeFromSuperview];
         }
         
-        switch (indexPath.row) {
-            case 0:
-                cell.textLabel.text = @"Full Name";
-                break;
-            case 1:{
-                cell.textLabel.text = nil;
-                cell.textField.text = self.cardType;
-                cell.textField.userInteractionEnabled = NO;
-                self.cardSelectorButton = [[UIButton alloc]initWithFrame:CGRectZero];
-                [self.cardSelectorButton setTitle:@"Select Card Type" forState:UIControlStateNormal];
-                [self.cardSelectorButton setTitleColor:[UIColor steelColor] forState:UIControlStateNormal];
-                self.cardSelectorButton.tag = kCheckoutAlertTypeCardType;
-                [self.cardSelectorButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
-                self.cardSelectorButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-                [cell.contentView addSubview:self.cardSelectorButton];
-                [self.cardSelectorButton bk_addEventHandler:^(id sender) {
-                    [self chooseCardType];
-                } forControlEvents:UIControlEventTouchUpInside];
-                [self.cardSelectorButton makeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.equalTo(cell.contentView).with.insets(UIEdgeInsetsMake(10, 10, 10, 10));
-                    make.center.equalTo(cell.contentView);
-                }];
-                break;
+        if(self.oneTimePairedCard) {
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Card Number";
+                    cell.textField.text = [NSString stringWithFormat:@"Card ending in %@",self.oneTimePairedCard.lastFour];
+                    break;
+                case 1:
+                    cell.textLabel.text = @"Exp Date";
+                    cell.textField.text = self.oneTimePairedCard.expDate;
+                    break;
+                default:
+                    cell.textLabel.text = nil;
+                    break;
             }
-            case 2:
-                cell.textLabel.text = @"Card Number";
-                break;
-            case 3:
-                cell.textLabel.text = @"Exp Date";
-                break;
-            default:
-                cell.textLabel.text = nil;
-                break;
+        }
+        else {
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Full Name";
+                    break;
+                case 1:{
+                    cell.textLabel.text = nil;
+                    cell.textField.text = self.cardType;
+                    cell.textField.userInteractionEnabled = NO;
+                    self.cardSelectorButton = [[UIButton alloc]initWithFrame:CGRectZero];
+                    [self.cardSelectorButton setTitle:@"Select Card Type" forState:UIControlStateNormal];
+                    [self.cardSelectorButton setTitleColor:[UIColor steelColor] forState:UIControlStateNormal];
+                    self.cardSelectorButton.tag = kCheckoutAlertTypeCardType;
+                    [self.cardSelectorButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
+                    self.cardSelectorButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+                    [cell.contentView addSubview:self.cardSelectorButton];
+                    [self.cardSelectorButton bk_addEventHandler:^(id sender) {
+                        [self chooseCardType];
+                    } forControlEvents:UIControlEventTouchUpInside];
+                    [self.cardSelectorButton makeConstraints:^(MASConstraintMaker *make) {
+                        make.edges.equalTo(cell.contentView).with.insets(UIEdgeInsetsMake(10, 10, 10, 10));
+                        make.center.equalTo(cell.contentView);
+                    }];
+                    break;
+                }
+                case 2:
+                    cell.textLabel.text = @"Card Number";
+                    break;
+                case 3:
+                    cell.textLabel.text = @"Exp Date";
+                    break;
+                default:
+                    cell.textLabel.text = nil;
+                    break;
+            }
         }
         
         return cell;
