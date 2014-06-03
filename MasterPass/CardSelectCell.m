@@ -88,7 +88,7 @@
         
         
         self.cardNumber = [[UILabel alloc]initWithFrame:CGRectZero];
-        self.cardNumber.font = [UIFont systemFontOfSize:11.5];
+        self.cardNumber.font = [UIFont boldSystemFontOfSize:12];
         self.cardNumber.backgroundColor = [UIColor superGreyColor];
         self.cardNumber.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.cardNumber];
@@ -101,7 +101,7 @@
         
         
         self.expDate = [[UILabel alloc]initWithFrame:CGRectZero];
-        self.expDate.font = [UIFont systemFontOfSize:10];
+        self.expDate.font = [UIFont boldSystemFontOfSize:10];
         self.expDate.backgroundColor = [UIColor superGreyColor];
         self.expDate.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.expDate];
@@ -168,8 +168,8 @@
         cardImage.backgroundColor = [UIColor superGreyColor];
         [view addSubview:cardImage];
         [cardImage makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@85);
-            make.width.equalTo(@150);
+            make.height.equalTo(@76.5);
+            make.width.equalTo(@135);
             make.centerX.equalTo(view);
             make.centerY.equalTo(view).with.offset(-padding);
         }];
@@ -185,7 +185,7 @@
         cardImage.image = [UIImage imageNamed:currentCard.iconName];
     }
     else if((!cm.isLinkedToMasterPass) && (index == 0)) {
-        cardImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
+        cardImage.image = [UIImage imageNamed:@"black_cc_mp.png"];
     }
     else {
         cardImage.image = [UIImage imageNamed:@"orange_cc.png"];
@@ -235,7 +235,7 @@
         self.expDate.hidden = YES;
         self.expDate.text = nil;
         self.cardNumber.hidden = NO;
-        self.cardNumber.text = nil;
+        self.cardNumber.text = @"MasterPass Wallet";
         self.providerImage.hidden = YES;
         self.masterPassImage.alpha = 0;
         

@@ -99,6 +99,7 @@
 		C390086A192AA37B00902B6E /* ContinueShoppingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3900869192AA37B00902B6E /* ContinueShoppingCell.m */; };
 		C390086D192AED2700902B6E /* mp_pair_express.png in Resources */ = {isa = PBXBuildFile; fileRef = C390086B192AED2700902B6E /* mp_pair_express.png */; };
 		C390086E192AED2700902B6E /* mp_pair.png in Resources */ = {isa = PBXBuildFile; fileRef = C390086C192AED2700902B6E /* mp_pair.png */; };
+		C3950E9F193E3AB80042437A /* black_cc_mp.png in Resources */ = {isa = PBXBuildFile; fileRef = C3950E9E193E3AB80042437A /* black_cc_mp.png */; };
 		C3A3CF791923B2EC00EFAE44 /* DrawerItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A3CF781923B2EC00EFAE44 /* DrawerItemCell.m */; };
 		C3B10754192277E20045EBC0 /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B10753192277E20045EBC0 /* DrawerViewController.m */; };
 		C3B1075B192279710045EBC0 /* ICSDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B10758192279710045EBC0 /* ICSDrawerController.m */; };
@@ -245,6 +246,7 @@
 		C3900869192AA37B00902B6E /* ContinueShoppingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContinueShoppingCell.m; sourceTree = "<group>"; };
 		C390086B192AED2700902B6E /* mp_pair_express.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mp_pair_express.png; sourceTree = "<group>"; };
 		C390086C192AED2700902B6E /* mp_pair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mp_pair.png; sourceTree = "<group>"; };
+		C3950E9E193E3AB80042437A /* black_cc_mp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black_cc_mp.png; sourceTree = "<group>"; };
 		C3A3CF771923B2EC00EFAE44 /* DrawerItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerItemCell.h; sourceTree = "<group>"; };
 		C3A3CF781923B2EC00EFAE44 /* DrawerItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerItemCell.m; sourceTree = "<group>"; };
 		C3B10752192277E20045EBC0 /* DrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerViewController.h; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 			children = (
 				C390082719266A6B00902B6E /* bank-logo.png */,
 				C390082819266A6B00902B6E /* black_cc.png */,
+				C3950E9E193E3AB80042437A /* black_cc_mp.png */,
 				C390082919266A6B00902B6E /* blue_cc.png */,
 				C3900825192654F200902B6E /* buy-with-masterpass.png */,
 				C3900849192A309300902B6E /* connect_with_masterpass.png */,
@@ -953,6 +956,7 @@
 				C39008131926411F00902B6E /* Icon-60.png in Resources */,
 				C39008191926411F00902B6E /* Icon-Small-50.png in Resources */,
 				C3900866192A65E500902B6E /* mp5-express-checkout.html in Resources */,
+				C3950E9F193E3AB80042437A /* black_cc_mp.png in Resources */,
 				C390082C19266A6B00902B6E /* blue_cc.png in Resources */,
 				C3900864192A65E500902B6E /* mp4-checkout.html in Resources */,
 				C3900850192A4C5B00902B6E /* mp2-express.html in Resources */,
