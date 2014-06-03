@@ -39,7 +39,7 @@
 -(void)refreshProductInfo{
     self.productName.text = self.product.name;
     self.productPrice.text = [self formatCurrency:self.product.price];
-    [self.productImage setImageWithURL:[NSURL URLWithString:self.product.imageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.productImage.image = [UIImage imageNamed:self.product.imageUrl];
 }
 -(NSString *)formatCurrency:(NSNumber *)price{
     double currency = [price doubleValue];
