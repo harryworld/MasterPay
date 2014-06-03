@@ -204,6 +204,7 @@
     CardManager *cm = [CardManager getInstance];
     self.oneTimePairedCard = cm.cards.firstObject;
     [self selectShipping:0];
+    self.buttonType = kButtonTypeProcess;
     [self.containerTable reloadData];
 }
 
@@ -285,7 +286,7 @@
             if (self.selectedCard && self.selectedCard.isMasterPass) {
                 return 80;
             }
-            else if (self.isPairing){
+            else if (self.isPairing && !self.oneTimePairedCard){
                 return 80;
             }
             else {
