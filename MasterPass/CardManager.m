@@ -53,12 +53,14 @@ static CardManager *sharedInstance;
     si1.city = @"Reston";
     si1.state = @"VA";
     si1.zip = @"20191";
+    si1.label = @"Home";
     
     ShippingInfo *si2 = [ShippingInfo new];
     si2.street = @"83928 Runway Lane";
     si2.city = @"San Francisco";
     si2.state = @"CA";
     si2.zip = @"94117";
+    si2.label = @"Work";
     
     return @[si1,si2];
 }

@@ -13,4 +13,5 @@
 @property(nonatomic, strong) NSString *city;
 @property(nonatomic, strong) NSString *state;
 @property(nonatomic, strong) NSString *zip;
+@property(nonatomic, strong) NSString *label;
 @end

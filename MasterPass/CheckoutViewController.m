@@ -107,7 +107,7 @@
     CardManager *cm = [CardManager getInstance];
     
     [cm.shippingDetails each:^(ShippingInfo *si) {
-        [alert addButtonWithTitle:si.street];
+        [alert addButtonWithTitle:si.label];
     }];
     
     [alert addButtonWithTitle:@"Create New Address"];
