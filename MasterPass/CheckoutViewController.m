@@ -55,6 +55,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (addCard:) name:@"CheckoutNewCardSelected" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (processOrder:) name:@"order_processed" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (popToRoot) name:@"StartOver" object:nil];
     
     CardManager *cm = [CardManager getInstance];
     self.selectedShippingInfo = [[cm shippingDetails] firstObject];
@@ -172,7 +173,6 @@
     static bool alertIsShowing = false;
     CardManager *cm = [CardManager getInstance];
     if (cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue] && !cm.isExpressEnabled) {
-        
         unless(alertIsShowing){
             alertIsShowing = true;
             SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:@"Enter your MasterPass password to continue to checkout"];
@@ -227,6 +227,10 @@
             [self performSegueWithIdentifier:@"ConfirmOrder" sender:nil];
         } afterDelay:2.5];
     }
+}
+
+-(void)popToRoot{
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 #pragma mark - UITableView Delegate

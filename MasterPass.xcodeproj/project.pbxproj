@@ -122,6 +122,8 @@
 		C3B1076019227F9B0045EBC0 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1075F19227F9B0045EBC0 /* LogInViewController.m */; };
 		C3B107621922A34C0045EBC0 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B107611922A34C0045EBC0 /* logo.png */; };
 		C3D909431922265600F6630D /* CartProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D909421922265600F6630D /* CartProductCell.m */; };
+		C3F516F41946152A0035570A /* TableTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F516F31946152A0035570A /* TableTitleCell.m */; };
+		C3F516F9194639000035570A /* BoldTotalItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F516F8194639000035570A /* BoldTotalItemCell.m */; };
 		C3F901971923BE4C00400BF3 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F901961923BE4C00400BF3 /* BaseViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -290,6 +292,10 @@
 		C3B107611922A34C0045EBC0 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = Images/logo.png; sourceTree = "<group>"; };
 		C3D909411922265600F6630D /* CartProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartProductCell.h; sourceTree = "<group>"; };
 		C3D909421922265600F6630D /* CartProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartProductCell.m; sourceTree = "<group>"; };
+		C3F516F21946152A0035570A /* TableTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTitleCell.h; sourceTree = "<group>"; };
+		C3F516F31946152A0035570A /* TableTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableTitleCell.m; sourceTree = "<group>"; };
+		C3F516F7194639000035570A /* BoldTotalItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoldTotalItemCell.h; sourceTree = "<group>"; };
+		C3F516F8194639000035570A /* BoldTotalItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoldTotalItemCell.m; sourceTree = "<group>"; };
 		C3F901951923BE4C00400BF3 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		C3F901961923BE4C00400BF3 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -516,6 +522,7 @@
 		C38B3B03191A77B700FBB01C /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				C3F516F5194638D40035570A /* Bold Total Item */,
 				C39007D41924D77100902B6E /* CardSelect */,
 				C3D909401922263200F6630D /* CartProduct */,
 				C3900867192AA35A00902B6E /* ContinueShopping */,
@@ -528,6 +535,7 @@
 				C38B3B04191A77C100FBB01C /* ProductPreview */,
 				C39007CD1924D37000902B6E /* SubtotalItem */,
 				C39007DE1924EC3400902B6E /* SubtotalTitleItem */,
+				C3F516F1194613E50035570A /* Table Title */,
 				C39008211926457900902B6E /* TextField Cell */,
 				C39007F019252F8600902B6E /* TextView Cell */,
 				C39007E21924EDCD00902B6E /* TotalItem */,
@@ -880,6 +888,24 @@
 			name = CartProduct;
 			sourceTree = "<group>";
 		};
+		C3F516F1194613E50035570A /* Table Title */ = {
+			isa = PBXGroup;
+			children = (
+				C3F516F21946152A0035570A /* TableTitleCell.h */,
+				C3F516F31946152A0035570A /* TableTitleCell.m */,
+			);
+			name = "Table Title";
+			sourceTree = "<group>";
+		};
+		C3F516F5194638D40035570A /* Bold Total Item */ = {
+			isa = PBXGroup;
+			children = (
+				C3F516F7194639000035570A /* BoldTotalItemCell.h */,
+				C3F516F8194639000035570A /* BoldTotalItemCell.m */,
+			);
+			name = "Bold Total Item";
+			sourceTree = "<group>";
+		};
 		C3F901941923BE1300400BF3 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -1111,6 +1137,7 @@
 				C3D909431922265600F6630D /* CartProductCell.m in Sources */,
 				C31C83A7192D15990093751D /* MPLearnMoreCell.m in Sources */,
 				C3212D3D1906BE460072BA80 /* AppDelegate.m in Sources */,
+				C3F516F9194639000035570A /* BoldTotalItemCell.m in Sources */,
 				C38B36D7190E5F2D00FBB01C /* UserProfileViewController.m in Sources */,
 				C3A3CF791923B2EC00EFAE44 /* DrawerItemCell.m in Sources */,
 				C39007F319252FAD00902B6E /* TextViewCell.m in Sources */,
@@ -1119,6 +1146,7 @@
 				C3B1076019227F9B0045EBC0 /* LogInViewController.m in Sources */,
 				C31C83A2192CF8380093751D /* MPLinkedCell.m in Sources */,
 				C3B1075C192279710045EBC0 /* ICSDropShadowView.m in Sources */,
+				C3F516F41946152A0035570A /* TableTitleCell.m in Sources */,
 				C3900830192691B500902B6E /* MPConnectCell.m in Sources */,
 				C39007D71924DA9E00902B6E /* CardManager.m in Sources */,
 				C38B36CB190DDD6000FBB01C /* CartViewController.m in Sources */,
