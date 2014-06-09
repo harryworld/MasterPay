@@ -103,16 +103,27 @@
 #pragma mark - Shipping Address
 
 -(void)editShipping{
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Shipping Details" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-    CardManager *cm = [CardManager getInstance];
     
-    [cm.shippingDetails each:^(ShippingInfo *si) {
-        [alert addButtonWithTitle:si.label];
+    CardManager *cm = [CardManager getInstance];
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"Shipping Details" andMessage:@"Select or add an address to receieve your items"];
+    
+    [cm.shippingDetails eachWithIndex:^(ShippingInfo * si, NSUInteger index) {
+        [alertView addButtonWithTitle:si.label
+                                 type:SIAlertViewButtonTypeDefault
+                              handler:^(SIAlertView *alert) {
+                                  [self selectShipping:(int)index];
+                              }];
     }];
     
-    [alert addButtonWithTitle:@"Create New Address"];
-    alert.tag = kCheckoutAlertTypeShippingInfo;
-    [alert show];
+    [alertView addButtonWithTitle:@"Create New Address"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alert) {
+                              [self selectShipping:-1];
+                          }];
+    
+    [alertView addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
+    alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+    [alertView show];
 }
 
 -(void)selectShipping:(int)index{
@@ -126,38 +137,23 @@
     [self.containerTable reloadData];
 }
 
-#pragma mark - UIAlertViewDelegate
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1 && alertView.tag == kCheckoutAlertTypeMasterPassPassword) { // MasterPass Password Alert
-        [self confirmOrder];
-    }
-    else if (alertView.tag == kCheckoutAlertTypeCardType){ // Card Type Alert
-        if (buttonIndex == 1) {
-            self.cardType = @"MasterCard";
-        }
-        if (buttonIndex == 2) {
-            self.cardType = @"Visa";
-        }
-        if (buttonIndex == 3) {
-            self.cardType = @"Discover";
-        }
-        if (buttonIndex == 4) {
-            self.cardType = @"American Express";
-        }
-        [self.containerTable reloadData];
-    }
-    else if(alertView.tag == kCheckoutAlertTypeShippingInfo){ //Shipping Info Alert
-        [self selectShipping:(int)(buttonIndex - 1)];
-    }
-}
-
 #pragma mark - Card Types
 
 -(void)chooseCardType{
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Choose Card Type" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"MasterCard",@"Visa",@"Discover",@"American Express", nil];
-    alert.tag = kCheckoutAlertTypeCardType;
-    [alert show];
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"Select Card Type" andMessage:@"Select a credit card provider from the list of supported providers"];
+    
+    [@[@"MasterCard",@"Visa",@"Discover",@"American Express"] each:^(NSString * cardType) {
+        [alertView addButtonWithTitle:cardType
+                                 type:SIAlertViewButtonTypeDefault
+                              handler:^(SIAlertView *alert) {
+                                  self.cardType = cardType;
+                                  [self.containerTable reloadData];
+                              }];
+    }];
+    
+    [alertView addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
+    alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+    [alertView show];
 }
 
 #pragma mark - Data Formatting
@@ -173,12 +169,24 @@
 #pragma mark - Processing Orders
 
 -(void)processOrder:(NSNotification *)notification{
+    static bool alertIsShowing = false;
     CardManager *cm = [CardManager getInstance];
     if (cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue] && !cm.isExpressEnabled) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Enter MasterPass Password" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
-        [alert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-        alert.tag = kCheckoutAlertTypeMasterPassPassword;
-        [alert show];
+        
+        unless(alertIsShowing){
+            alertIsShowing = true;
+            SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:@"Enter your MasterPass password to continue to checkout"];
+            [alert addInputFieldWithPlaceholder:@"Password" andHandler:nil];
+            [alert addButtonWithTitle:@"Enter" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
+                [self confirmOrder];
+            }];
+            [alert addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
+            alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+            alert.didDismissHandler = ^(SIAlertView *alertView) {
+                alertIsShowing = false;
+            };
+            [alert show];
+        }
     }
     else if (self.isPairing && self.oneTimePairedCard){
         [self confirmOrder];
@@ -194,7 +202,7 @@
             }
         }];
     }
-    else {
+    else{
         //other process
         [self confirmOrder];
     }

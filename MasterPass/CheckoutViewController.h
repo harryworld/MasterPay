@@ -14,6 +14,6 @@ typedef enum CheckoutAlertType {
     kCheckoutAlertTypeShippingInfo
 } CheckoutAlertType;
 
-@interface CheckoutViewController : UIViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface CheckoutViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

@@ -101,6 +101,20 @@
 		C390086E192AED2700902B6E /* mp_pair.png in Resources */ = {isa = PBXBuildFile; fileRef = C390086C192AED2700902B6E /* mp_pair.png */; };
 		C3950E9F193E3AB80042437A /* black_cc_mp.png in Resources */ = {isa = PBXBuildFile; fileRef = C3950E9E193E3AB80042437A /* black_cc_mp.png */; };
 		C3950EA1193E43200042437A /* mp-checkout.png in Resources */ = {isa = PBXBuildFile; fileRef = C3950EA0193E43200042437A /* mp-checkout.png */; };
+		C3950ECD193E4D760042437A /* 00_feature_LivRoom.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EBF193E4D760042437A /* 00_feature_LivRoom.jpg */; };
+		C3950ECE193E4D760042437A /* 0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EC0193E4D760042437A /* 0.jpg */; };
+		C3950ECF193E4D760042437A /* display_hero.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EC1193E4D760042437A /* display_hero.jpg */; };
+		C3950ED0193E4D760042437A /* gear-2-bike.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EC2193E4D760042437A /* gear-2-bike.jpg */; };
+		C3950ED1193E4D760042437A /* hp-chromebook-11-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EC3193E4D760042437A /* hp-chromebook-11-thumb.jpg */; };
+		C3950ED2193E4D760042437A /* IdeaPad-Y500-Laptop-PC-Closeup-Removeable-Drive-9L-940x475.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EC4193E4D760042437A /* IdeaPad-Y500-Laptop-PC-Closeup-Removeable-Drive-9L-940x475.jpg */; };
+		C3950ED3193E4D760042437A /* images.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EC5193E4D760042437A /* images.jpg */; };
+		C3950ED4193E4D760042437A /* ipad_mini_hero_black.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EC6193E4D760042437A /* ipad_mini_hero_black.jpg */; };
+		C3950ED5193E4D760042437A /* kindle-fire1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EC7193E4D760042437A /* kindle-fire1.jpg */; };
+		C3950ED6193E4D760042437A /* Nokia-Lumia-520-1-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EC8193E4D760042437A /* Nokia-Lumia-520-1-2.jpg */; };
+		C3950ED7193E4D760042437A /* samsung-galaxy-s4-polycarbonate-body-macro1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950EC9193E4D760042437A /* samsung-galaxy-s4-polycarbonate-body-macro1.jpg */; };
+		C3950ED8193E4D760042437A /* samsung-galaxy-tab-city1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950ECA193E4D760042437A /* samsung-galaxy-tab-city1.jpg */; };
+		C3950ED9193E4D760042437A /* Sony-Playstation-4-disc.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950ECB193E4D760042437A /* Sony-Playstation-4-disc.jpg */; };
+		C3950EDA193E4D760042437A /* tumblr_m9y5jp3Svf1r5eau1o1_500.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3950ECC193E4D760042437A /* tumblr_m9y5jp3Svf1r5eau1o1_500.jpg */; };
 		C3A3CF791923B2EC00EFAE44 /* DrawerItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A3CF781923B2EC00EFAE44 /* DrawerItemCell.m */; };
 		C3B10754192277E20045EBC0 /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B10753192277E20045EBC0 /* DrawerViewController.m */; };
 		C3B1075B192279710045EBC0 /* ICSDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B10758192279710045EBC0 /* ICSDrawerController.m */; };
@@ -249,6 +263,20 @@
 		C390086C192AED2700902B6E /* mp_pair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mp_pair.png; sourceTree = "<group>"; };
 		C3950E9E193E3AB80042437A /* black_cc_mp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black_cc_mp.png; sourceTree = "<group>"; };
 		C3950EA0193E43200042437A /* mp-checkout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mp-checkout.png"; sourceTree = "<group>"; };
+		C3950EBF193E4D760042437A /* 00_feature_LivRoom.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 00_feature_LivRoom.jpg; path = MasterPass/product_images/00_feature_LivRoom.jpg; sourceTree = SOURCE_ROOT; };
+		C3950EC0193E4D760042437A /* 0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 0.jpg; path = MasterPass/product_images/0.jpg; sourceTree = SOURCE_ROOT; };
+		C3950EC1193E4D760042437A /* display_hero.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = display_hero.jpg; path = MasterPass/product_images/display_hero.jpg; sourceTree = SOURCE_ROOT; };
+		C3950EC2193E4D760042437A /* gear-2-bike.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "gear-2-bike.jpg"; path = "MasterPass/product_images/gear-2-bike.jpg"; sourceTree = SOURCE_ROOT; };
+		C3950EC3193E4D760042437A /* hp-chromebook-11-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "hp-chromebook-11-thumb.jpg"; path = "MasterPass/product_images/hp-chromebook-11-thumb.jpg"; sourceTree = SOURCE_ROOT; };
+		C3950EC4193E4D760042437A /* IdeaPad-Y500-Laptop-PC-Closeup-Removeable-Drive-9L-940x475.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "IdeaPad-Y500-Laptop-PC-Closeup-Removeable-Drive-9L-940x475.jpg"; path = "MasterPass/product_images/IdeaPad-Y500-Laptop-PC-Closeup-Removeable-Drive-9L-940x475.jpg"; sourceTree = SOURCE_ROOT; };
+		C3950EC5193E4D760042437A /* images.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = images.jpg; path = MasterPass/product_images/images.jpg; sourceTree = SOURCE_ROOT; };
+		C3950EC6193E4D760042437A /* ipad_mini_hero_black.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ipad_mini_hero_black.jpg; path = MasterPass/product_images/ipad_mini_hero_black.jpg; sourceTree = SOURCE_ROOT; };
+		C3950EC7193E4D760042437A /* kindle-fire1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "kindle-fire1.jpg"; path = "MasterPass/product_images/kindle-fire1.jpg"; sourceTree = SOURCE_ROOT; };
+		C3950EC8193E4D760042437A /* Nokia-Lumia-520-1-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Nokia-Lumia-520-1-2.jpg"; path = "MasterPass/product_images/Nokia-Lumia-520-1-2.jpg"; sourceTree = SOURCE_ROOT; };
+		C3950EC9193E4D760042437A /* samsung-galaxy-s4-polycarbonate-body-macro1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "samsung-galaxy-s4-polycarbonate-body-macro1.jpg"; path = "MasterPass/product_images/samsung-galaxy-s4-polycarbonate-body-macro1.jpg"; sourceTree = SOURCE_ROOT; };
+		C3950ECA193E4D760042437A /* samsung-galaxy-tab-city1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "samsung-galaxy-tab-city1.jpg"; path = "MasterPass/product_images/samsung-galaxy-tab-city1.jpg"; sourceTree = SOURCE_ROOT; };
+		C3950ECB193E4D760042437A /* Sony-Playstation-4-disc.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Sony-Playstation-4-disc.jpg"; path = "MasterPass/product_images/Sony-Playstation-4-disc.jpg"; sourceTree = SOURCE_ROOT; };
+		C3950ECC193E4D760042437A /* tumblr_m9y5jp3Svf1r5eau1o1_500.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = tumblr_m9y5jp3Svf1r5eau1o1_500.jpg; path = MasterPass/product_images/tumblr_m9y5jp3Svf1r5eau1o1_500.jpg; sourceTree = SOURCE_ROOT; };
 		C3A3CF771923B2EC00EFAE44 /* DrawerItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerItemCell.h; sourceTree = "<group>"; };
 		C3A3CF781923B2EC00EFAE44 /* DrawerItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerItemCell.m; sourceTree = "<group>"; };
 		C3B10752192277E20045EBC0 /* DrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerViewController.h; sourceTree = "<group>"; };
@@ -547,6 +575,7 @@
 		C38B3B08191A77F300FBB01C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C3950EA2193E4CC00042437A /* product images */,
 				C390082719266A6B00902B6E /* bank-logo.png */,
 				C390082819266A6B00902B6E /* black_cc.png */,
 				C3950E9E193E3AB80042437A /* black_cc_mp.png */,
@@ -775,6 +804,27 @@
 			name = ContinueShopping;
 			sourceTree = "<group>";
 		};
+		C3950EA2193E4CC00042437A /* product images */ = {
+			isa = PBXGroup;
+			children = (
+				C3950EBF193E4D760042437A /* 00_feature_LivRoom.jpg */,
+				C3950EC0193E4D760042437A /* 0.jpg */,
+				C3950EC1193E4D760042437A /* display_hero.jpg */,
+				C3950EC2193E4D760042437A /* gear-2-bike.jpg */,
+				C3950EC3193E4D760042437A /* hp-chromebook-11-thumb.jpg */,
+				C3950EC4193E4D760042437A /* IdeaPad-Y500-Laptop-PC-Closeup-Removeable-Drive-9L-940x475.jpg */,
+				C3950EC5193E4D760042437A /* images.jpg */,
+				C3950EC6193E4D760042437A /* ipad_mini_hero_black.jpg */,
+				C3950EC7193E4D760042437A /* kindle-fire1.jpg */,
+				C3950EC8193E4D760042437A /* Nokia-Lumia-520-1-2.jpg */,
+				C3950EC9193E4D760042437A /* samsung-galaxy-s4-polycarbonate-body-macro1.jpg */,
+				C3950ECA193E4D760042437A /* samsung-galaxy-tab-city1.jpg */,
+				C3950ECB193E4D760042437A /* Sony-Playstation-4-disc.jpg */,
+				C3950ECC193E4D760042437A /* tumblr_m9y5jp3Svf1r5eau1o1_500.jpg */,
+			);
+			path = "product images";
+			sourceTree = "<group>";
+		};
 		C3A3CF761923B2C300EFAE44 /* DrawerItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -920,14 +970,19 @@
 				C3212D451906BE470072BA80 /* Images.xcassets in Resources */,
 				C3B107621922A34C0045EBC0 /* logo.png in Resources */,
 				C3950EA1193E43200042437A /* mp-checkout.png in Resources */,
+				C3950ED9193E4D760042437A /* Sony-Playstation-4-disc.jpg in Resources */,
+				C3950ED8193E4D760042437A /* samsung-galaxy-tab-city1.jpg in Resources */,
 				C3900865192A65E500902B6E /* mp4-express-checkout.html in Resources */,
 				C390084419297DF500902B6E /* orange_cc.png in Resources */,
+				C3950ED2193E4D760042437A /* IdeaPad-Y500-Laptop-PC-Closeup-Removeable-Drive-9L-940x475.jpg in Resources */,
 				C39008181926411F00902B6E /* Icon-76@2x.png in Resources */,
 				C390085D192A65E500902B6E /* mp-checkout.jpeg in Resources */,
+				C3950ECF193E4D760042437A /* display_hero.jpg in Resources */,
 				C390085E192A65E500902B6E /* mp1-checkout.html in Resources */,
 				C39007FE19253BEF00902B6E /* mp_1.jpeg in Resources */,
 				C3212D371906BE460072BA80 /* InfoPlist.strings in Resources */,
 				C39007FD19253BEF00902B6E /* mp3.html in Resources */,
+				C3950ED0193E4D760042437A /* gear-2-bike.jpg in Resources */,
 				C39008161926411F00902B6E /* Icon-72@2x.png in Resources */,
 				C3212D401906BE460072BA80 /* Main.storyboard in Resources */,
 				C39007E71925084100902B6E /* masterpass-small-logo.png in Resources */,
@@ -940,15 +995,18 @@
 				C3900860192A65E500902B6E /* mp2-checkout.html in Resources */,
 				C390081C1926411F00902B6E /* Icon-Small@2x.png in Resources */,
 				C39008121926411F00902B6E /* Icon-40@2x.png in Resources */,
+				C3950ED4193E4D760042437A /* ipad_mini_hero_black.jpg in Resources */,
 				C390080019253BEF00902B6E /* mp_3.jpeg in Resources */,
 				C39008141926411F00902B6E /* Icon-60@2x.png in Resources */,
 				C3900862192A65E500902B6E /* mp3-checkout.html in Resources */,
 				C39007FC19253BEF00902B6E /* mp2.html in Resources */,
 				C390081E1926411F00902B6E /* Icon@2x.png in Resources */,
 				C390085F192A65E500902B6E /* mp1-express-checkout.html in Resources */,
+				C3950ED3193E4D760042437A /* images.jpg in Resources */,
 				C390083719269D7800902B6E /* mp1.png in Resources */,
 				C390083619269D7800902B6E /* mp-express.png in Resources */,
 				C390081F1926411F00902B6E /* iTunesArtwork.png in Resources */,
+				C3950ECE193E4D760042437A /* 0.jpg in Resources */,
 				C39008151926411F00902B6E /* Icon-72.png in Resources */,
 				C3900863192A65E500902B6E /* mp3-express-checkout.html in Resources */,
 				C390083919269D7800902B6E /* mp3.png in Resources */,
@@ -957,22 +1015,28 @@
 				C390083A19269D7800902B6E /* mp4.png in Resources */,
 				C3900852192A4C5B00902B6E /* mp4-express.html in Resources */,
 				C39008201926411F00902B6E /* iTunesArtwork@2x.png in Resources */,
+				C3950ED7193E4D760042437A /* samsung-galaxy-s4-polycarbonate-body-macro1.jpg in Resources */,
 				C39008131926411F00902B6E /* Icon-60.png in Resources */,
 				C39008191926411F00902B6E /* Icon-Small-50.png in Resources */,
 				C3900866192A65E500902B6E /* mp5-express-checkout.html in Resources */,
 				C3950E9F193E3AB80042437A /* black_cc_mp.png in Resources */,
+				C3950ED6193E4D760042437A /* Nokia-Lumia-520-1-2.jpg in Resources */,
 				C390082C19266A6B00902B6E /* blue_cc.png in Resources */,
 				C3900864192A65E500902B6E /* mp4-checkout.html in Resources */,
 				C3900850192A4C5B00902B6E /* mp2-express.html in Resources */,
 				C39007FB19253BEF00902B6E /* mp1.html in Resources */,
+				C3950ED5193E4D760042437A /* kindle-fire1.jpg in Resources */,
 				C3900861192A65E500902B6E /* mp2-express-checkout.html in Resources */,
 				C3900851192A4C5B00902B6E /* mp3-express.html in Resources */,
 				C390084F192A4C5B00902B6E /* mp1-express.html in Resources */,
 				C390082A19266A6B00902B6E /* bank-logo.png in Resources */,
 				C390086D192AED2700902B6E /* mp_pair_express.png in Resources */,
+				C3950EDA193E4D760042437A /* tumblr_m9y5jp3Svf1r5eau1o1_500.jpg in Resources */,
 				C39008171926411F00902B6E /* Icon-76.png in Resources */,
 				C3900826192654F200902B6E /* buy-with-masterpass.png in Resources */,
 				C390084A192A309300902B6E /* connect_with_masterpass.png in Resources */,
+				C3950ED1193E4D760042437A /* hp-chromebook-11-thumb.jpg in Resources */,
+				C3950ECD193E4D760042437A /* 00_feature_LivRoom.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

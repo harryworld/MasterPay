@@ -14,6 +14,8 @@
 @interface CartViewController ()
 @property (nonatomic, weak)IBOutlet UITableView *cartTable;
 @property (nonatomic, weak)IBOutlet UIView *footer;
+@property (nonatomic, weak)IBOutlet UIView *totalBar;
+@property (nonatomic, weak)IBOutlet UILabel *totalLabel;
 @end
 
 @implementation CartViewController
@@ -22,6 +24,7 @@
     [super viewDidLoad];
     
     self.footer.backgroundColor = [UIColor superGreyColor];
+    self.totalBar.backgroundColor = [UIColor deepBlueColor];
     self.cartTable.backgroundColor = [UIColor deepBlueColor];
     [self.cartTable setSeparatorColor:[UIColor cartSeperatorColor]];
     if ([self.cartTable respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -29,13 +32,29 @@
     }
     self.cartTable.tableFooterView = [[UIView alloc] init];
     
+    CartManager *manager = [CartManager getInstance];
+    self.totalLabel.text = [self formatCurrency:[NSNumber numberWithDouble:[manager total]]];
+    
     [self.cartTable reloadData];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    CartManager *manager = [CartManager getInstance];
+    self.totalLabel.text = [self formatCurrency:[NSNumber numberWithDouble:[manager total]]];
     [self.cartTable reloadData];
 }
+
+#pragma mark - Data Formatting
+
+-(NSString *)formatCurrency:(NSNumber *)price{
+    double currency = [price doubleValue];
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    NSString *numberAsString = [numberFormatter stringFromNumber:[NSNumber numberWithInt:currency]];
+    return numberAsString;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;    //count of section

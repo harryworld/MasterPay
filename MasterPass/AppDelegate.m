@@ -27,7 +27,7 @@
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     }
     [[SIAlertView appearance] setMessageFont:[UIFont systemFontOfSize:13]];
-    [[SIAlertView appearance] setCornerRadius:6];
+    [[SIAlertView appearance] setCornerRadius:4];
     [[SIAlertView appearance] setShadowRadius:20];
     [[SIAlertView appearance] setCancelButtonColor:[UIColor whiteColor]];
     [[SIAlertView appearance] setButtonFont:[UIFont boldSystemFontOfSize:18]];
