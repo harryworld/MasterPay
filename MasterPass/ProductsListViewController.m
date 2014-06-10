@@ -217,7 +217,7 @@
     cell.product = product;
     
     [cell.addToCartButton bk_addEventHandler:^(id sender) {
-        [self initiateAddProduct:[self.productsData objectAtIndex:indexPath.row] ToCart:sender];
+        [self initiateAddProduct:[self.productsData objectAtIndex:indexPath.row] toCart:sender fromCell:cell];
     } forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
@@ -230,15 +230,14 @@
 
 }
 #pragma mark - animation
-
-- (IBAction) initiateAddProduct:(Product*)product ToCart:(UIView *)sender{
+- (IBAction) initiateAddProduct:(Product*)product toCart:(UIView *)sender fromCell:(UITableViewCell *)cell{
     
     CartManager *manager = [CartManager getInstance];
     [manager.products addObject:product];
-    [self animateViewToCart:sender];
+    [self animateViewToCart:sender fromParent:cell];
 }
 
--(void)animateViewToCart:(UIView *)sender{
+-(void)animateViewToCart:(UIView *)sender fromParent:(UITableViewCell *)parent{
     [(UIButton *)sender setTitle:@"!" forState:UIControlStateNormal];
     
     UIBarButtonItem *item = self.navigationItem.rightBarButtonItem;
@@ -248,13 +247,19 @@
         return;
     }
     
-    [sender removeFromSuperview];
-    [[[[UIApplication sharedApplication] windows] lastObject] addSubview:sender];
+    //[sender removeFromSuperview];
     
-    CALayer *layer = sender.layer;
+    UIGraphicsBeginImageContext(sender.bounds.size);
+    [sender.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *buttonImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [(UIButton *)sender setTitle:@"+ ADD" forState:UIControlStateNormal];
+    CGRect destinationFrame = [parent.contentView convertRect:sender.frame toView:nil];
+    UIImageView *animationImageView = [[UIImageView alloc]initWithFrame:destinationFrame];
+    animationImageView.image = buttonImage;
     
-    // First let's remove any existing animations
-    [layer pop_removeAllAnimations];
+    [[[[UIApplication sharedApplication] windows] lastObject] addSubview:animationImageView];
+    CALayer *layer = animationImageView.layer;
     
     POPSpringAnimation  *sizeAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerSize];
     sizeAnim.toValue = [NSValue valueWithCGSize:CGSizeMake(40, 40)];
@@ -264,6 +269,7 @@
     
     POPSpringAnimation *positionAnim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
     positionAnim.toValue = [NSValue valueWithCGPoint:view.frame.origin];
+    positionAnim.fromValue = [NSValue valueWithCGPoint:destinationFrame.origin];
     
     sizeAnim.springBounciness = 20;
     sizeAnim.springSpeed = 16;
@@ -278,13 +284,13 @@
     };
     
     alphaAnim.completionBlock = ^(POPAnimation *anim, BOOL finished) {
-        [sender removeFromSuperview];
+        [animationImageView removeFromSuperview];
     };
     
     [layer pop_addAnimation:sizeAnim forKey:@"size"];
     [layer pop_addAnimation:positionAnim forKey:@"position"];
     [layer pop_addAnimation:rotationAnim forKey:@"rotation"];
-    [sender pop_addAnimation:alphaAnim forKey:@"fade"];
+    [animationImageView pop_addAnimation:alphaAnim forKey:@"fade"];
 }
 
 -(void)refreshCartBadge{

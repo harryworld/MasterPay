@@ -177,6 +177,7 @@
             alertIsShowing = true;
             SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:@"Enter your MasterPass password to continue to checkout"];
             [alert addInputFieldWithPlaceholder:@"Password" andHandler:nil];
+            [alert addInputFieldWithPlaceholder:@"username" andHandler:nil];
             [alert addButtonWithTitle:@"Enter" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
                 [self confirmOrder];
             }];
@@ -243,8 +244,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     switch (section) {
-        case 0:return 1;  // Subtotal Title
-        case 1:return 3;  // Subtotal items
+        case 0:return 0;  // Subtotal Title
+        case 1:return 0;  // Subtotal items
         case 2:return 1;  // Total
         case 3:return 1;  // Card Selector
         case 4:  {        // Card Info Form
