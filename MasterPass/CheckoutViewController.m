@@ -462,7 +462,7 @@
                                            reuseIdentifier:cardSelectCellId];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        
+        cell.showsMPPair = self.oneTimePairedCard ? true : false;
         return cell;
         
     }

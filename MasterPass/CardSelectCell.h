@@ -10,4 +10,7 @@
 #import <SwipeView/SwipeView.h>
 @interface CardSelectCell : UITableViewCell <SwipeViewDataSource,SwipeViewDelegate>
 @property(nonatomic, strong)SwipeView *cardSwipeView;
+@property(nonatomic, assign)BOOL showsMPPair;
+
+-(void)refreshCurrentCardUI:(SwipeView *)swipeView;
 @end

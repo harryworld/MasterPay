@@ -26,6 +26,8 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.contentView.backgroundColor = [UIColor superGreyColor];
         
+        _showsMPPair = YES;
+        
         self.cardSwipeView = [[SwipeView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 200)];
         self.cardSwipeView.alignment = SwipeViewAlignmentCenter;
         self.cardSwipeView.dataSource = self;
@@ -118,6 +120,13 @@
     return self;
 }
 
+-(void)setShowsMPPair:(BOOL)showsMPPair{
+    if (showsMPPair != _showsMPPair) {
+        _showsMPPair = showsMPPair;
+        [self refreshCurrentCardUI:self.cardSwipeView];
+    }
+}
+
 #pragma mark - SwipeView methods
 
 - (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView
@@ -128,8 +137,11 @@
         CardManager *cm = [CardManager getInstance];
         return [[cm cards] count] + 1;
     }
-    else {
+    else if (self.showsMPPair){
         return 2;
+    }
+    else {
+        return 1;
     }
 }
 
@@ -184,7 +196,7 @@
     if (currentCard) {
         cardImage.image = [UIImage imageNamed:currentCard.iconName];
     }
-    else if((!cm.isLinkedToMasterPass) && (index == 0)) {
+    else if((!cm.isLinkedToMasterPass) && (index == 0) && self.showsMPPair) {
         cardImage.image = [UIImage imageNamed:@"black_cc_mp.png"];
     }
     else {
@@ -231,7 +243,7 @@
         // Selected card
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutCardSelected" object:nil userInfo:@{@"card":[[cm cards] objectAtIndex:swipeView.currentPage],@"index":[NSNumber numberWithInteger:swipeView.currentPage]}];
     }
-    else if((!cm.isLinkedToMasterPass) && (swipeView.currentPage == 0)){
+    else if((!cm.isLinkedToMasterPass) && (swipeView.currentPage == 0) && self.showsMPPair){
         self.expDate.hidden = YES;
         self.expDate.text = nil;
         self.cardNumber.hidden = NO;
