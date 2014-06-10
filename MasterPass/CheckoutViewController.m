@@ -485,7 +485,7 @@
             [[cell.contentView viewWithTag:kCheckoutAlertTypeCardType] removeFromSuperview];
         }
         
-        if(self.oneTimePairedCard) {
+        if(self.oneTimePairedCard && self.isPairing) {
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text = @"Card Number";
