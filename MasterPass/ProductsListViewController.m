@@ -247,8 +247,6 @@
         return;
     }
     
-    //[sender removeFromSuperview];
-    
     UIGraphicsBeginImageContext(sender.bounds.size);
     [sender.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *buttonImage = UIGraphicsGetImageFromCurrentImageContext();

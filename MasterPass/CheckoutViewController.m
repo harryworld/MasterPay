@@ -14,8 +14,6 @@
 #import "CartManager.h"
 #import "CardManager.h"
 #import "TotalItemCell.h"
-#import "ProcessOrderCell.h"
-#import "Card.h"
 #import "TextFieldCell.h"
 #import "MasterPassConnectViewController.h"
 #import "ShippingInfo.h"
@@ -24,15 +22,11 @@
 
 @interface CheckoutViewController ()
 @property(nonatomic, strong)SwipeView *cardSwipeView;
-@property(nonatomic, weak) IBOutlet UITableView *containerTable;
 @property(nonatomic, strong)ProcessOrderCell *processOrderCell;
 @property(nonatomic, strong)Card *selectedCard;
-@property(nonatomic, strong)Card *oneTimePairedCard;
 @property(nonatomic, strong)ShippingInfo *selectedShippingInfo;
-@property(nonatomic, assign)BOOL isPairing;
 @property(nonatomic, strong)UIButton *cardSelectorButton;
 @property(nonatomic, strong)NSString *cardType;
-@property(nonatomic, assign)ProcessButtonType buttonType;
 @end
 
 @implementation CheckoutViewController
@@ -177,7 +171,6 @@
             alertIsShowing = true;
             SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:@"Enter your MasterPass password to continue to checkout"];
             [alert addInputFieldWithPlaceholder:@"Password" andHandler:nil];
-            [alert addInputFieldWithPlaceholder:@"username" andHandler:nil];
             [alert addButtonWithTitle:@"Enter" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
                 [self confirmOrder];
             }];

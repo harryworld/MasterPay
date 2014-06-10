@@ -18,7 +18,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xgi-bT-ft7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1201" y="-1239"/>
+            <point key="canvasLocation" x="-1383" y="-1251"/>
         </scene>
         <!--Base Navigation Controller-->
         <scene sceneID="0PA-g7-N4A">
@@ -348,7 +348,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="HHC-fN-sdG" kind="push" id="nY1-Tt-IOq"/>
+                                            <segue destination="HHC-fN-sdG" kind="push" identifier="Checkout" id="nY1-Tt-IOq"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -412,9 +412,11 @@
                     <navigationItem key="navigationItem" title="My Cart" id="Cwi-PW-qyW"/>
                     <connections>
                         <outlet property="cartTable" destination="Ud1-tj-EsV" id="F6z-4Q-Cez"/>
+                        <outlet property="checkoutButton" destination="TUd-Az-lez" id="Ljt-Ad-idl"/>
                         <outlet property="footer" destination="uDZ-MT-5t6" id="unZ-A3-dJl"/>
                         <outlet property="totalBar" destination="EYc-sR-KsT" id="kF0-2b-lk8"/>
                         <outlet property="totalLabel" destination="1fq-KA-FCG" id="ro6-at-zoG"/>
+                        <segue destination="BRj-kQ-3GA" kind="modal" identifier="MPConnect" id="wsh-tQ-hPR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F5T-qX-jKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -929,6 +931,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="wVZ-bD-rCe"/>
-        <segue reference="PWc-bV-pOb"/>
+        <segue reference="wsh-tQ-hPR"/>
     </inferredMetricsTieBreakers>
 </document>
