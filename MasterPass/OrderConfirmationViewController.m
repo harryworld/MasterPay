@@ -86,7 +86,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.headline.text = @"Success";
-        cell.tagline.text = @"Your purchase has been confirmed and will ship soon";
+        cell.tagline.text = @"Your purchase has been confirmed and will ship soon.";
         return cell;
         
     }
@@ -142,7 +142,7 @@
                                        reuseIdentifier:textViewCellId];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        cell.textView.text = @"You have been charged";
+        cell.textView.text = @"Order Confirmation Number: D64H7829";
         cell.textView.textAlignment = NSTextAlignmentCenter;
         cell.textView.backgroundColor = [UIColor whiteColor];
         cell.contentView.backgroundColor = [UIColor whiteColor];
