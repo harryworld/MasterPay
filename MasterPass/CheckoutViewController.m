@@ -244,8 +244,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     switch (section) {
-        case 0:return 0;  // Subtotal Title
-        case 1:return 0;  // Subtotal items
+        case 0:return 1;  // Subtotal Title
+        case 1:return 3;  // Subtotal items
         case 2:return 1;  // Total
         case 3:return 1;  // Card Selector
         case 4:  {        // Card Info Form
