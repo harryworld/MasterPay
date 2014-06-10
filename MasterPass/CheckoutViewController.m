@@ -54,6 +54,8 @@
     CardManager *cm = [CardManager getInstance];
     self.selectedShippingInfo = [[cm shippingDetails] firstObject];
     
+    [self selectShipping:0];
+    
 }
 
 -(void)dealloc{
@@ -82,7 +84,7 @@
 -(void)addCard:(NSNotification *)notification{
     self.isPairing = NO;
     self.selectedCard = nil;
-    self.selectedShippingInfo = nil;
+    [self selectShipping:0];
     self.buttonType = kButtonTypeProcess;
     [self.containerTable reloadData];
 }
@@ -90,7 +92,7 @@
 -(void)pairMP:(NSNotification *)notification{
     self.isPairing = YES;
     self.selectedCard = nil;
-    self.selectedShippingInfo = nil;
+    [self selectShipping:0];
     self.buttonType = kButtonTypeMasterPass;
     [self.containerTable reloadData];
 }
@@ -169,7 +171,9 @@
     if (cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue] && !cm.isExpressEnabled) {
         unless(alertIsShowing){
             alertIsShowing = true;
-            SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:@"Enter your MasterPass password to continue to checkout"];
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            NSString *message = [NSString stringWithFormat:@"Welcome Back, %@. Please enter your password to complete your order.",[prefs stringForKey:@"username"].length ? [prefs stringForKey:@"username"] : @"Guest"];
+            SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:message];
             [alert addInputFieldWithPlaceholder:@"Password" andHandler:nil];
             [alert addButtonWithTitle:@"Enter" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
                 [self confirmOrder];
@@ -332,7 +336,7 @@
         
         
         // Edit Shipping button
-        if (section == 5) {
+        /*if (section == 5) {
             UIButton *shippingButton = [[UIButton alloc]initWithFrame:CGRectZero];
             [shippingButton setTitle:@"Edit" forState:UIControlStateNormal];
             [shippingButton setBackgroundColor:[UIColor brightOrangeColor]];
@@ -349,7 +353,7 @@
                 make.right.equalTo(view).with.offset(-10);
                 make.centerY.equalTo(view);
             }];
-        }
+        }*/
         
         
         // Set Text
