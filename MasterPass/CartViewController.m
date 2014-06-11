@@ -70,18 +70,32 @@
         [self.masterPassButton makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@60);
             make.width.equalTo(@280);
-            make.top.equalTo(self.footer).with.offset(20);
+            make.top.equalTo(self.footer).with.offset(10);
             make.centerX.equalTo(self.footer);
         }];
         
         [self.masterPassButton bk_addEventHandler:^(id sender) {
             [self startPair];
         } forControlEvents:UIControlEventTouchUpInside];
+    
         
         [self.checkoutButton makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.footer).with.offset(-20);
+            make.bottom.equalTo(self.footer).with.offset(-10);
             make.height.equalTo(@40);
             make.width.equalTo(@280);
+            make.centerX.equalTo(self.footer);
+        }];
+        
+        UILabel *orLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+        orLabel.textAlignment = NSTextAlignmentCenter;
+        orLabel.font = [UIFont boldSystemFontOfSize:20];
+        orLabel.textColor = [UIColor deepBlueColor];
+        orLabel.text = @"- OR -";
+        [self.footer addSubview:orLabel];
+        [orLabel makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@280);
+            make.top.equalTo(self.masterPassButton.bottom);
+            make.bottom.equalTo(self.checkoutButton.top);
             make.centerX.equalTo(self.footer);
         }];
     }
