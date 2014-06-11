@@ -15,7 +15,7 @@
         
         //Learn More Button
         self.learnMoreButton = [[UIButton alloc]initWithFrame:CGRectZero];
-        [self.learnMoreButton setTitle:@"Learn More about MasterPass" forState:UIControlStateNormal];
+        [self.learnMoreButton setTitle:@"Learn More" forState:UIControlStateNormal];
         [self.learnMoreButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
         [self.learnMoreButton setTitleColor:[UIColor steelColor] forState:UIControlStateNormal];
         [self.contentView addSubview:self.learnMoreButton];

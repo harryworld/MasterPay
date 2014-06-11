@@ -63,7 +63,7 @@
 }
 
 -(IBAction)learnMore{
-    SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Connect with MasterPass" andMessage:@"Connect with MasterPass allows for a better and quicker shopping experience. You first need to pair this merchant site with your MasterPass wallet"];
+    SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Connect with MasterPass" andMessage:@"Connect your MasterPass with GadgetShop to check out faster. When you connect your MasterPass to GadgetShop, GadgetShop receives certain information that it may use to personalize your shopping experience and help you make easier purchases."];
     
     [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
     
