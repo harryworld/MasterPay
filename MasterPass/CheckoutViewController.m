@@ -93,7 +93,6 @@
     self.isPairing = YES;
     self.selectedCard = nil;
     [self selectShipping:0];
-    self.buttonType = kButtonTypeMasterPass;
     [self.containerTable reloadData];
 }
 
