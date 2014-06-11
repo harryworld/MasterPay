@@ -236,13 +236,13 @@
         }
         case 5:  {         // Shipping Info Form
             if (self.isPairing && self.oneTimePairedCard) {
-                return 4;
+                return 1;
             }
             else if (self.isPairing){
                 return 0;
             }
             else {
-                return 4;
+                return 1;
             }
         }
         case 6:{            // TextView Cell
@@ -265,7 +265,7 @@
         case 2:return 26;  // Total
         case 3:return 200; // Card Selector
         case 4:return 44;  // Card Info Form
-        case 5:return 44;  // Shipping Info Form
+        case 5:return 70;  // Shipping Info Form
         case 6:return 44;  // TextView Cell
         case 7:   {        // Process Order Button
             if (self.selectedCard && self.selectedCard.isMasterPass) {
@@ -495,49 +495,25 @@
     }
     else if (indexPath.section == 5) { // Shipping
         
-        TextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:textFieldCellId];
+        TextViewCell *cell = [tableView dequeueReusableCellWithIdentifier:textViewCellId];
         
         if (cell == nil)
         {
-            cell = [[TextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                        reuseIdentifier:textFieldCellId];
+            cell = [[TextViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:textViewCellId];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        cell.textField.userInteractionEnabled = YES;
-        if ([cell.contentView viewWithTag:kCheckoutAlertTypeCardType]) {
-            [[cell.contentView viewWithTag:kCheckoutAlertTypeCardType] removeFromSuperview];
+        cell.textView.textAlignment = NSTextAlignmentLeft;
+        cell.textView.font = [UIFont systemFontOfSize:14];
+        cell.contentView.backgroundColor = [UIColor superLightGreyColor];
+        cell.textView.backgroundColor = [UIColor superLightGreyColor];
+        cell.textView.scrollEnabled = NO;
+        if (self.selectedShippingInfo) {
+            cell.textView.text = [NSString stringWithFormat:@"%@\n%@, %@ %@",self.selectedShippingInfo.street,self.selectedShippingInfo.city,self.selectedShippingInfo.state,self.selectedShippingInfo.zip];
         }
-        
-        cell.textField.text = nil;
-        switch (indexPath.row) {
-            case 0:
-                cell.textLabel.text = @"Street Address";
-                if (self.selectedShippingInfo) {
-                    cell.textField.text = self.selectedShippingInfo.street;
-                }
-                break;
-            case 1:
-                cell.textLabel.text = @"City";
-                if (self.selectedShippingInfo) {
-                    cell.textField.text = self.selectedShippingInfo.city;
-                }
-                break;
-            case 2:
-                cell.textLabel.text = @"State";
-                if (self.selectedShippingInfo) {
-                    cell.textField.text = self.selectedShippingInfo.state;
-                }
-                break;
-            case 3:
-                cell.textLabel.text = @"Zip";
-                if (self.selectedShippingInfo) {
-                    cell.textField.text = self.selectedShippingInfo.zip;
-                }
-                break;
-            default:
-                cell.textLabel.text = nil;
-                break;
+        else {
+            cell.textView.text = nil;
         }
         
         return cell;
