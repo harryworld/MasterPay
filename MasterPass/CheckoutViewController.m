@@ -99,30 +99,6 @@
 
 #pragma mark - Shipping Address
 
--(void)editShipping{
-    
-    CardManager *cm = [CardManager getInstance];
-    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"Shipping Details" andMessage:@"Select or add an address to receieve your items"];
-    
-    [cm.shippingDetails eachWithIndex:^(ShippingInfo * si, NSUInteger index) {
-        [alertView addButtonWithTitle:si.label
-                                 type:SIAlertViewButtonTypeDefault
-                              handler:^(SIAlertView *alert) {
-                                  [self selectShipping:(int)index];
-                              }];
-    }];
-    
-    [alertView addButtonWithTitle:@"Create New Address"
-                             type:SIAlertViewButtonTypeDefault
-                          handler:^(SIAlertView *alert) {
-                              [self selectShipping:-1];
-                          }];
-    
-    [alertView addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
-    alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
-    [alertView show];
-}
-
 -(void)selectShipping:(int)index{
     CardManager *cm = [CardManager getInstance];
     if ((index < ([[cm shippingDetails] count])) && (index > -1)) {
@@ -333,28 +309,6 @@
             make.edges.equalTo(view);
             make.center.equalTo(view);
         }];
-        
-        
-        // Edit Shipping button
-        /*if (section == 5) {
-            UIButton *shippingButton = [[UIButton alloc]initWithFrame:CGRectZero];
-            [shippingButton setTitle:@"Edit" forState:UIControlStateNormal];
-            [shippingButton setBackgroundColor:[UIColor brightOrangeColor]];
-            [shippingButton.layer setCornerRadius:6];
-            [view addSubview:shippingButton];
-            
-            [shippingButton bk_addEventHandler:^(id sender) {
-                [self editShipping];
-            } forControlEvents:UIControlEventTouchUpInside];
-            
-            [shippingButton makeConstraints:^(MASConstraintMaker *make) {
-                make.height.equalTo(@30);
-                make.width.equalTo(@50);
-                make.right.equalTo(view).with.offset(-10);
-                make.centerY.equalTo(view);
-            }];
-        }*/
-        
         
         // Set Text
         
