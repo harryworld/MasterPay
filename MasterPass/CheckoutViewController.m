@@ -508,6 +508,7 @@
         cell.textView.font = [UIFont systemFontOfSize:14];
         cell.contentView.backgroundColor = [UIColor superLightGreyColor];
         cell.textView.backgroundColor = [UIColor superLightGreyColor];
+        cell.textView.textColor = [UIColor steelColor];
         cell.textView.scrollEnabled = NO;
         if (self.selectedShippingInfo) {
             cell.textView.text = [NSString stringWithFormat:@"%@\n%@, %@ %@",self.selectedShippingInfo.street,self.selectedShippingInfo.city,self.selectedShippingInfo.state,self.selectedShippingInfo.zip];
