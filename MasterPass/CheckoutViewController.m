@@ -225,7 +225,7 @@
                 return 0;
             }
             else if (self.isPairing && self.oneTimePairedCard){
-                return 2;
+                return 0;
             }
             else if (self.isPairing){
                 return 0;
@@ -283,7 +283,10 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 4 && !self.selectedCard && (!self.isPairing || self.oneTimePairedCard)){
+    if (self.isPairing && self.oneTimePairedCard && section == 4) {
+        return 0;
+    }
+    else if (section == 4 && !self.selectedCard && (!self.isPairing || self.oneTimePairedCard)){
         return 44;
     }
     else if (section == 5 && (!self.isPairing || self.oneTimePairedCard)) {
@@ -295,6 +298,10 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    if (self.isPairing && self.oneTimePairedCard && section == 4) {
+        return nil;
+    }
     
     if ((section == 4 || section == 5) && (!self.isPairing || self.oneTimePairedCard)) {
         

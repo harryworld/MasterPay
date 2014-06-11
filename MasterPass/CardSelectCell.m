@@ -160,6 +160,8 @@
 
     UIImageView *cardImage = nil;
     UILabel *expDate = nil;
+    UILabel *cardNumber = nil;
+    UILabel *cardHolder = nil;
     
     static CGFloat cardImageWidth = 150;
     static CGFloat cardImageHeight = 85;
@@ -185,22 +187,80 @@
             make.centerX.equalTo(view);
             make.centerY.equalTo(view).with.offset(-padding);
         }];
+        
+        cardNumber = [[UILabel alloc]initWithFrame:CGRectZero];
+        cardNumber.font = [UIFont boldSystemFontOfSize:10];
+        cardNumber.textColor = [UIColor whiteColor];
+        cardNumber.backgroundColor = [UIColor clearColor];
+        cardNumber.tag = 2;
+        [cardImage addSubview:cardNumber];
+        [cardNumber makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@20);
+            make.width.equalTo(cardImage);
+            make.left.equalTo(cardImage).with.offset(15);
+            make.centerY.equalTo(cardImage).with.offset(5);
+        }];
+        
+        expDate = [[UILabel alloc]initWithFrame:CGRectZero];
+        expDate.font = [UIFont boldSystemFontOfSize:9];
+        expDate.tag = 3;
+        expDate.textColor = [UIColor whiteColor];
+        expDate.backgroundColor = [UIColor clearColor];
+        [cardImage addSubview:expDate];
+        [expDate makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@15);
+            make.width.equalTo(@40);
+            make.left.equalTo(cardImage).with.offset(12);
+            make.bottom.equalTo(cardImage).with.offset(-2);
+        }];
+        
+        cardHolder = [[UILabel alloc]initWithFrame:CGRectZero];
+        cardHolder.font = [UIFont boldSystemFontOfSize:9];
+        cardHolder.text = @"Susan";
+        cardHolder.tag = 4;
+        cardHolder.textColor = [UIColor whiteColor];
+        cardHolder.backgroundColor = [UIColor clearColor];
+        [cardImage addSubview:cardHolder];
+        [cardHolder makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@15);
+            make.width.equalTo(@40);
+            make.left.equalTo(cardImage).with.offset(12);
+            make.bottom.equalTo(expDate.top).with.offset(3);
+        }];
     }
     else
     {
         //get a reference to the label in the recycled view
         cardImage = (UIImageView *)[view viewWithTag:1];
+        cardNumber = (UILabel *)[view viewWithTag:2];
         expDate = (UILabel *)[view viewWithTag:3];
+        cardHolder = (UILabel *)[view viewWithTag:4];
     }
     
     if (currentCard) {
         cardImage.image = [UIImage imageNamed:currentCard.iconName];
+        cardNumber.hidden = NO;
+        cardNumber.text = [NSString stringWithFormat:@" XXXX XXXX XXXX %@",currentCard.lastFour];
+        expDate.hidden = NO;
+        expDate.text = currentCard.expDate;
+        cardHolder.hidden = NO;
     }
     else if((!cm.isLinkedToMasterPass) && (index == 0) && self.showsMPPair) {
+        
+        // hard coded due to additional requirements
+        
         cardImage.image = [UIImage imageNamed:@"black_cc_mp.png"];
+        cardNumber.hidden = NO;
+        cardNumber.text = [NSString stringWithFormat:@" XXXX XXXX XXXX %@",@"8733"];
+        expDate.hidden = NO;
+        expDate.text = @"03/17";
+        cardHolder.hidden = NO;
     }
     else {
         cardImage.image = [UIImage imageNamed:@"orange_cc.png"];
+        cardNumber.hidden = YES;
+        expDate.hidden = YES;
+        cardHolder.hidden = YES;
     }
 
     return view;
