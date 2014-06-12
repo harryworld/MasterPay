@@ -21,7 +21,8 @@
         [self.masterPassButton makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@58);
             make.width.equalTo(@249);
-            make.center.equalTo(self.contentView);
+            make.bottom.equalTo(self.contentView);
+            make.centerX.equalTo(self.contentView);
         }];
         
         [self.masterPassButton bk_addEventHandler:^(id sender) {

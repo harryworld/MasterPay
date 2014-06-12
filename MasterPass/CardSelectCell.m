@@ -216,7 +216,7 @@
         
         cardHolder = [[UILabel alloc]initWithFrame:CGRectZero];
         cardHolder.font = [UIFont boldSystemFontOfSize:9];
-        cardHolder.text = @"Susan";
+        cardHolder.text = @"Susan Smith";
         cardHolder.tag = 4;
         cardHolder.textColor = [UIColor whiteColor];
         cardHolder.backgroundColor = [UIColor clearColor];

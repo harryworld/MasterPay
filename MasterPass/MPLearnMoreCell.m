@@ -22,7 +22,7 @@
         [self.learnMoreButton makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@40);
             make.width.equalTo(@225);
-            make.bottom.equalTo(self.contentView).with.offset(5);
+            make.top.equalTo(self.contentView);
             make.centerX.equalTo(self.contentView);
         }];
         

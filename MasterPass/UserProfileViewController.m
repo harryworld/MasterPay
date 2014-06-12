@@ -112,7 +112,7 @@
                 return 60;
             }
             else {
-                return 100;
+                return 70;
             }
         }
         case 2:return 60;
@@ -175,11 +175,11 @@
         switch (indexPath.row) {
             case 0:
                 cell.textLabel.text = @"Name";
-                cell.textField.text = @"Justin Guavin";
+                cell.textField.text = @"Susan Smith";
                 break;
             case 1:
                 cell.textLabel.text = @"Email";
-                cell.textField.text = @"j.guavin@gmail.com";
+                cell.textField.text = @"s.smith@gmail.com";
                 break;
             case 2:
                 cell.textLabel.text = @"Phone";
