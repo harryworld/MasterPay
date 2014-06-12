@@ -88,32 +88,6 @@
             make.right.equalTo(providerImageContainer).with.offset(-bottomOffset);
         }];
         
-        
-        self.cardNumber = [[UILabel alloc]initWithFrame:CGRectZero];
-        self.cardNumber.font = [UIFont boldSystemFontOfSize:12];
-        self.cardNumber.backgroundColor = [UIColor superGreyColor];
-        self.cardNumber.textAlignment = NSTextAlignmentCenter;
-        [self.contentView addSubview:self.cardNumber];
-        [self.cardNumber makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@18);
-            make.width.equalTo(@150);
-            make.centerX.equalTo(self.contentView);
-            make.centerY.equalTo(self.contentView).with.offset(32);
-        }];
-        
-        
-        self.expDate = [[UILabel alloc]initWithFrame:CGRectZero];
-        self.expDate.font = [UIFont boldSystemFontOfSize:10];
-        self.expDate.backgroundColor = [UIColor superGreyColor];
-        self.expDate.textAlignment = NSTextAlignmentCenter;
-        [self.contentView addSubview:self.expDate];
-        [self.expDate makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@15);
-            make.width.equalTo(@150);
-            make.centerX.equalTo(self.contentView);
-            make.centerY.equalTo(self.contentView).with.offset(47);
-        }];
-        
         [self refreshCurrentCardUI:self.cardSwipeView];
         
     };
@@ -184,8 +158,7 @@
         [cardImage makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@76.5);
             make.width.equalTo(@135);
-            make.centerX.equalTo(view);
-            make.centerY.equalTo(view).with.offset(-padding);
+            make.center.equalTo(view);
         }];
         
         cardNumber = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -223,7 +196,7 @@
         [cardImage addSubview:cardHolder];
         [cardHolder makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@15);
-            make.width.equalTo(@40);
+            make.width.equalTo(@60);
             make.left.equalTo(cardImage).with.offset(12);
             make.bottom.equalTo(expDate.top).with.offset(3);
         }];

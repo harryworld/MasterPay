@@ -263,7 +263,7 @@
         case 0:return 26;  // Subtotal Title
         case 1:return 26;  // Subtotal items
         case 2:return 26;  // Total
-        case 3:return 200; // Card Selector
+        case 3:return 160; // Card Selector
         case 4:return 44;  // Card Info Form
         case 5:return 70;  // Shipping Info Form
         case 6:return 44;  // TextView Cell
