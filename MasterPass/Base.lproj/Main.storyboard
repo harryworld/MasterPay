@@ -156,7 +156,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z3w-bY-61E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-775" y="-1261"/>
+            <point key="canvasLocation" x="-233" y="-1295"/>
         </scene>
         <!--Products List View Controller - Products-->
         <scene sceneID="Cuu-Ga-ee6">
@@ -239,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1hn-aY-jqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-757" y="-460"/>
+            <point key="canvasLocation" x="-807" y="-483"/>
         </scene>
         <!--Cart View Controller - My Cart-->
         <scene sceneID="cZg-6F-vuQ">
@@ -348,7 +348,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="HHC-fN-sdG" kind="push" identifier="Checkout" id="nY1-Tt-IOq"/>
+                                            <action selector="moveToCheckout" destination="iCV-na-qFy" eventType="touchUpInside" id="yc4-Jk-UhN"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -421,12 +421,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F5T-qX-jKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-375" y="-485"/>
+            <point key="canvasLocation" x="-293" y="-602"/>
         </scene>
         <!--Checkout View Controller - Checkout-->
         <scene sceneID="bS4-sQ-r8g">
             <objects>
-                <viewController id="HHC-fN-sdG" customClass="CheckoutViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Checkout" id="HHC-fN-sdG" customClass="CheckoutViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gSp-Me-R4k"/>
                         <viewControllerLayoutGuide type="bottom" id="CI4-yP-ONR"/>
@@ -464,7 +464,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XJf-Vf-mOl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24" y="-494"/>
+            <point key="canvasLocation" x="140" y="-463"/>
         </scene>
         <!--Order Confirmation View Controller - Confirmation-->
         <scene sceneID="jcu-TH-Qb2">
@@ -608,7 +608,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uq8-zK-A7V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1153" y="-499"/>
+            <point key="canvasLocation" x="-1287" y="-447"/>
         </scene>
         <!--Log In View Controller-->
         <scene sceneID="G5M-tL-7x7">
@@ -930,7 +930,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="wVZ-bD-rCe"/>
+        <segue reference="a71-pe-j2a"/>
         <segue reference="wsh-tQ-hPR"/>
     </inferredMetricsTieBreakers>
 </document>

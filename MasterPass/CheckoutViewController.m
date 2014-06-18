@@ -19,6 +19,7 @@
 #import "ShippingInfo.h"
 #import "BaseNavigationController.h"
 #import "TextViewCell.h"
+#import "OrderConfirmationViewController.h"
 
 @interface CheckoutViewController ()
 @property(nonatomic, strong)SwipeView *cardSwipeView;
@@ -35,6 +36,7 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    
     self.containerTable.backgroundColor = [UIColor deepBlueColor];
     self.containerTable.separatorColor = [UIColor deepBlueColor];
     if ([self.containerTable respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -50,6 +52,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (processOrder:) name:@"order_processed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (popToRoot) name:@"StartOver" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (confirmOrder ) name:@"ConfirmOrder" object:nil];
     
     CardManager *cm = [CardManager getInstance];
     self.selectedShippingInfo = [[cm shippingDetails] firstObject];
@@ -146,11 +149,11 @@
     if (cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue] && !cm.isExpressEnabled) {
         unless(alertIsShowing){
             alertIsShowing = true;
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            NSString *message = [NSString stringWithFormat:@"Welcome Back, %@. Please enter your password to complete your order.",[prefs stringForKey:@"username"].length ? [prefs stringForKey:@"username"] : @"Guest"];
+            NSString *message = @"Welcome Back, Susan. Please enter your password to complete your order.";
             SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:message];
             [alert addInputFieldWithPlaceholder:@"Password" andHandler:nil];
             [alert addButtonWithTitle:@"Enter" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
+                NSLog(@"Hello");
                 [self confirmOrder];
             }];
             [alert addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
@@ -190,7 +193,7 @@
 }
 
 -(void)confirmOrder {
-    if (self.navigationController.visibleViewController == self) {
+    if ([self.navigationController.visibleViewController isEqual:self]) {
         // Fake Delay and then proceed to confirmation
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeIndeterminate;
@@ -199,6 +202,23 @@
             [hud hide:YES];
             [self performSegueWithIdentifier:@"ConfirmOrder" sender:nil];
         } afterDelay:2.5];
+    }
+    else {
+        [self bk_performBlock:^(id obj) {
+            [self confirmOrder];
+        } afterDelay:0.5f];
+    }
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"ConfirmOrder"]) {
+        CardManager *cm = [CardManager getInstance];
+        if ((cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue]) || (self.isPairing && self.oneTimePairedCard)) {
+            ((OrderConfirmationViewController *)segue.destinationViewController).purchasedWithMP = true;
+        }
+        else {
+            ((OrderConfirmationViewController *)segue.destinationViewController).purchasedWithMP = false;
+        }
     }
 }
 

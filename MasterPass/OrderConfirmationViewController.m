@@ -13,6 +13,7 @@
 #import "TableTitleCell.h"
 #import "CartProductCell.h"
 #import "BoldTotalItemCell.h"
+#import "TextViewRightImageCell.h"
 
 @interface OrderConfirmationViewController ()
 @property (nonatomic, weak) IBOutlet UITableView *confirmationTable;
@@ -28,16 +29,24 @@
     self.footer.backgroundColor = [UIColor fireOrangeColor];
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+-(void)viewWillDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     CartManager *cm = [CartManager getInstance];
     [cm.products removeAllObjects];
+}
+
+-(void)setPurchasedWithMP:(BOOL)purchasedWithMP{
+    _purchasedWithMP = purchasedWithMP;
+    [self.confirmationTable reloadData];
 }
 
 #pragma mark - UITableView Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (self.purchasedWithMP) {
+        return 6;
+    }
     return 5;    //count of section
 }
 
@@ -52,6 +61,7 @@
         }
         case 3:return 1;
         case 4:return 1;
+        case 5:return 1;
         default:return 0;
     }
 }
@@ -61,8 +71,9 @@
         case 0:return 150;
         case 1:return 50;
         case 2:return 50;
-        case 3: return 50;
-        case 4: return 50;
+        case 3:return 50;
+        case 4:return 50;
+        case 5:return 50;
         default: return 0;
     }
 }
@@ -72,6 +83,7 @@
 {
     static NSString *titleCellId = @"TitleCell";
     static NSString *textViewCellId = @"TextViewCell";
+    static NSString *textViewImageCellId = @"TextViewImageCell";
     static NSString *continueShoppingCell = @"continueCell";
     static NSString *itemCell = @"Cell";
     
@@ -169,6 +181,26 @@
         
         return cell;
         
+    }
+    else if (indexPath.section == 5){
+        TextViewRightImageCell *cell = [tableView dequeueReusableCellWithIdentifier:textViewImageCellId];
+        
+        if (cell == nil)
+        {
+            cell = [[TextViewRightImageCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:textViewImageCellId];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        cell.textView.text = @"Purchased with";
+        cell.textView.textAlignment = NSTextAlignmentLeft;
+        cell.textView.backgroundColor = [UIColor whiteColor];
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+        cell.textView.textColor = [UIColor deepBlueColor];
+        cell.textView.scrollEnabled = NO;
+        cell.textView.selectable = NO;
+        cell.textView.font = [UIFont systemFontOfSize:14];
+        cell.rightImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
+        return cell;
     }
     
     //fallback

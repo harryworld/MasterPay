@@ -63,7 +63,7 @@
         [self.contentView addSubview:providerImageContainer];
         [providerImageContainer makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@150);
-            make.height.equalTo(@40);
+            make.height.equalTo(@35);
             make.centerX.equalTo(self.contentView);
             make.bottom.equalTo(self.contentView).with.offset(-bottomOffset);
         }];
@@ -222,7 +222,7 @@
         
         // hard coded due to additional requirements
         
-        cardImage.image = [UIImage imageNamed:@"black_cc_mp.png"];
+        cardImage.image = [UIImage imageNamed:@"black_cc_mc.png"];
         cardNumber.hidden = NO;
         cardNumber.text = [NSString stringWithFormat:@" XXXX XXXX XXXX %@",@"8733"];
         expDate.hidden = NO;
@@ -257,6 +257,7 @@
         self.expDate.text = [NSString stringWithFormat:@"Expires: %@",currentCard.expDate];
         self.cardNumber.hidden = NO;
         self.cardNumber.text = [NSString stringWithFormat:@"Card ending in %@",currentCard.lastFour];
+        self.providerImage.hidden = NO;
         
         if ([currentCard.isMasterPass boolValue]) {
             self.masterPassImage.alpha = 1;
@@ -265,13 +266,7 @@
             self.masterPassImage.alpha = 0.3;
         }
         
-        if (currentCard.imageUrl) {
-            [self.providerImage setImage:[UIImage imageNamed:@"bank-logo.png"]];
-            self.providerImage.hidden = NO;
-        }
-        else {
-            self.providerImage.hidden = YES;
-        }
+        [self.providerImage setImage:[UIImage imageNamed:@"bank-logo.png"]];
         
         // Selected card
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutCardSelected" object:nil userInfo:@{@"card":[[cm cards] objectAtIndex:swipeView.currentPage],@"index":[NSNumber numberWithInteger:swipeView.currentPage]}];
@@ -281,14 +276,14 @@
         self.expDate.text = nil;
         self.cardNumber.hidden = NO;
         self.cardNumber.text = @"MasterPass Wallet";
-        self.providerImage.hidden = YES;
-        self.masterPassImage.alpha = 0;
+        self.providerImage.hidden = NO;
+        self.masterPassImage.alpha = 1;
+        [self.providerImage setImage:[UIImage imageNamed:@"bank-logo.png"]];
         
         // pairing
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutPairSelected" object:nil];
     }
     else {
-        
         self.expDate.hidden = YES;
         self.expDate.text = nil;
         self.cardNumber.hidden = NO;

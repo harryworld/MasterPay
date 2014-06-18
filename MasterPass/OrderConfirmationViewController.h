@@ -9,4 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface OrderConfirmationViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic, assign) BOOL purchasedWithMP;
 @end

@@ -189,4 +189,11 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+-(IBAction)moveToCheckout{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    CheckoutViewController *checkout = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
+    NSLog(@"%@",self.navigationController.viewControllers);
+    [self.navigationController pushViewController:checkout animated:YES];
+}
 @end

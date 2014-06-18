@@ -8,7 +8,7 @@ pod 'UIActivityIndicator-for-SDWebImage'
 pod 'pop', '~> 1.0'
 pod 'BlocksKit'
 pod 'SVWebViewController', :head
-pod 'SIAlertView', :git => 'https://github.com/DavidBenko/SIAlertView.git', :branch => 'textsupport'
+pod 'SIAlertView', :git => 'https://github.com/DavidBenko/SIAlertView.git', :branch => 'mc_setup'
 pod 'FontAwesomeKit', '~> 2.1.0'
 pod 'JMGBlockSegue'
 pod 'M13Checkbox', :git => 'https://github.com/Marxon13/M13Checkbox'
