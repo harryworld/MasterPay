@@ -203,9 +203,7 @@
         } afterDelay:2.5];
     }
     else {
-        [self bk_performBlock:^(id obj) {
-            [self confirmOrder];
-        } afterDelay:0.5f];
+        [self performSelector:@selector(confirmOrder) withObject:nil afterDelay:0.5];
     }
 }
 
