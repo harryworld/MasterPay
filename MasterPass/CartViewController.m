@@ -137,15 +137,16 @@
 
 -(void)oneTimePairingComplete{
     if (self.navigationController.visibleViewController == self) {
-        [self performSegueWithIdentifier:@"Checkout" sender:nil withBlock:^(id sender, id destinationVC) {
-            CardManager *cm = [CardManager getInstance];
-            CheckoutViewController *vc = (CheckoutViewController *)destinationVC;
-            vc.oneTimePairedCard = cm.cards.firstObject;
-            vc.isPairing = YES;
-            [vc selectShipping:0];
-            vc.buttonType = kButtonTypeProcess;
-            [vc.containerTable reloadData];
-        }];
+        CardManager *cm = [CardManager getInstance];
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        CheckoutViewController *vc = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
+        vc.oneTimePairedCard = cm.cards.firstObject;
+        vc.isPairing = YES;
+        [vc selectShipping:0];
+        vc.buttonType = kButtonTypeProcess;
+        [vc.containerTable reloadData];
+        
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
