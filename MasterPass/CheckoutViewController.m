@@ -153,7 +153,6 @@
             SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:message];
             [alert addInputFieldWithPlaceholder:@"Password" andHandler:nil];
             [alert addButtonWithTitle:@"Enter" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
-                NSLog(@"Hello");
                 [self confirmOrder];
             }];
             [alert addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
