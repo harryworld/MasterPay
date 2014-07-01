@@ -276,7 +276,7 @@
         self.expDate.text = nil;
         self.cardNumber.hidden = NO;
         self.cardNumber.text = @"MasterPass Wallet";
-        self.providerImage.hidden = NO;
+        self.providerImage.hidden = YES;
         self.masterPassImage.alpha = 1;
         [self.providerImage setImage:[UIImage imageNamed:@"bank-logo.png"]];
         
