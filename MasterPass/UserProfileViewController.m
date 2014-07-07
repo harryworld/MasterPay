@@ -81,7 +81,7 @@
     
     SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Connect with MasterPass" andMessage:@"Your account is now paired with your MasterPass wallet. The next time you checkout, you will simply need to enter your MasterPass password to process the order."];
     
-    [alert addButtonWithTitle:@"Submit" type:SIAlertViewButtonTypeCancel handler:nil];
+    [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
     
     alert.transitionStyle = SIAlertViewTransitionStyleBounce;
     [alert show];

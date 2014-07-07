@@ -192,21 +192,24 @@
     static NSString *identifier = @"Cell";
     
     if ([[scrollSelect columns] count] < indexPath.column || indexPath.column == -1) {
-        return [[ProductPreviewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];;
+        return [[ProductPreviewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
     KLScrollingColumn* column = [[scrollSelect columns] objectAtIndex: indexPath.column];
     ProductPreviewCell * cell;
-    
+        
     //registerClass only works on iOS 6 so if the app runs on iOS 5 we shouldn't use this method.
     //On iOS 5 we only initialize a new KLImageCell if the cell is nil
     if ([column respondsToSelector:@selector(registerClass:)]) {
         [column registerClass:[ProductPreviewCell class] forCellReuseIdentifier:identifier];
         cell = [column dequeueReusableCellWithIdentifier:identifier forIndexPath:[indexPath innerIndexPath]];
+        if (cell == nil) {
+            cell = [[ProductPreviewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        }
     } else {
         cell = [column dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil) {
-            cell = [[ProductPreviewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+            cell = [[ProductPreviewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         }
     }
     

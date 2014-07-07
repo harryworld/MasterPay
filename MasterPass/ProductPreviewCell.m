@@ -13,12 +13,25 @@
 @end
 
 @implementation ProductPreviewCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        [self setup];
+    };
+    return self;
+}
+
 -(void) willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
     
     // On iOS 5 willMoveToSuperview method always gets called, so by checking existence of self.image ,
     // we prevent imageView initialization of reused cells otherwise we face with low performance while scrolling
+    [self setup];
+    [self refreshProductInfo];
     
+}
+
+-(void)setup{
     if(self.container){
         [self.container removeFromSuperview];
         self.container = nil;
@@ -27,9 +40,9 @@
     
     self.backgroundColor = [UIColor clearColor];
     self.container = [[UIView alloc] initWithFrame: CGRectMake(kDefaultCellImageEdgeInset.left,
-                                                                  kDefaultCellImageEdgeInset.top,
-                                                                  self.frame.size.width - (kDefaultCellImageEdgeInset.left + kDefaultCellImageEdgeInset.right),
-                                                                  self.frame.size.height - (kDefaultCellImageEdgeInset.top + kDefaultCellImageEdgeInset.bottom))];
+                                                               kDefaultCellImageEdgeInset.top,
+                                                               self.frame.size.width - (kDefaultCellImageEdgeInset.left + kDefaultCellImageEdgeInset.right),
+                                                               self.frame.size.height - (kDefaultCellImageEdgeInset.top + kDefaultCellImageEdgeInset.bottom))];
     
     [self.container.layer setCornerRadius:6.];
     self.container.backgroundColor = [UIColor whiteColor];
@@ -121,6 +134,7 @@
     [self.addToCartButton.titleLabel setFont:[UIFont boldSystemFontOfSize: 15]];
     [self.addToCartButton.layer setCornerRadius:10.];
     [self.container addSubview:self.addToCartButton];
+    [self refreshProductInfo];
 }
 
 -(void)setProduct:(Product *)product{

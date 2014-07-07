@@ -67,26 +67,40 @@
             make.centerX.equalTo(self.contentView);
             make.bottom.equalTo(self.contentView).with.offset(-bottomOffset);
         }];
+        CardManager *cm = [CardManager getInstance];
         
-        self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
-        self.masterPassImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
-        [providerImageContainer addSubview:self.masterPassImage];
-        [self.masterPassImage makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@30);
-            make.width.equalTo(@45);
-            make.centerY.equalTo(providerImageContainer);
-            make.left.equalTo(providerImageContainer).with.offset(bottomOffset);
-        }];
-        
-        self.providerImage = [[UIImageView alloc]initWithFrame:CGRectZero];
-        self.providerImage.backgroundColor = [UIColor clearColor];
-        [providerImageContainer addSubview:self.providerImage];
-        [self.providerImage makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@30);
-            make.width.equalTo(@80);
-            make.centerY.equalTo(providerImageContainer);
-            make.right.equalTo(providerImageContainer).with.offset(-bottomOffset);
-        }];
+        if ([cm isLinkedToMasterPass]) {
+            self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
+            self.masterPassImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
+            [providerImageContainer addSubview:self.masterPassImage];
+            [self.masterPassImage makeConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(@30);
+                make.width.equalTo(@45);
+                make.centerY.equalTo(providerImageContainer);
+                make.left.equalTo(providerImageContainer).with.offset(bottomOffset);
+            }];
+            
+            self.providerImage = [[UIImageView alloc]initWithFrame:CGRectZero];
+            self.providerImage.backgroundColor = [UIColor clearColor];
+            [providerImageContainer addSubview:self.providerImage];
+            [self.providerImage makeConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(@30);
+                make.width.equalTo(@80);
+                make.centerY.equalTo(providerImageContainer);
+                make.right.equalTo(providerImageContainer).with.offset(-bottomOffset);
+            }];
+        }
+        else {
+            self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
+            self.masterPassImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
+            [providerImageContainer addSubview:self.masterPassImage];
+            [self.masterPassImage makeConstraints:^(MASConstraintMaker *make) {
+                make.height.equalTo(@30);
+                make.width.equalTo(@45);
+                make.center.equalTo(providerImageContainer);
+            }];
+
+        }
         
         [self refreshCurrentCardUI:self.cardSwipeView];
         
