@@ -1,1 +1,0 @@
-PODS_KLSCROLLSELECT_OTHER_LDFLAGS = -framework QuartzCore
