@@ -1,0 +1,99 @@
+PODS:
+  - BBBadgeBarButtonItem (1.0)
+  - BButton (4.0.1)
+  - BlocksKit (2.2.3):
+    - BlocksKit/All
+  - BlocksKit/All (2.2.3):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
+  - BlocksKit/Core (2.2.3)
+  - BlocksKit/DynamicDelegate (2.2.3)
+  - BlocksKit/MessageUI (2.2.3):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BlocksKit/UIKit (2.2.3):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - FontAwesomeKit (2.1.7):
+    - FontAwesomeKit/Core
+    - FontAwesomeKit/FontAwesome
+    - FontAwesomeKit/FoundationIcons
+    - FontAwesomeKit/IonIcons
+    - FontAwesomeKit/Zocial
+  - FontAwesomeKit/Core (2.1.7)
+  - FontAwesomeKit/FontAwesome (2.1.7):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/FoundationIcons (2.1.7):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/IonIcons (2.1.7):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/Zocial (2.1.7):
+    - FontAwesomeKit/Core
+  - JMGBlockSegue (0.2)
+  - KLScrollSelect (1.0)
+  - M13Checkbox (1.1.0)
+  - Masonry (0.5.2)
+  - MBProgressHUD (0.8)
+  - ObjectiveSugar (1.1.0)
+  - pop (1.0.6)
+  - SDWebImage (3.6):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.6)
+  - SIAlertView (1.3)
+  - SVWebViewController (HEAD based on 1.0)
+  - SwipeView (1.3.2)
+  - TPKeyboardAvoiding (1.2.3)
+  - UIActivityIndicator-for-SDWebImage (1.0.5):
+    - SDWebImage (~> 3.2)
+
+DEPENDENCIES:
+  - BBBadgeBarButtonItem
+  - BButton
+  - BlocksKit
+  - FontAwesomeKit (~> 2.1.0)
+  - JMGBlockSegue
+  - KLScrollSelect (from `https://github.com/AnyPresence-Services/KLScrollSelect.git`, branch `No-Autoscroll`)
+  - M13Checkbox (from `https://github.com/Marxon13/M13Checkbox`)
+  - Masonry
+  - MBProgressHUD (~> 0.8)
+  - ObjectiveSugar
+  - pop (~> 1.0)
+  - SDWebImage
+  - SIAlertView (from `https://github.com/AnyPresence-Services/SIAlertView.git`, branch `mc_setup`)
+  - SVWebViewController (HEAD)
+  - SwipeView
+  - TPKeyboardAvoiding
+  - UIActivityIndicator-for-SDWebImage
+
+EXTERNAL SOURCES:
+  KLScrollSelect:
+    :branch: No-Autoscroll
+    :git: https://github.com/AnyPresence-Services/KLScrollSelect.git
+  M13Checkbox:
+    :git: https://github.com/Marxon13/M13Checkbox
+  SIAlertView:
+    :branch: mc_setup
+    :git: https://github.com/AnyPresence-Services/SIAlertView.git
+
+SPEC CHECKSUMS:
+  BBBadgeBarButtonItem: 9fd6089e0694ee1e9dfb96fb66fbcb4bfa22f3ee
+  BButton: 396a5e59648e3f687b7d8201b88ebdbad6e36b59
+  BlocksKit: 07c8a80f04275efac6a5f8b973782489c083a182
+  FontAwesomeKit: af6eef70d23986349284d2feb4e959459621587d
+  JMGBlockSegue: 323e09b3c1e2482e6989f8c5ad52f8f84e2c90a9
+  KLScrollSelect: c479275065c904860c1f1d68f23ea6395917569f
+  M13Checkbox: 4223ca1325bd4fefacf92ae616eb52341a98dce0
+  Masonry: ec0189e1a07af00913e4a1a335ea76887adc86e1
+  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
+  ObjectiveSugar: f48793f5902c77cfc02a4ce46d2e8ecddcad4dc2
+  pop: e518794da38942c05255eb64b36d894e70cb4f00
+  SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
+  SIAlertView: e6d0d786c3a3f6e456b0e8b9376d0c34d68e827b
+  SVWebViewController: fbf917baa92744c54cfb89a52a4c056e409973a4
+  SwipeView: 0093c212acf3d715b09334c50d568a4418404150
+  TPKeyboardAvoiding: ca26afa683d829cb96fe69b887fc8be4178f0b9a
+  UIActivityIndicator-for-SDWebImage: d9e46f1592d04cfbeda67bb6d7bba5348558697b
+
+COCOAPODS: 0.33.1
