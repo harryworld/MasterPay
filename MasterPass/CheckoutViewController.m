@@ -20,6 +20,7 @@
 #import "BaseNavigationController.h"
 #import "TextViewCell.h"
 #import "OrderConfirmationViewController.h"
+#import "PasswordViewController.h"
 
 @interface CheckoutViewController ()
 @property(nonatomic, strong)SwipeView *cardSwipeView;
@@ -147,21 +148,33 @@
     static bool alertIsShowing = false;
     CardManager *cm = [CardManager getInstance];
     if (cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue] && !cm.isExpressEnabled) {
-        unless(alertIsShowing){
-            alertIsShowing = true;
-            NSString *message = @"Welcome Back, Susan. Please enter your password to complete your order.";
-            SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:message];
-            [alert addInputFieldWithPlaceholder:@"Password" andHandler:nil];
-            [alert addButtonWithTitle:@"Enter" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
-                [self confirmOrder];
-            }];
-            [alert addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
-            alert.transitionStyle = SIAlertViewTransitionStyleBounce;
-            alert.didDismissHandler = ^(SIAlertView *alertView) {
-                alertIsShowing = false;
-            };
-            [alert show];
-        }
+//        unless(alertIsShowing){
+//            alertIsShowing = true;
+//            NSString *message = @"Welcome Back, Susan. Please enter your password to complete your order.";
+//            SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:message];
+//            [alert addInputFieldWithPlaceholder:@"Password" andHandler:nil];
+//            [alert addButtonWithTitle:@"Enter" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
+//                [self confirmOrder];
+//            }];
+//            [alert addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
+//            alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+//            alert.didDismissHandler = ^(SIAlertView *alertView) {
+//                alertIsShowing = false;
+//            };
+//            [alert show];
+        __weak typeof(self) weakSelf = self;
+        PasswordViewController *passwordController = [self.storyboard instantiateViewControllerWithIdentifier:@"PasswordViewController"];
+        [passwordController setCompletionBlock:^(BOOL success) {
+            if (success) {
+                [weakSelf confirmOrder];
+            }
+        }];
+        [self presentViewController:passwordController animated:YES completion:^{
+            
+        }];
+        
+        
+//        }
     }
     else if (self.isPairing && self.oneTimePairedCard){
         [self confirmOrder];
