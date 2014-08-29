@@ -52,27 +52,6 @@
     
     [webview stringByEvaluatingJavaScriptFromString:command];
     
-    /*NSString *currentUrl = webview.request.mainDocumentURL.absoluteString;
-    
-    NSArray *docs = @[@"mp3",@"mp4-express",@"mp5-express-checkout",@"mp4-checkout"]; // these are the end pages
-    NSMutableArray *paths = [[NSMutableArray alloc]init];
-    
-    [docs each:^(NSString * doc) {
-        [paths addObject:[[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:doc ofType:@"html"]] absoluteString]];
-    }];
-    
-    if ([paths includes:currentUrl]) {
-        // We are on an end page
-        UIView *tapView = [[UIView alloc]initWithFrame:CGRectZero];
-        [self.view addSubview:tapView];
-        [tapView makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
-        }];
-        
-        [tapView bk_whenTapped:^{
-            [self done];
-        }];
-    }*/
 }
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     

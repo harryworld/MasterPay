@@ -123,6 +123,9 @@
 		C3B1076019227F9B0045EBC0 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1075F19227F9B0045EBC0 /* LogInViewController.m */; };
 		C3B107621922A34C0045EBC0 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B107611922A34C0045EBC0 /* logo.png */; };
 		C3BB757E19AFD48E00A7DE29 /* public in Resources */ = {isa = PBXBuildFile; fileRef = C3BB757D19AFD48E00A7DE29 /* public */; };
+		C3BB758019B0B93100A7DE29 /* black_cc_mc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB757F19B0B93100A7DE29 /* black_cc_mc@2x.png */; };
+		C3BB758219B0B97500A7DE29 /* blue_cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB758119B0B97500A7DE29 /* blue_cc@2x.png */; };
+		C3BB758419B0B99D00A7DE29 /* orange_cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB758319B0B99D00A7DE29 /* orange_cc@2x.png */; };
 		C3D909431922265600F6630D /* CartProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D909421922265600F6630D /* CartProductCell.m */; };
 		C3F516F41946152A0035570A /* TableTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F516F31946152A0035570A /* TableTitleCell.m */; };
 		C3F516F9194639000035570A /* BoldTotalItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F516F8194639000035570A /* BoldTotalItemCell.m */; };
@@ -296,6 +299,9 @@
 		C3B1075F19227F9B0045EBC0 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		C3B107611922A34C0045EBC0 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = Images/logo.png; sourceTree = "<group>"; };
 		C3BB757D19AFD48E00A7DE29 /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; name = public; path = webviews/public; sourceTree = SOURCE_ROOT; };
+		C3BB757F19B0B93100A7DE29 /* black_cc_mc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black_cc_mc@2x.png"; sourceTree = "<group>"; };
+		C3BB758119B0B97500A7DE29 /* blue_cc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue_cc@2x.png"; sourceTree = "<group>"; };
+		C3BB758319B0B99D00A7DE29 /* orange_cc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange_cc@2x.png"; sourceTree = "<group>"; };
 		C3D909411922265600F6630D /* CartProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartProductCell.h; sourceTree = "<group>"; };
 		C3D909421922265600F6630D /* CartProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartProductCell.m; sourceTree = "<group>"; };
 		C3F516F21946152A0035570A /* TableTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTitleCell.h; sourceTree = "<group>"; };
@@ -599,8 +605,10 @@
 				C390082719266A6B00902B6E /* bank-logo.png */,
 				C390082819266A6B00902B6E /* black_cc.png */,
 				C3F5173A1951E9DE0035570A /* black_cc_mc.png */,
+				C3BB757F19B0B93100A7DE29 /* black_cc_mc@2x.png */,
 				C3950E9E193E3AB80042437A /* black_cc_mp.png */,
 				C390082919266A6B00902B6E /* blue_cc.png */,
+				C3BB758119B0B97500A7DE29 /* blue_cc@2x.png */,
 				C3900825192654F200902B6E /* buy-with-masterpass.png */,
 				C3900849192A309300902B6E /* connect_with_masterpass.png */,
 				AAB2E5A61986086C0026934A /* mp_password_checkout.png */,
@@ -625,6 +633,7 @@
 				C3212D3E1906BE460072BA80 /* Main.storyboard */,
 				C39007E61925084100902B6E /* masterpass-small-logo.png */,
 				C390084319297DF500902B6E /* orange_cc.png */,
+				C3BB758319B0B99D00A7DE29 /* orange_cc@2x.png */,
 				C39007F419253BEF00902B6E /* PairingSite */,
 			);
 			name = Resources;
@@ -1019,10 +1028,12 @@
 				C39008181926411F00902B6E /* Icon-76@2x.png in Resources */,
 				C390085D192A65E500902B6E /* mp-checkout.jpeg in Resources */,
 				C3950ECF193E4D760042437A /* display_hero.jpg in Resources */,
+				C3BB758219B0B97500A7DE29 /* blue_cc@2x.png in Resources */,
 				C390085E192A65E500902B6E /* mp1-checkout.html in Resources */,
 				C39007FE19253BEF00902B6E /* mp_1.jpeg in Resources */,
 				C3212D371906BE460072BA80 /* InfoPlist.strings in Resources */,
 				C39007FD19253BEF00902B6E /* mp3.html in Resources */,
+				C3BB758019B0B93100A7DE29 /* black_cc_mc@2x.png in Resources */,
 				C3950ED0193E4D760042437A /* gear-2-bike.jpg in Resources */,
 				C39008161926411F00902B6E /* Icon-72@2x.png in Resources */,
 				C3212D401906BE460072BA80 /* Main.storyboard in Resources */,
@@ -1067,6 +1078,7 @@
 				C3900864192A65E500902B6E /* mp4-checkout.html in Resources */,
 				C3900850192A4C5B00902B6E /* mp2-express.html in Resources */,
 				C39007FB19253BEF00902B6E /* mp1.html in Resources */,
+				C3BB758419B0B99D00A7DE29 /* orange_cc@2x.png in Resources */,
 				C3950ED5193E4D760042437A /* kindle-fire1.jpg in Resources */,
 				C3F5173B1951E9DE0035570A /* black_cc_mc.png in Resources */,
 				C3900861192A65E500902B6E /* mp2-express-checkout.html in Resources */,
