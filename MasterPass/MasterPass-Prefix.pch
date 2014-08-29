@@ -25,6 +25,5 @@
     #import <FontAwesomeKit/FontAwesomeKit.h>
     #import "MBProgressHUD.h"//
 
-    #import "Constants.h"
     #import "UIColor+ExtendedColors.h"
 #endif

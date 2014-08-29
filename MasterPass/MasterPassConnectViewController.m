@@ -7,6 +7,7 @@
 //
 
 #import "MasterPassConnectViewController.h"
+#import "CardManager.h"
 
 @interface MasterPassConnectViewController ()
 @property(nonatomic, weak) IBOutlet UIWebView *webview;
@@ -18,9 +19,11 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     self.webview.delegate = self;
-    self.webview.userInteractionEnabled = YES;
-    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL fileURLWithPath:self.path]];
-    [self.webview loadRequest:request];
+    
+    NSString *file = self.checkoutAuth ? @"mp_password" : @"mp_wallet";
+    
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:file ofType:@"html" inDirectory:@"public"]];
+    [self.webview loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 -(IBAction)done{
@@ -37,14 +40,19 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webview{
     
     /*
-     * This is a hack to allow the user to tap the webview on the last 
-     * page and close it. This functionality will be replaced with real
-     * SDK methods, when those are available, which will hopefully
-     * be using some sort of Obj-C/Javascript triggering.
-     *
+     * We have successfully paired!
+     * Add code to confirm pairing here
      */
     
-    NSString *currentUrl = webview.request.mainDocumentURL.absoluteString;
+    CardManager *manager = [CardManager getInstance];
+    
+    NSString *command = [NSString stringWithFormat:@"updateLinks({\"express\":%@,\"checkout\":%@});",manager.isExpressEnabled ? @"true" : @"false",self.checkoutAuth ? @"true" : @"false"];
+    
+    NSLog(@"%@",command);
+    
+    [webview stringByEvaluatingJavaScriptFromString:command];
+    
+    /*NSString *currentUrl = webview.request.mainDocumentURL.absoluteString;
     
     NSArray *docs = @[@"mp3",@"mp4-express",@"mp5-express-checkout",@"mp4-checkout"]; // these are the end pages
     NSMutableArray *paths = [[NSMutableArray alloc]init];
@@ -64,6 +72,28 @@
         [tapView bk_whenTapped:^{
             [self done];
         }];
+    }*/
+}
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
+    if ([request.URL.scheme isEqualToString:@"masterpass"]){
+        if ([request.URL.host isEqualToString:@"pair"]) {
+            [self pair];
+        }
+        else if([request.URL.host isEqualToString:@"checkout"]){
+            [self authorizeCheckout];
+        }
+        
+        return NO;
     }
+    return YES;
+}
+
+-(void)pair{
+    [self done];
+}
+-(void)authorizeCheckout{
+    [self done];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConfirmOrder" object:nil];
 }
 @end
