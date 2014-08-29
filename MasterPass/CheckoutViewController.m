@@ -145,50 +145,15 @@
 #pragma mark - Processing Orders
 
 -(void)processOrder:(NSNotification *)notification{
-    static bool alertIsShowing = false;
     CardManager *cm = [CardManager getInstance];
     if (cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue] && !cm.isExpressEnabled) {
-//        unless(alertIsShowing){
-//            alertIsShowing = true;
-//            NSString *message = @"Welcome Back, Susan. Please enter your password to complete your order.";
-//            SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Enter MasterPass Password" andMessage:message];
-//            [alert addInputFieldWithPlaceholder:@"Password" andHandler:nil];
-//            [alert addButtonWithTitle:@"Enter" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView) {
-//                [self confirmOrder];
-//            }];
-//            [alert addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
-//            alert.transitionStyle = SIAlertViewTransitionStyleBounce;
-//            alert.didDismissHandler = ^(SIAlertView *alertView) {
-//                alertIsShowing = false;
-//            };
-//            [alert show];
-        __weak typeof(self) weakSelf = self;
-        PasswordViewController *passwordController = [self.storyboard instantiateViewControllerWithIdentifier:@"PasswordViewController"];
-        [passwordController setCompletionBlock:^(BOOL success) {
-            if (success) {
-                [weakSelf confirmOrder];
-            }
-        }];
-        [self presentViewController:passwordController animated:YES completion:^{
-            
-        }];
-        
-        
-//        }
+        [self performSegueWithIdentifier:@"MPCheckout" sender:nil];
     }
     else if (self.isPairing && self.oneTimePairedCard){
         [self confirmOrder];
     }
     else if (self.isPairing) {
-        [self performSegueWithIdentifier:@"MPConnect" sender:nil withBlock:^(id sender, id destinationVC) {
-            MasterPassConnectViewController *dest = [[((BaseNavigationController *)destinationVC) viewControllers] firstObject];
-            unless(cm.isExpressEnabled) {
-                dest.path = [[NSBundle mainBundle] pathForResource:@"mp1-checkout" ofType:@"html"];
-            }
-            else {
-                dest.path = [[NSBundle mainBundle] pathForResource:@"mp1-express-checkout" ofType:@"html"];
-            }
-        }];
+        [self performSegueWithIdentifier:@"MPConnect" sender:nil];
     }
     else{
         //other process
@@ -229,6 +194,13 @@
         else {
             ((OrderConfirmationViewController *)segue.destinationViewController).purchasedWithMP = false;
         }
+    }
+    else if ([[segue identifier] isEqualToString:@"MPCheckout"]) {
+        MasterPassConnectViewController *dest = (MasterPassConnectViewController *)[[(UINavigationController *)[segue destinationViewController] viewControllers] firstObject];
+        
+        dest.checkoutAuth = TRUE;
+        
+        //[self confirmOrder];
     }
 }
 

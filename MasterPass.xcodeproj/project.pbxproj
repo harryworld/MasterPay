@@ -35,7 +35,6 @@
 		C38B36D4190E55A000FBB01C /* MasterPassConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36D3190E55A000FBB01C /* MasterPassConnectViewController.m */; };
 		C38B36D7190E5F2D00FBB01C /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36D6190E5F2D00FBB01C /* UserProfileViewController.m */; };
 		C38B3AFB1919485700FBB01C /* ProductPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B3AFA1919485700FBB01C /* ProductPreviewCell.m */; };
-		C38B3B10191A7AEB00FBB01C /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B3B0F191A7AEB00FBB01C /* Constants.m */; };
 		C38B3B14191A7EEE00FBB01C /* UIColor+ExtendedColors.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B3B13191A7EEE00FBB01C /* UIColor+ExtendedColors.m */; };
 		C39007D01924D44200902B6E /* SubtotalItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C39007CF1924D44200902B6E /* SubtotalItemCell.m */; };
 		C39007D31924D76C00902B6E /* CardSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C39007D21924D76C00902B6E /* CardSelectCell.m */; };
@@ -123,6 +122,7 @@
 		C3B1075C192279710045EBC0 /* ICSDropShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1075A192279710045EBC0 /* ICSDropShadowView.m */; };
 		C3B1076019227F9B0045EBC0 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1075F19227F9B0045EBC0 /* LogInViewController.m */; };
 		C3B107621922A34C0045EBC0 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B107611922A34C0045EBC0 /* logo.png */; };
+		C3BB757E19AFD48E00A7DE29 /* public in Resources */ = {isa = PBXBuildFile; fileRef = C3BB757D19AFD48E00A7DE29 /* public */; };
 		C3D909431922265600F6630D /* CartProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D909421922265600F6630D /* CartProductCell.m */; };
 		C3F516F41946152A0035570A /* TableTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F516F31946152A0035570A /* TableTitleCell.m */; };
 		C3F516F9194639000035570A /* BoldTotalItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F516F8194639000035570A /* BoldTotalItemCell.m */; };
@@ -188,8 +188,6 @@
 		C38B36D6190E5F2D00FBB01C /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		C38B3AF91919485700FBB01C /* ProductPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPreviewCell.h; sourceTree = "<group>"; };
 		C38B3AFA1919485700FBB01C /* ProductPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPreviewCell.m; sourceTree = "<group>"; };
-		C38B3B0E191A7AEB00FBB01C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		C38B3B0F191A7AEB00FBB01C /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		C38B3B12191A7EEE00FBB01C /* UIColor+ExtendedColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ExtendedColors.h"; sourceTree = "<group>"; };
 		C38B3B13191A7EEE00FBB01C /* UIColor+ExtendedColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ExtendedColors.m"; sourceTree = "<group>"; };
 		C39007CE1924D44200902B6E /* SubtotalItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubtotalItemCell.h; sourceTree = "<group>"; };
@@ -297,6 +295,7 @@
 		C3B1075E19227F9B0045EBC0 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		C3B1075F19227F9B0045EBC0 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		C3B107611922A34C0045EBC0 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = Images/logo.png; sourceTree = "<group>"; };
+		C3BB757D19AFD48E00A7DE29 /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; name = public; path = webviews/public; sourceTree = SOURCE_ROOT; };
 		C3D909411922265600F6630D /* CartProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartProductCell.h; sourceTree = "<group>"; };
 		C3D909421922265600F6630D /* CartProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartProductCell.m; sourceTree = "<group>"; };
 		C3F516F21946152A0035570A /* TableTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTitleCell.h; sourceTree = "<group>"; };
@@ -414,8 +413,8 @@
 		C3212D321906BE460072BA80 /* MasterPass */ = {
 			isa = PBXGroup;
 			children = (
+				C3BB757D19AFD48E00A7DE29 /* public */,
 				C38B3B11191A7ECD00FBB01C /* Categories */,
-				C38B3B0A191A7A3300FBB01C /* Constants */,
 				C31C83B0192D451D0093751D /* Navigation Controllers */,
 				C38B3B07191A77E200FBB01C /* Objects */,
 				C38B3B08191A77F300FBB01C /* Resources */,
@@ -629,15 +628,6 @@
 				C39007F419253BEF00902B6E /* PairingSite */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		C38B3B0A191A7A3300FBB01C /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				C38B3B0E191A7AEB00FBB01C /* Constants.h */,
-				C38B3B0F191A7AEB00FBB01C /* Constants.m */,
-			);
-			name = Constants;
 			sourceTree = "<group>";
 		};
 		C38B3B11191A7ECD00FBB01C /* Categories */ = {
@@ -1017,6 +1007,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3BB757E19AFD48E00A7DE29 /* public in Resources */,
 				C3212D451906BE470072BA80 /* Images.xcassets in Resources */,
 				C3B107621922A34C0045EBC0 /* logo.png in Resources */,
 				C3950EA1193E43200042437A /* mp-checkout.png in Resources */,
@@ -1143,7 +1134,6 @@
 				C31C83AF192D41B40093751D /* BaseNavigationController.m in Sources */,
 				C390086A192AA37B00902B6E /* ContinueShoppingCell.m in Sources */,
 				C39007E11924EC6600902B6E /* SubtotalTitleItemCell.m in Sources */,
-				C38B3B10191A7AEB00FBB01C /* Constants.m in Sources */,
 				C3F901971923BE4C00400BF3 /* BaseViewController.m in Sources */,
 				C390083E1926CFE600902B6E /* SettingsViewController.m in Sources */,
 				C38B36D4190E55A000FBB01C /* MasterPassConnectViewController.m in Sources */,

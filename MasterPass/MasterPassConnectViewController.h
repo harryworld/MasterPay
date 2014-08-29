@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MasterPassConnectViewController : UIViewController <UIWebViewDelegate>
-@property(nonatomic, strong)NSString *path;
+@property (nonatomic, strong)NSString *path;
+@property (nonatomic, assign)BOOL checkoutAuth;
 @end
