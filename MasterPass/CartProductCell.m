@@ -18,7 +18,6 @@
     [self.productName setTextColor:[UIColor whiteColor]];
     [self.productQuant setTextColor:[UIColor whiteColor]];
     [self.productQuant setFont:[UIFont systemFontOfSize:13]];
-    [self.productQuant setText:@"Quantity: 1"];
     
     [self.productPrice setTextColor:[UIColor fireOrangeColor]];
     [self.productPrice setFont:[UIFont boldSystemFontOfSize:13]];
@@ -40,6 +39,7 @@
     self.productName.text = self.product.name;
     self.productPrice.text = [self formatCurrency:self.product.price];
     self.productImage.image = [UIImage imageNamed:self.product.imageUrl];
+    self.productQuant.text = [NSString stringWithFormat:@"Quantity: %d",self.product.quantity];
 }
 -(NSString *)formatCurrency:(NSNumber *)price{
     double currency = [price doubleValue];

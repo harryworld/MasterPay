@@ -12,6 +12,7 @@
 
 @property(nonatomic, assign) BOOL isLinkedToMasterPass;
 @property(nonatomic, assign) BOOL isExpressEnabled;
+@property(nonatomic, assign) BOOL wantsDelayedPair;
 
 + (CardManager *) getInstance;
 - (NSArray *)cards;

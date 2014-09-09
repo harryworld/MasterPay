@@ -13,6 +13,7 @@
 #import "TableTitleCell.h"
 #import "CartProductCell.h"
 #import "BoldTotalItemCell.h"
+#import "CardManager.h"
 #import "TextViewRightImageCell.h"
 
 @interface OrderConfirmationViewController ()
@@ -57,7 +58,7 @@
         case 1:return 1;
         case 2:{
             CartManager *cm = [CartManager getInstance];
-            return cm.products.count;
+            return [[cm expandedCart] count];
         }
         case 3:return 1;
         case 4:return 1;
@@ -135,7 +136,7 @@
         }
         
         CartManager *cm = [CartManager getInstance];
-        [cell setProduct:(Product *)[[cm products] objectAtIndex:indexPath.row]];
+        [cell setProduct:(Product *)[[cm expandedCart] objectAtIndex:indexPath.row]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
         cell.productName.textColor = [UIColor deepBlueColor];
         [cell.productImage.layer setBorderWidth:0];
