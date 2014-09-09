@@ -27,7 +27,43 @@ static CartManager *sharedInstance;
     return sharedInstance;
 }
 
--(double)subtotal{
+- (void)addProductToCart:(Product *)product{
+    NSArray *existingProductCheck = [self.products select:^BOOL(Product* object) {
+        return object.productId == product.productId;
+    }];
+    
+    if (existingProductCheck.count > 0) {
+        Product *existing = [existingProductCheck firstObject];
+        existing.quantity ++;
+    }
+    else{
+        [self.products addObject:product];
+    }
+}
+
+- (int)cartSize{
+    __block int size = 0;
+    [self.products each:^(Product* object) {
+        size += object.quantity;
+    }];
+    
+    return size;
+}
+
+- (NSArray *)expandedCart{
+    NSMutableArray *expanded = [[NSMutableArray alloc]init];
+    [self.products each:^(Product* object) {
+        for (int i = 0; i < object.quantity; i++) {
+            Product *p = [object copy];
+            p.quantity = 1;
+            [expanded addObject:p];
+        }
+    }];
+    
+    return expanded;
+}
+
+- (double)subtotal{
     __block double subTotal = 0;
     [self.products each:^(Product* object) {
         subTotal += [object.price doubleValue];
@@ -36,15 +72,15 @@ static CartManager *sharedInstance;
     return subTotal;
 }
 
--(double)tax{
+- (double)tax{
     return [self subtotal] * 0.13;
 }
 
--(double)shipping{
+- (double)shipping{
     return [[self products] count] * 4.37;
 }
 
--(double)total{
+- (double)total{
     return [self subtotal] + [self tax] + [self shipping];
 }
 @end

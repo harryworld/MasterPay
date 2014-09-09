@@ -86,71 +86,85 @@
     
     NSDictionary *inventory = @{
                                 @"iPad" : @{
+                                        @"id":@1,
                                         @"price":@482.00,
                                         @"imageUrl":@"ipad_mini_hero_black.jpg",
                                         @"desc":@"iPad Air and iPad mini with Retina display available now. Ships free."
                                         },
                                 @"Lenovo IdeaPad Flex": @{
+                                        @"id":@2,
                                         @"price":@489.99,
                                         @"imageUrl":@"IdeaPad-Y500-Laptop-PC-Closeup-Removeable-Drive-9L-940x475.jpg",
                                         @"desc":@"Save up to 40% on IdeaPad Laptops w/ Intel® Core™"
                                         },
                                 @"Samsung Galaxy Tab" : @{
+                                        @"id":@3,
                                         @"price":@199.99,
                                         @"imageUrl":@"samsung-galaxy-tab-city1.jpg",
                                         @"desc":@"Meet the Samsung Galaxy Tab family including Galaxy Tab 10.1, 8.9 and 7.0 Plus. Sort by size or carrier and find the Samsung Tab Android tablet that's right for you."
                                         },
                                 @"Kindle Fire HDX" : @{
+                                        @"id":@4,
                                         @"price":@199.99,
                                         @"imageUrl":@"kindle-fire1.jpg",
                                         @"desc":@"Perfect-color HDX display, plus powerful quad-core processor for fast, fluid performance and immersive entertainment."
                                         },
                                 @"Samsung Gear 2" : @{
+                                        @"id":@5,
                                         @"price":@299.99,
                                         @"imageUrl":@"gear-2-bike.jpg",
                                         @"desc":@"Match the Samsung Gear 2 with your style and mood with more color options to show off your individuality! * Additional straps sold separately."
                                         },
                                 @"Canon EOS Rebel T3i" : @{
+                                        @"id":@6,
                                         @"price":@549.00,
                                         @"imageUrl":@"0.jpg",
                                         @"desc":@"Photographers looking for an easy-to-use camera that will help them create their next masterpiece need look no further than the Canon EOS Rebel T3i."
                                         },
                                 @"HP Chromebook 11" : @{
+                                        @"id":@7,
                                         @"price":@279.99,
                                         @"imageUrl":@"hp-chromebook-11-thumb.jpg",
                                         @"desc":@"Free Shipping On The HP Chromebook. No Wi-Fi Around? No Problem Free 4G"
                                         },
                                 @"Apple iPod touch" : @{
+                                        @"id":@8,
                                         @"price":@220.30,
                                         @"imageUrl":@"display_hero.jpg",
                                         @"desc":@"iPod touch is ultrathin and colorful, plays music and video, rules games, runs apps, makes video calls, takes amazing photos, and shoots HD video."
                                         },
                                 @"PlayStation 4 Console" : @{
+                                        @"id":@9,
                                         @"price":@399.00,
                                         @"imageUrl":@"Sony-Playstation-4-disc.jpg",
                                         @"desc":@"New! PlayStation 4. Free Shipping, Shop & Save Today."
                                         },
                                 @"Nokia Lumia 520" : @{
+                                        @"id":@10,
                                         @"price":@65.60,
                                         @"imageUrl":@"Nokia-Lumia-520-1-2.jpg",
                                         @"desc":@"Nokia Lumia 520 comes with exclusive digital lenses, a super-sensitive touchscreen, and a 1GHz dual core processor."
                                         },
                                 @"Samsung Galaxy S4" : @{
+                                        @"id":@11,
                                         @"price":@49.99,
                                         @"imageUrl":@"samsung-galaxy-s4-polycarbonate-body-macro1.jpg",
                                         @"desc":@"Make your life richer, simpler, and more fun. As a real life companion, the new Samsung GALAXY S4 helps bring us closer and captures those fun moments ..."
                                         },
                                 @"Beats by Dre" : @{
+                                        @"id":@12,
                                         @"price":@299.95,
                                         @"imageUrl":@"tumblr_m9y5jp3Svf1r5eau1o1_500.jpg",
                                         @"desc":@"Browse headphones, earbuds, and other audio devices made with Beats by Dre audio technology and start listening to music the way the artist intended."
                                         },
                                 @"LG 84\" 4K Cinema 3D Smart LED TV" : @{
+                                        @"id":@13,
                                         @"price":@16999.00,
                                         @"imageUrl":@"00_feature_LivRoom.jpg",
                                         @"desc":@"Higher than Full HD with LG UHD 4K!"
                                         },
                                 @"Pebble Smartwatch" : @{
+                                        @"id":@14,
                                         @"price":@149.00,
                                         @"imageUrl":@"images.jpg",
                                         @"desc":@"Discover thousands of apps and watchfaces to customize Pebble to fit your life."
@@ -161,6 +175,8 @@
     [inventory each:^(NSString * name, NSDictionary * attrs){
         Product *product = [Product new];
         product.name = name;
+        product.quantity = 1;
+        product.productId = [[attrs objectForKey:@"id"] intValue];
         product.price = [attrs objectForKey:@"price"];
         product.imageUrl = [attrs objectForKey:@"imageUrl"];
         product.desc = [attrs objectForKey:@"desc"];
@@ -236,7 +252,7 @@
 - (IBAction) initiateAddProduct:(Product*)product toCart:(UIView *)sender fromCell:(UITableViewCell *)cell{
     
     CartManager *manager = [CartManager getInstance];
-    [manager.products addObject:product];
+    [manager addProductToCart:product];
     [self animateViewToCart:sender fromParent:cell];
 }
 
@@ -306,7 +322,7 @@
     [customButton setBackgroundImage:rightImage forState:UIControlStateNormal];
     
     BBBadgeBarButtonItem *rightBarButton = [[BBBadgeBarButtonItem alloc]initWithCustomUIButton:customButton];
-    rightBarButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[CartManager getInstance].products.count];
+    rightBarButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[[CartManager getInstance] cartSize]];
     rightBarButton.shouldAnimateBadge = YES;
     rightBarButton.shouldHideBadgeAtZero = YES;
     rightBarButton.badgePadding = 2.5;

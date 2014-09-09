@@ -22,6 +22,7 @@ static CardManager *sharedInstance;
         sharedInstance = [[CardManager alloc] init];
         sharedInstance.isLinkedToMasterPass = NO;
         sharedInstance.isExpressEnabled = NO;
+        sharedInstance.wantsDelayedPair = NO;
     }
 }
 
@@ -33,14 +34,14 @@ static CardManager *sharedInstance;
     Card *cardOne = [Card new];
     cardOne.lastFour = @"8733";
     cardOne.imageUrl = @"http://dev.starteconome.com/images/wells.jpg";
-    cardOne.iconName = @"blue_cc.png";
+    cardOne.iconName = @"orange_cc.png";
     cardOne.isMasterPass = @1;
     cardOne.expDate = @"03/17";
     
     Card *cardTwo = [Card new];
     cardTwo.lastFour = @"9023";
     cardTwo.imageUrl = @"http://blogs.houstonpress.com/hairballs/Chase-Bank-Logo-Clean.jpeg";
-    cardTwo.iconName = @"black_cc.png";
+    cardTwo.iconName = @"black_cc_mc.png";
     cardTwo.isMasterPass = @1;
     cardTwo.expDate = @"08/15";
     

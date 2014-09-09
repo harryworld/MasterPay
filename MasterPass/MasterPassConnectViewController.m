@@ -7,6 +7,7 @@
 //
 
 #import "MasterPassConnectViewController.h"
+#import "CardManager.h"
 
 @interface MasterPassConnectViewController ()
 @property(nonatomic, weak) IBOutlet UIWebView *webview;
@@ -18,15 +19,19 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     self.webview.delegate = self;
-    self.webview.userInteractionEnabled = YES;
-    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL fileURLWithPath:self.path]];
-    [self.webview loadRequest:request];
+    
+    NSString *file = self.checkoutAuth ? @"mp_password" : @"mp_wallet";
+    
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:file ofType:@"html" inDirectory:@"public"]];
+    [self.webview loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 -(IBAction)done{
     [self dismissViewControllerAnimated:YES completion:^{
         NSNotification* notification = [NSNotification notificationWithName:@"ConnectedMasterPass" object:self];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
+        CardManager *manager = [CardManager getInstance];
+        manager.wantsDelayedPair = YES;
     }];
 }
 -(IBAction)cancel{
@@ -37,33 +42,44 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webview{
     
     /*
-     * This is a hack to allow the user to tap the webview on the last 
-     * page and close it. This functionality will be replaced with real
-     * SDK methods, when those are available, which will hopefully
-     * be using some sort of Obj-C/Javascript triggering.
-     *
+     * We have successfully paired!
+     * Add code to confirm pairing here
      */
     
-    NSString *currentUrl = webview.request.mainDocumentURL.absoluteString;
+    CardManager *manager = [CardManager getInstance];
     
-    NSArray *docs = @[@"mp3",@"mp4-express",@"mp5-express-checkout",@"mp4-checkout"]; // these are the end pages
-    NSMutableArray *paths = [[NSMutableArray alloc]init];
+    NSString *command = [NSString stringWithFormat:@"updatePage({\"express\":%@,\"checkout\":%@,\"profile\":%@,\"paired\":%@});",stringForBool(manager.isExpressEnabled),stringForBool(self.checkoutAuth),stringForBool(self.profileAuth),stringForBool(manager.isLinkedToMasterPass)];
     
-    [docs each:^(NSString * doc) {
-        [paths addObject:[[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:doc ofType:@"html"]] absoluteString]];
-    }];
+    NSLog(@"%@",command);
     
-    if ([paths includes:currentUrl]) {
-        // We are on an end page
-        UIView *tapView = [[UIView alloc]initWithFrame:CGRectZero];
-        [self.view addSubview:tapView];
-        [tapView makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
-        }];
+    [webview stringByEvaluatingJavaScriptFromString:command];
+    
+}
+
+NSString* stringForBool(BOOL option){
+    return option ? @"true" : @"false";
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
+    if ([request.URL.scheme isEqualToString:@"masterpass"]){
+        if ([request.URL.host isEqualToString:@"pair"]) {
+            [self pair];
+        }
+        else if([request.URL.host isEqualToString:@"checkout"]){
+            [self authorizeCheckout];
+        }
         
-        [tapView bk_whenTapped:^{
-            [self done];
-        }];
+        return NO;
     }
+    return YES;
+}
+
+-(void)pair{
+    [self done];
+}
+-(void)authorizeCheckout{
+    [self done];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConfirmOrder" object:nil];
 }
 @end

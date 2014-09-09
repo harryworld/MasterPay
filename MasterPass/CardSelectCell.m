@@ -184,8 +184,8 @@
         [cardNumber makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@20);
             make.width.equalTo(cardImage);
-            make.left.equalTo(cardImage).with.offset(15);
-            make.centerY.equalTo(cardImage).with.offset(5);
+            make.left.equalTo(cardImage).with.offset(12);
+            make.centerY.equalTo(cardImage).with.offset(7);
         }];
         
         expDate = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -198,7 +198,7 @@
             make.height.equalTo(@15);
             make.width.equalTo(@40);
             make.left.equalTo(cardImage).with.offset(12);
-            make.bottom.equalTo(cardImage).with.offset(-2);
+            make.bottom.equalTo(cardImage).with.offset(-3);
         }];
         
         cardHolder = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -212,7 +212,7 @@
             make.height.equalTo(@15);
             make.width.equalTo(@60);
             make.left.equalTo(cardImage).with.offset(12);
-            make.bottom.equalTo(expDate.top).with.offset(3);
+            make.bottom.equalTo(expDate.top).with.offset(5);
         }];
     }
     else
@@ -244,10 +244,13 @@
         cardHolder.hidden = NO;
     }
     else {
-        cardImage.image = [UIImage imageNamed:@"orange_cc.png"];
-        cardNumber.hidden = YES;
-        expDate.hidden = YES;
-        cardHolder.hidden = YES;
+        cardImage.image = [UIImage imageNamed:@"blue_cc.png"];
+        cardNumber.hidden = NO;
+        expDate.hidden = NO;
+        cardHolder.hidden = NO;
+        cardNumber.text = @" 0000 0000 0000 0000";
+        expDate.text = @"00/00";
+        cardHolder.text = @"NAME";
     }
 
     return view;

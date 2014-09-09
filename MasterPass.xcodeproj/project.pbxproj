@@ -35,7 +35,6 @@
 		C38B36D4190E55A000FBB01C /* MasterPassConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36D3190E55A000FBB01C /* MasterPassConnectViewController.m */; };
 		C38B36D7190E5F2D00FBB01C /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36D6190E5F2D00FBB01C /* UserProfileViewController.m */; };
 		C38B3AFB1919485700FBB01C /* ProductPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B3AFA1919485700FBB01C /* ProductPreviewCell.m */; };
-		C38B3B10191A7AEB00FBB01C /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B3B0F191A7AEB00FBB01C /* Constants.m */; };
 		C38B3B14191A7EEE00FBB01C /* UIColor+ExtendedColors.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B3B13191A7EEE00FBB01C /* UIColor+ExtendedColors.m */; };
 		C39007D01924D44200902B6E /* SubtotalItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C39007CF1924D44200902B6E /* SubtotalItemCell.m */; };
 		C39007D31924D76C00902B6E /* CardSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C39007D21924D76C00902B6E /* CardSelectCell.m */; };
@@ -123,6 +122,10 @@
 		C3B1075C192279710045EBC0 /* ICSDropShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1075A192279710045EBC0 /* ICSDropShadowView.m */; };
 		C3B1076019227F9B0045EBC0 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1075F19227F9B0045EBC0 /* LogInViewController.m */; };
 		C3B107621922A34C0045EBC0 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B107611922A34C0045EBC0 /* logo.png */; };
+		C3BB757E19AFD48E00A7DE29 /* public in Resources */ = {isa = PBXBuildFile; fileRef = C3BB757D19AFD48E00A7DE29 /* public */; };
+		C3BB758019B0B93100A7DE29 /* black_cc_mc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB757F19B0B93100A7DE29 /* black_cc_mc@2x.png */; };
+		C3BB758219B0B97500A7DE29 /* blue_cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB758119B0B97500A7DE29 /* blue_cc@2x.png */; };
+		C3BB758419B0B99D00A7DE29 /* orange_cc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3BB758319B0B99D00A7DE29 /* orange_cc@2x.png */; };
 		C3D909431922265600F6630D /* CartProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D909421922265600F6630D /* CartProductCell.m */; };
 		C3F516F41946152A0035570A /* TableTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F516F31946152A0035570A /* TableTitleCell.m */; };
 		C3F516F9194639000035570A /* BoldTotalItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F516F8194639000035570A /* BoldTotalItemCell.m */; };
@@ -188,8 +191,6 @@
 		C38B36D6190E5F2D00FBB01C /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		C38B3AF91919485700FBB01C /* ProductPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPreviewCell.h; sourceTree = "<group>"; };
 		C38B3AFA1919485700FBB01C /* ProductPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPreviewCell.m; sourceTree = "<group>"; };
-		C38B3B0E191A7AEB00FBB01C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		C38B3B0F191A7AEB00FBB01C /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		C38B3B12191A7EEE00FBB01C /* UIColor+ExtendedColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ExtendedColors.h"; sourceTree = "<group>"; };
 		C38B3B13191A7EEE00FBB01C /* UIColor+ExtendedColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ExtendedColors.m"; sourceTree = "<group>"; };
 		C39007CE1924D44200902B6E /* SubtotalItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubtotalItemCell.h; sourceTree = "<group>"; };
@@ -297,6 +298,10 @@
 		C3B1075E19227F9B0045EBC0 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		C3B1075F19227F9B0045EBC0 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		C3B107611922A34C0045EBC0 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = Images/logo.png; sourceTree = "<group>"; };
+		C3BB757D19AFD48E00A7DE29 /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; name = public; path = webviews/public; sourceTree = SOURCE_ROOT; };
+		C3BB757F19B0B93100A7DE29 /* black_cc_mc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black_cc_mc@2x.png"; sourceTree = "<group>"; };
+		C3BB758119B0B97500A7DE29 /* blue_cc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue_cc@2x.png"; sourceTree = "<group>"; };
+		C3BB758319B0B99D00A7DE29 /* orange_cc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange_cc@2x.png"; sourceTree = "<group>"; };
 		C3D909411922265600F6630D /* CartProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartProductCell.h; sourceTree = "<group>"; };
 		C3D909421922265600F6630D /* CartProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartProductCell.m; sourceTree = "<group>"; };
 		C3F516F21946152A0035570A /* TableTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableTitleCell.h; sourceTree = "<group>"; };
@@ -414,8 +419,8 @@
 		C3212D321906BE460072BA80 /* MasterPass */ = {
 			isa = PBXGroup;
 			children = (
+				C3BB757D19AFD48E00A7DE29 /* public */,
 				C38B3B11191A7ECD00FBB01C /* Categories */,
-				C38B3B0A191A7A3300FBB01C /* Constants */,
 				C31C83B0192D451D0093751D /* Navigation Controllers */,
 				C38B3B07191A77E200FBB01C /* Objects */,
 				C38B3B08191A77F300FBB01C /* Resources */,
@@ -600,8 +605,10 @@
 				C390082719266A6B00902B6E /* bank-logo.png */,
 				C390082819266A6B00902B6E /* black_cc.png */,
 				C3F5173A1951E9DE0035570A /* black_cc_mc.png */,
+				C3BB757F19B0B93100A7DE29 /* black_cc_mc@2x.png */,
 				C3950E9E193E3AB80042437A /* black_cc_mp.png */,
 				C390082919266A6B00902B6E /* blue_cc.png */,
+				C3BB758119B0B97500A7DE29 /* blue_cc@2x.png */,
 				C3900825192654F200902B6E /* buy-with-masterpass.png */,
 				C3900849192A309300902B6E /* connect_with_masterpass.png */,
 				AAB2E5A61986086C0026934A /* mp_password_checkout.png */,
@@ -626,18 +633,10 @@
 				C3212D3E1906BE460072BA80 /* Main.storyboard */,
 				C39007E61925084100902B6E /* masterpass-small-logo.png */,
 				C390084319297DF500902B6E /* orange_cc.png */,
+				C3BB758319B0B99D00A7DE29 /* orange_cc@2x.png */,
 				C39007F419253BEF00902B6E /* PairingSite */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		C38B3B0A191A7A3300FBB01C /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				C38B3B0E191A7AEB00FBB01C /* Constants.h */,
-				C38B3B0F191A7AEB00FBB01C /* Constants.m */,
-			);
-			name = Constants;
 			sourceTree = "<group>";
 		};
 		C38B3B11191A7ECD00FBB01C /* Categories */ = {
@@ -1017,6 +1016,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3BB757E19AFD48E00A7DE29 /* public in Resources */,
 				C3212D451906BE470072BA80 /* Images.xcassets in Resources */,
 				C3B107621922A34C0045EBC0 /* logo.png in Resources */,
 				C3950EA1193E43200042437A /* mp-checkout.png in Resources */,
@@ -1028,10 +1028,12 @@
 				C39008181926411F00902B6E /* Icon-76@2x.png in Resources */,
 				C390085D192A65E500902B6E /* mp-checkout.jpeg in Resources */,
 				C3950ECF193E4D760042437A /* display_hero.jpg in Resources */,
+				C3BB758219B0B97500A7DE29 /* blue_cc@2x.png in Resources */,
 				C390085E192A65E500902B6E /* mp1-checkout.html in Resources */,
 				C39007FE19253BEF00902B6E /* mp_1.jpeg in Resources */,
 				C3212D371906BE460072BA80 /* InfoPlist.strings in Resources */,
 				C39007FD19253BEF00902B6E /* mp3.html in Resources */,
+				C3BB758019B0B93100A7DE29 /* black_cc_mc@2x.png in Resources */,
 				C3950ED0193E4D760042437A /* gear-2-bike.jpg in Resources */,
 				C39008161926411F00902B6E /* Icon-72@2x.png in Resources */,
 				C3212D401906BE460072BA80 /* Main.storyboard in Resources */,
@@ -1076,6 +1078,7 @@
 				C3900864192A65E500902B6E /* mp4-checkout.html in Resources */,
 				C3900850192A4C5B00902B6E /* mp2-express.html in Resources */,
 				C39007FB19253BEF00902B6E /* mp1.html in Resources */,
+				C3BB758419B0B99D00A7DE29 /* orange_cc@2x.png in Resources */,
 				C3950ED5193E4D760042437A /* kindle-fire1.jpg in Resources */,
 				C3F5173B1951E9DE0035570A /* black_cc_mc.png in Resources */,
 				C3900861192A65E500902B6E /* mp2-express-checkout.html in Resources */,
@@ -1143,7 +1146,6 @@
 				C31C83AF192D41B40093751D /* BaseNavigationController.m in Sources */,
 				C390086A192AA37B00902B6E /* ContinueShoppingCell.m in Sources */,
 				C39007E11924EC6600902B6E /* SubtotalTitleItemCell.m in Sources */,
-				C38B3B10191A7AEB00FBB01C /* Constants.m in Sources */,
 				C3F901971923BE4C00400BF3 /* BaseViewController.m in Sources */,
 				C390083E1926CFE600902B6E /* SettingsViewController.m in Sources */,
 				C38B36D4190E55A000FBB01C /* MasterPassConnectViewController.m in Sources */,
