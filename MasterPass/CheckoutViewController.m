@@ -62,6 +62,16 @@
     
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    // If we have a delayed pair - lets pair now
+    
+    CardManager *manager = [CardManager getInstance];
+    if (manager.wantsDelayedPair) {
+        manager.isLinkedToMasterPass = YES;
+        manager.wantsDelayedPair = NO;
+    }
+}
+
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }

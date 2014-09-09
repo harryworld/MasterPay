@@ -30,6 +30,8 @@
     [self dismissViewControllerAnimated:YES completion:^{
         NSNotification* notification = [NSNotification notificationWithName:@"ConnectedMasterPass" object:self];
         [[NSNotificationCenter defaultCenter] postNotification:notification];
+        CardManager *manager = [CardManager getInstance];
+        manager.wantsDelayedPair = YES;
     }];
 }
 -(IBAction)cancel{
@@ -46,13 +48,18 @@
     
     CardManager *manager = [CardManager getInstance];
     
-    NSString *command = [NSString stringWithFormat:@"updateLinks({\"express\":%@,\"checkout\":%@});",manager.isExpressEnabled ? @"true" : @"false",self.checkoutAuth ? @"true" : @"false"];
+    NSString *command = [NSString stringWithFormat:@"updatePage({\"express\":%@,\"checkout\":%@,\"profile\":%@,\"paired\":%@});",stringForBool(manager.isExpressEnabled),stringForBool(self.checkoutAuth),stringForBool(self.profileAuth),stringForBool(manager.isLinkedToMasterPass)];
     
     NSLog(@"%@",command);
     
     [webview stringByEvaluatingJavaScriptFromString:command];
     
 }
+
+NSString* stringForBool(BOOL option){
+    return option ? @"true" : @"false";
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
     if ([request.URL.scheme isEqualToString:@"masterpass"]){

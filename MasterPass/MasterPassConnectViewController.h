@@ -11,4 +11,5 @@
 @interface MasterPassConnectViewController : UIViewController <UIWebViewDelegate>
 @property (nonatomic, strong)NSString *path;
 @property (nonatomic, assign)BOOL checkoutAuth;
+@property (nonatomic, assign)BOOL profileAuth;
 @end

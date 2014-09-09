@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Product : NSObject
+@interface Product : NSObject <NSCopying>
+@property(nonatomic, assign) int productId;
 @property(nonatomic, strong) NSString * name;
 @property(nonatomic, strong) NSString * imageUrl;
 @property(nonatomic, strong) NSNumber * price;
 @property(nonatomic, strong) NSString * desc;
+@property(nonatomic, assign) int quantity;
 
 @end

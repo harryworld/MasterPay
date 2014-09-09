@@ -22,6 +22,7 @@ static CardManager *sharedInstance;
         sharedInstance = [[CardManager alloc] init];
         sharedInstance.isLinkedToMasterPass = NO;
         sharedInstance.isExpressEnabled = NO;
+        sharedInstance.wantsDelayedPair = NO;
     }
 }
 

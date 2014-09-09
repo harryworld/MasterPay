@@ -50,14 +50,10 @@
     else {
         [self performSegueWithIdentifier:@"MPConnect" sender:nil
                                withBlock:^(id sender, id destinationVC) {
+                                   NSLog(@"Hello world");
                                    CardManager *cm = [CardManager getInstance];
                                    MasterPassConnectViewController *dest = [[((UINavigationController *)destinationVC) viewControllers] firstObject];
-                                   unless (cm.isExpressEnabled) {
-                                       dest.path = [[NSBundle mainBundle] pathForResource:@"mp1" ofType:@"html"];
-                                   }
-                                   else {
-                                       dest.path = [[NSBundle mainBundle] pathForResource:@"mp1-express" ofType:@"html"];
-                                   }
+                                   dest.profileAuth = TRUE;
                                }];
     }
 }

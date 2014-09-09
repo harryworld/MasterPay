@@ -123,16 +123,7 @@
 
 #pragma mark - Pairing Flow
 -(void)startPair{
-    [self performSegueWithIdentifier:@"MPConnect" sender:nil withBlock:^(id sender, id destinationVC) {
-        CardManager *cm = [CardManager getInstance];
-        MasterPassConnectViewController *dest = [[((BaseNavigationController *)destinationVC) viewControllers] firstObject];
-        unless(cm.isExpressEnabled) {
-            dest.path = [[NSBundle mainBundle] pathForResource:@"mp1-checkout" ofType:@"html"];
-        }
-        else {
-            dest.path = [[NSBundle mainBundle] pathForResource:@"mp1-express-checkout" ofType:@"html"];
-        }
-    }];
+    [self performSegueWithIdentifier:@"MPConnect" sender:nil];
 }
 
 -(void)oneTimePairingComplete{
