@@ -53,7 +53,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (processOrder:) name:@"order_processed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (popToRoot) name:@"StartOver" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (confirmOrder ) name:@"ConfirmOrder" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (confirmOrder) name:@"ConfirmOrder" object:nil];
     
     CardManager *cm = [CardManager getInstance];
     self.selectedShippingInfo = [[cm shippingDetails] firstObject];
@@ -93,6 +93,7 @@
     else {
         self.buttonType = kButtonTypeProcess;
     }
+    NSLog(@"switchCards reload");
     [self.containerTable reloadData];
 }
 -(void)addCard:(NSNotification *)notification{
@@ -120,7 +121,6 @@
     else {
         self.selectedShippingInfo = nil;
     }
-    [self.containerTable reloadData];
 }
 
 #pragma mark - Card Types
@@ -176,7 +176,6 @@
     self.oneTimePairedCard = cm.cards.firstObject;
     [self selectShipping:0];
     self.buttonType = kButtonTypeProcess;
-    [self.containerTable reloadData];
 }
 
 -(void)confirmOrder {

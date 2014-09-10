@@ -23,4 +23,5 @@ typedef enum CheckoutAlertType {
 @property(nonatomic, assign)BOOL isPairing;
 
 -(void)selectShipping:(int)index;
+-(void)confirmOrder;
 @end

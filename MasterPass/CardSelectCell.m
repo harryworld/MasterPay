@@ -102,7 +102,7 @@
 
         }
         
-        [self refreshCurrentCardUI:self.cardSwipeView];
+        //[self refreshCurrentCardUI:self.cardSwipeView];
         
     };
     return self;
@@ -286,6 +286,7 @@
         [self.providerImage setImage:[UIImage imageNamed:@"bank-logo.png"]];
         
         // Selected card
+        NSLog(@"Notification Sent");
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutCardSelected" object:nil userInfo:@{@"card":[[cm cards] objectAtIndex:swipeView.currentPage],@"index":[NSNumber numberWithInteger:swipeView.currentPage]}];
     }
     else if((!cm.isLinkedToMasterPass) && (swipeView.currentPage == 0) && self.showsMPPair){
