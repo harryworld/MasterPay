@@ -447,12 +447,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="95M-Bb-1aU" firstAttribute="leading" secondItem="aFf-Je-agW" secondAttribute="leading" id="D4b-Kp-uEA"/>
-                            <constraint firstAttribute="trailing" secondItem="95M-Bb-1aU" secondAttribute="trailing" id="PfQ-9o-L0v"/>
-                            <constraint firstAttribute="centerX" secondItem="95M-Bb-1aU" secondAttribute="centerX" id="YC8-7j-y99"/>
-                            <constraint firstItem="95M-Bb-1aU" firstAttribute="top" secondItem="aFf-Je-agW" secondAttribute="top" id="et4-He-42G"/>
-                            <constraint firstItem="CI4-yP-ONR" firstAttribute="top" secondItem="95M-Bb-1aU" secondAttribute="bottom" id="mse-5r-Jam"/>
-                            <constraint firstAttribute="centerY" secondItem="95M-Bb-1aU" secondAttribute="centerY" id="nLD-6w-bfg"/>
+                            <constraint firstItem="95M-Bb-1aU" firstAttribute="leading" secondItem="aFf-Je-agW" secondAttribute="leading" id="5Dv-Jg-JcC"/>
+                            <constraint firstItem="95M-Bb-1aU" firstAttribute="top" secondItem="aFf-Je-agW" secondAttribute="top" id="WdA-WB-OCj"/>
+                            <constraint firstAttribute="trailing" secondItem="95M-Bb-1aU" secondAttribute="trailing" id="bMi-qw-3Fm"/>
+                            <constraint firstAttribute="bottom" secondItem="95M-Bb-1aU" secondAttribute="bottom" id="fH6-tY-z0z"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Checkout" id="1Rv-d4-cMo"/>

@@ -48,7 +48,7 @@
     
     CardManager *manager = [CardManager getInstance];
     
-    NSString *command = [NSString stringWithFormat:@"updatePage({\"express\":%@,\"checkout\":%@,\"profile\":%@,\"paired\":%@});",stringForBool(manager.isExpressEnabled),stringForBool(self.checkoutAuth),stringForBool(self.profileAuth),stringForBool(manager.isLinkedToMasterPass)];
+    NSString *command = [NSString stringWithFormat:@"updatePage({\"express\":%@,\"checkout\":%@,\"profile\":%@,\"paired\":%@,\"app_name\":\"%@\"});",stringForBool(manager.isExpressEnabled),stringForBool(self.checkoutAuth),stringForBool(self.profileAuth),stringForBool(manager.isLinkedToMasterPass), @"Gadget Shop"];
     
     NSLog(@"%@",command);
     
@@ -79,7 +79,12 @@ NSString* stringForBool(BOOL option){
     [self done];
 }
 -(void)authorizeCheckout{
-    [self done];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConfirmOrder" object:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSNotification* notification = [NSNotification notificationWithName:@"ConnectedMasterPass" object:self];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConfirmOrder" object:nil];
+        CardManager *manager = [CardManager getInstance];
+        manager.wantsDelayedPair = YES;
+    }];
 }
 @end
