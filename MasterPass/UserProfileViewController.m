@@ -33,6 +33,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (learnMore) name:@"mp_learn_more" object:nil];
 }
 
+- (void) viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    self.profileTable.layoutMargins = UIEdgeInsetsZero;
+}
+
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
@@ -159,7 +165,6 @@
     if (indexPath.section == 0) {
         
         TextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:textFieldCellId];
-        
         if (cell == nil)
         {
             cell = [[TextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault
@@ -187,6 +192,7 @@
                 break;
         }
         
+        cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
     }
@@ -194,37 +200,37 @@
         CardManager *cm = [CardManager getInstance];
         if (cm.isLinkedToMasterPass) {
             MPLinkedCell *cell = [tableView dequeueReusableCellWithIdentifier:linkedCell];
-            
             if (cell == nil)
             {
                 cell = [[MPLinkedCell alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:linkedCell];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
+            cell.layoutMargins = UIEdgeInsetsZero;
             return cell;
         }
         else {
             MPConnectCell *cell = [tableView dequeueReusableCellWithIdentifier:processCellId];
-            
             if (cell == nil)
             {
                 cell = [[MPConnectCell alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:processCellId];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
+            cell.layoutMargins = UIEdgeInsetsZero;
             return cell;
         }
         
     }
     else if (indexPath.section == 2) {
         MPLearnMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:learnmoreCell];
-        
         if (cell == nil)
         {
             cell = [[MPLearnMoreCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:learnmoreCell];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
     }

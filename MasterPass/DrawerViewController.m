@@ -19,6 +19,7 @@
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 20)];
@@ -52,6 +53,7 @@
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     
     switch (indexPath.row) {
         case 0:{
@@ -88,6 +90,8 @@
             break;
     }
     
+    cell.layoutMargins = UIEdgeInsetsZero;
+    
     return cell;
 }
 
@@ -122,4 +126,12 @@
             break;
     }
 }
+
+- (void) viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    
+    self.tableView.layoutMargins = UIEdgeInsetsZero;
+}
+
 @end

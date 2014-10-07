@@ -651,7 +651,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uq8-zK-A7V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1287" y="-447"/>
+            <point key="canvasLocation" x="-1271" y="-483"/>
         </scene>
         <!--Log In View Controller-->
         <scene sceneID="G5M-tL-7x7">
@@ -900,7 +900,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="67m-17-n5F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1558" y="-499"/>
+            <point key="canvasLocation" x="-1664" y="-483"/>
         </scene>
         <!--MasterPass Connect-->
         <scene sceneID="k46-wS-DpW">
@@ -959,6 +959,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="a71-pe-j2a"/>
-        <segue reference="bwB-uO-QNT"/>
+        <segue reference="PWc-bV-pOb"/>
     </inferredMetricsTieBreakers>
 </document>

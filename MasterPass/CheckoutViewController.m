@@ -62,6 +62,12 @@
     
 }
 
+- (void) viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    self.containerTable.layoutMargins = UIEdgeInsetsZero;
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
     // If we have a delayed pair - lets pair now
     
@@ -374,6 +380,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.textLabel.text = @"Sub Total";
+        cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
     }
@@ -407,7 +414,7 @@
                 cell.detailTextLabel.text = nil;
                 break;
         }
-        
+        cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
     }
@@ -423,6 +430,7 @@
         }
         cell.textLabel.text = @"Total";
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ USD",[self formatCurrency:[NSNumber numberWithDouble:[cm total]]]];
+        cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
     }
@@ -437,6 +445,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.showsMPPair = self.oneTimePairedCard ? true : false;
+        cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
     }
@@ -510,7 +519,7 @@
                     break;
             }
         }
-        
+        cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
     }
@@ -537,7 +546,7 @@
         else {
             cell.textView.text = nil;
         }
-        
+        cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
     }
@@ -557,6 +566,7 @@
         cell.textView.scrollEnabled = NO;
         cell.contentView.backgroundColor = [UIColor superLightGreyColor];
         cell.textView.backgroundColor = [UIColor superLightGreyColor];
+        cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
     }
@@ -572,7 +582,7 @@
         }
         self.processOrderCell = cell;
         [cell setButtonType:self.buttonType];
-        
+        cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
     }

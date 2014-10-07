@@ -36,6 +36,11 @@
     [cm.products removeAllObjects];
 }
 
+- (void) viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.confirmationTable.layoutMargins = UIEdgeInsetsZero;
+}
+
 -(void)setPurchasedWithMP:(BOOL)purchasedWithMP{
     _purchasedWithMP = purchasedWithMP;
     [self.confirmationTable reloadData];
@@ -91,7 +96,7 @@
     if (indexPath.section == 0) {
         
         TableTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:titleCellId];
-        
+        cell.layoutMargins = UIEdgeInsetsZero;
         if (cell == nil)
         {
             cell = [[TableTitleCell alloc] initWithStyle:UITableViewCellStyleDefault

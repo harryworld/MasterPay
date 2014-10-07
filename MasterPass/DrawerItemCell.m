@@ -30,7 +30,10 @@
         
         self.iconView = [[UIImageView alloc]initWithFrame:CGRectMake(padding, padding, imageSizeLength, imageSizeLength)];
         [self.contentView addSubview:self.iconView];
+        
     };
     return self;
 }
+
+
 @end

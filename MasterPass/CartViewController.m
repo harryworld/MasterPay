@@ -174,6 +174,7 @@
     Product *product = (Product*)[[manager products] objectAtIndex:indexPath.row];
     cell.product = product;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.layoutMargins = UIEdgeInsetsZero;
     return cell;
 }
 
@@ -187,5 +188,12 @@
     CheckoutViewController *checkout = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
     NSLog(@"%@",self.navigationController.viewControllers);
     [self.navigationController pushViewController:checkout animated:YES];
+}
+
+- (void) viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    
+    self.cartTable.layoutMargins = UIEdgeInsetsZero;
 }
 @end
