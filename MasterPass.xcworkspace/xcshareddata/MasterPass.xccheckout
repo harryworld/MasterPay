@@ -10,31 +10,43 @@
 	<string>MasterPass</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>72F9A9D5-B167-44CB-887A-562FE114873D</key>
+		<key>5A86244848327ACD4EC22F70C3CB1CDD38D0D020</key>
+		<string>https://github.com/ap-customer-mc-org/MasterPass-WebViews.git</string>
+		<key>EA33F5D6900DDC5B2CACEA082161CA372B3E4B1B</key>
 		<string>https://github.com/ap-customer-mc/MasterPass-GadgetShop-demo.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>MasterPass.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>72F9A9D5-B167-44CB-887A-562FE114873D</key>
+		<key>5A86244848327ACD4EC22F70C3CB1CDD38D0D020</key>
+		<string>../webviews</string>
+		<key>EA33F5D6900DDC5B2CACEA082161CA372B3E4B1B</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/ap-customer-mc/MasterPass-GadgetShop-demo.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>72F9A9D5-B167-44CB-887A-562FE114873D</string>
+	<string>EA33F5D6900DDC5B2CACEA082161CA372B3E4B1B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>72F9A9D5-B167-44CB-887A-562FE114873D</string>
+			<string>EA33F5D6900DDC5B2CACEA082161CA372B3E4B1B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MasterPass-GadgetShop-demo</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5A86244848327ACD4EC22F70C3CB1CDD38D0D020</string>
+			<key>IDESourceControlWCCName</key>
+			<string>webviews</string>
 		</dict>
 	</array>
 </dict>

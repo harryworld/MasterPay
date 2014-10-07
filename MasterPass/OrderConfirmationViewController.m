@@ -58,7 +58,7 @@
         case 1:return 1;
         case 2:{
             CartManager *cm = [CartManager getInstance];
-            return [[cm expandedCart] count];
+            return [[cm products] count];
         }
         case 3:return 1;
         case 4:return 1;
@@ -136,9 +136,13 @@
         }
         
         CartManager *cm = [CartManager getInstance];
-        [cell setProduct:(Product *)[[cm expandedCart] objectAtIndex:indexPath.row]];
+        [cell setProduct:(Product *)[[cm products] objectAtIndex:indexPath.row]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
         cell.productName.textColor = [UIColor deepBlueColor];
+        cell.productQuant.textColor = [UIColor deepBlueColor];
+        [cell.productName setFont:[UIFont boldSystemFontOfSize:14]];
+        [cell.productPrice setFont:[UIFont boldSystemFontOfSize:12]];
+        [cell.productQuant setFont:[UIFont systemFontOfSize:12]];
         [cell.productImage.layer setBorderWidth:0];
         [cell.productImage.layer setBorderColor:nil];
         [cell.productImage.layer setCornerRadius:0];
