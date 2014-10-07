@@ -14,6 +14,7 @@
 @property(nonatomic, strong) NSMutableArray *products;
 
 + (CartManager *) getInstance;
+- (void)cleanCart;
 - (int)cartSize;
 - (void)addProductToCart:(Product *)product;
 - (NSArray *)expandedCart; //returns cart as multiple objects (dupes) with quant 1

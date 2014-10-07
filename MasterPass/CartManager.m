@@ -41,6 +41,13 @@ static CartManager *sharedInstance;
     }
 }
 
+- (void)cleanCart{
+    for (Product *product in self.products) {
+        product.quantity = 1;
+    }
+    [self.products removeAllObjects];
+}
+
 - (int)cartSize{
     __block int size = 0;
     [self.products each:^(Product* object) {

@@ -216,6 +216,8 @@
 
 -(void)popToRoot{
     [self.navigationController popToRootViewControllerAnimated:NO];
+    CartManager *cm = [CartManager getInstance];
+    [cm cleanCart];
 }
 
 #pragma mark - UITableView Delegate
