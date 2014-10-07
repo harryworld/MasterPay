@@ -180,7 +180,7 @@
                 break;
             case 1:
                 cell.textLabel.text = @"Email";
-                cell.textField.text = @"s.smith@gmail.com";
+                cell.textField.text = @"s.smith@mastercard.com";
                 break;
             case 2:
                 cell.textLabel.text = @"Phone";

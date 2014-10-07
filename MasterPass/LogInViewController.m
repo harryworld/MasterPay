@@ -54,6 +54,8 @@
     [self.passwordContainer.layer setBorderWidth:1];
     
     
+    self.usernameField.text = @"s.smith@mastercard.com";
+    
     FAKFontAwesome *usernameIcon = [FAKFontAwesome userIconWithSize:20];
     [usernameIcon addAttribute:NSForegroundColorAttributeName value:[UIColor fireOrangeColor]];
     self.usernameImage.image = [usernameIcon imageWithSize:CGSizeMake(20, 20)];
@@ -85,15 +87,6 @@
     self.rememberPassword.checkColor = [UIColor blackColor];
     self.rememberPassword.strokeColor = [UIColor superGreyColor];
     [self.container addSubview:self.rememberPassword];
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *username = [prefs stringForKey:@"username"];
-    NSString *password = [prefs stringForKey:@"password"];
-    if (username && password) {
-        self.usernameField.text = username;
-        self.passwordField.text = password;
-        
-    }
     
     [self.signInButton bk_addEventHandler:^(id sender) {
         [self authenticate];
