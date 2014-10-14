@@ -125,8 +125,10 @@
         CardManager *cm = [CardManager getInstance];
         return [[cm cards] count] + 1;
     }
-    else if (self.showsMPPair){
+    else if (self.showsMPPair && !cm.wantsDelayedPair){
         return 2;
+    }else if(cm.wantsDelayedPair){
+        return 1;
     }
     else {
         return 1;
