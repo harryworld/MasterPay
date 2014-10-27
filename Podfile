@@ -1,5 +1,6 @@
 platform :ios, '6.0'
 xcodeproj 'MasterPass'
+source 'https://github.com/CocoaPods/Specs.git'
 
 pod 'ObjectiveSugar'
 pod 'KLScrollSelect', :git => 'https://github.com/AnyPresence-Services/KLScrollSelect.git', :branch => 'No-Autoscroll'

@@ -27,6 +27,8 @@
 		C3212D4E1906BE470072BA80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3212D301906BE460072BA80 /* UIKit.framework */; };
 		C3212D561906BE470072BA80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3212D541906BE470072BA80 /* InfoPlist.strings */; };
 		C3212D581906BE470072BA80 /* MasterPassTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3212D571906BE470072BA80 /* MasterPassTests.m */; };
+		C35E060019FDEBB700D93415 /* APResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C35E05FE19FDEBB600D93415 /* APResources.bundle */; };
+		C35E060119FDEBB700D93415 /* APSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35E05FF19FDEBB600D93415 /* APSDK.framework */; };
 		C38B36C5190DD0C800FBB01C /* ProductsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36C4190DD0C800FBB01C /* ProductsListViewController.m */; };
 		C38B36C8190DD19A00FBB01C /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36C7190DD19A00FBB01C /* Product.m */; };
 		C38B36CB190DDD6000FBB01C /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36CA190DDD6000FBB01C /* CartViewController.m */; };
@@ -176,6 +178,8 @@
 		C3212D531906BE470072BA80 /* MasterPassTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MasterPassTests-Info.plist"; sourceTree = "<group>"; };
 		C3212D551906BE470072BA80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C3212D571906BE470072BA80 /* MasterPassTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterPassTests.m; sourceTree = "<group>"; };
+		C35E05FE19FDEBB600D93415 /* APResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = APResources.bundle; sourceTree = "<group>"; };
+		C35E05FF19FDEBB600D93415 /* APSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = APSDK.framework; sourceTree = "<group>"; };
 		C38B36C3190DD0C800FBB01C /* ProductsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsListViewController.h; sourceTree = "<group>"; };
 		C38B36C4190DD0C800FBB01C /* ProductsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsListViewController.m; sourceTree = "<group>"; };
 		C38B36C6190DD19A00FBB01C /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 				C3212D2F1906BE460072BA80 /* CoreGraphics.framework in Frameworks */,
 				C3212D311906BE460072BA80 /* UIKit.framework in Frameworks */,
 				C3212D2D1906BE460072BA80 /* Foundation.framework in Frameworks */,
+				C35E060119FDEBB700D93415 /* APSDK.framework in Frameworks */,
 				936E59227FEB448A801A00EA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +422,8 @@
 		C3212D2B1906BE460072BA80 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C35E05FE19FDEBB600D93415 /* APResources.bundle */,
+				C35E05FF19FDEBB600D93415 /* APSDK.framework */,
 				C3212D2C1906BE460072BA80 /* Foundation.framework */,
 				C3212D2E1906BE460072BA80 /* CoreGraphics.framework */,
 				C3212D301906BE460072BA80 /* UIKit.framework */,
@@ -1074,6 +1081,7 @@
 				C390081F1926411F00902B6E /* iTunesArtwork.png in Resources */,
 				C3950ECE193E4D760042437A /* 0.jpg in Resources */,
 				C39008151926411F00902B6E /* Icon-72.png in Resources */,
+				C35E060019FDEBB700D93415 /* APResources.bundle in Resources */,
 				C3900863192A65E500902B6E /* mp3-express-checkout.html in Resources */,
 				C390083919269D7800902B6E /* mp3.png in Resources */,
 				C390086E192AED2700902B6E /* mp_pair.png in Resources */,
@@ -1279,6 +1287,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-licucore",
+				);
 				PROVISIONING_PROFILE = "B07271D7-5F75-43B8-8857-084C795EAAAC";
 				SDKROOT = iphoneos;
 			};
@@ -1311,6 +1323,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-licucore",
+				);
 				PROVISIONING_PROFILE = "B07271D7-5F75-43B8-8857-084C795EAAAC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1323,14 +1339,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Prashant Sharma (ZZEFH7AFQU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Prashant Sharma (ZZEFH7AFQU)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MasterPass/MasterPass-Prefix.pch";
 				INFOPLIST_FILE = "MasterPass/MasterPass-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0f7af6f0-9ae5-436f-b4fc-bc97e6b2222d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1341,14 +1361,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Prashant Sharma (ZZEFH7AFQU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Prashant Sharma (ZZEFH7AFQU)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MasterPass/MasterPass-Prefix.pch";
 				INFOPLIST_FILE = "MasterPass/MasterPass-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0f7af6f0-9ae5-436f-b4fc-bc97e6b2222d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

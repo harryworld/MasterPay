@@ -7,8 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import <APSDK/APObject.h>
+#import <APSDK/APRequest.h>
+#import <APSDK/AuthManager+Protected.h>
 
 @implementation AppDelegate
+
+static const NSString * server = @"https://mysterious-beyond-8033.herokuapp.com";
+static const NSString * version = @"/api/v1/";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -32,6 +38,13 @@
     [[SIAlertView appearance] setCancelButtonColor:[UIColor whiteColor]];
     [[SIAlertView appearance] setButtonFont:[UIFont boldSystemFontOfSize:18]];
     [[SIAlertView appearance]setCancelButtonImage:[UIColor imageWithColor:[UIColor brightOrangeColor] andSize:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+    
+    
+    [APRequest setBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",server,version]]];
+    
+    [[AuthManager defaultManager] setSignInURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@auth/password/callback",server]]];
+    [[AuthManager defaultManager] setSignOutURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@auth/signout",server]]];
+        
     
     return YES;
 }
