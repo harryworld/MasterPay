@@ -998,7 +998,7 @@
 				ORGANIZATIONNAME = "David Benko";
 				TargetAttributes = {
 					C3212D281906BE460072BA80 = {
-						DevelopmentTeam = 7J86WHUZXM;
+						DevelopmentTeam = ZZEFH7AFQU;
 					};
 					C3212D491906BE470072BA80 = {
 						TestTargetID = C3212D281906BE460072BA80;
@@ -1323,14 +1323,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Prashant Sharma (ZZEFH7AFQU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Prashant Sharma (ZZEFH7AFQU)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MasterPass/MasterPass-Prefix.pch";
 				INFOPLIST_FILE = "MasterPass/MasterPass-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3d8979a7-39c5-418f-a3dd-385769b2a047";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1341,14 +1341,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Prashant Sharma (ZZEFH7AFQU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Prashant Sharma (ZZEFH7AFQU)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MasterPass/MasterPass-Prefix.pch";
 				INFOPLIST_FILE = "MasterPass/MasterPass-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3d8979a7-39c5-418f-a3dd-385769b2a047";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

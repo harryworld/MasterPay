@@ -48,7 +48,7 @@
     
     CardManager *manager = [CardManager getInstance];
     
-    NSString *command = [NSString stringWithFormat:@"updatePage({\"express\":%@,\"checkout\":%@,\"profile\":%@,\"paired\":%@});",stringForBool(manager.isExpressEnabled),stringForBool(self.checkoutAuth),stringForBool(self.profileAuth),stringForBool(manager.isLinkedToMasterPass)];
+    NSString *command = [NSString stringWithFormat:@"updatePage({\"express\":%@,\"checkout\":%@,\"profile\":%@,\"paired\":%@, \"app_name\":\"Gadget Shop\"});",stringForBool(manager.isExpressEnabled),stringForBool(self.checkoutAuth),stringForBool(self.profileAuth),stringForBool(manager.isLinkedToMasterPass)];
     
     NSLog(@"%@",command);
     

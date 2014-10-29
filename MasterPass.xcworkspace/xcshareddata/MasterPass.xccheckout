@@ -10,8 +10,12 @@
 	<string>MasterPass</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>00DEE37500E6C7998F4D113C875F3996AE26D5BE</key>
+		<string>/Users/davidbenko/Library/Caches/CocoaPods/GitHub/d641529aa34f62e4370a9b68091c310db79ab484</string>
 		<key>5A86244848327ACD4EC22F70C3CB1CDD38D0D020</key>
 		<string>https://github.com/ap-customer-mc-org/MasterPass-WebViews.git</string>
+		<key>E2E339EC05FF99AF5ECAE62EDBC78398DA1111C6</key>
+		<string>https://github.com/AnyPresence-Services/SIAlertView.git</string>
 		<key>EA33F5D6900DDC5B2CACEA082161CA372B3E4B1B</key>
 		<string>https://github.com/ap-customer-mc/MasterPass-GadgetShop-demo.git</string>
 	</dict>
@@ -19,8 +23,12 @@
 	<string>MasterPass.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>00DEE37500E6C7998F4D113C875F3996AE26D5BE</key>
+		<string>../Pods/SVWebViewController</string>
 		<key>5A86244848327ACD4EC22F70C3CB1CDD38D0D020</key>
 		<string>../webviews</string>
+		<key>E2E339EC05FF99AF5ECAE62EDBC78398DA1111C6</key>
+		<string>../Pods/SIAlertView</string>
 		<key>EA33F5D6900DDC5B2CACEA082161CA372B3E4B1B</key>
 		<string>..</string>
 	</dict>
@@ -39,6 +47,22 @@
 			<string>EA33F5D6900DDC5B2CACEA082161CA372B3E4B1B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MasterPass-GadgetShop-demo</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E2E339EC05FF99AF5ECAE62EDBC78398DA1111C6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SIAlertView</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>00DEE37500E6C7998F4D113C875F3996AE26D5BE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SVWebViewController</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
