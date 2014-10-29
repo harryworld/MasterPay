@@ -29,6 +29,8 @@
 		C3212D581906BE470072BA80 /* MasterPassTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3212D571906BE470072BA80 /* MasterPassTests.m */; };
 		C35E060019FDEBB700D93415 /* APResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C35E05FE19FDEBB600D93415 /* APResources.bundle */; };
 		C35E060119FDEBB700D93415 /* APSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35E05FF19FDEBB600D93415 /* APSDK.framework */; };
+		C35E060519FE757700D93415 /* MPECommerceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C35E060419FE757700D93415 /* MPECommerceManager.m */; };
+		C35E06071A00A4B000D93415 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35E06061A00A4B000D93415 /* CoreData.framework */; };
 		C38B36C5190DD0C800FBB01C /* ProductsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36C4190DD0C800FBB01C /* ProductsListViewController.m */; };
 		C38B36C8190DD19A00FBB01C /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36C7190DD19A00FBB01C /* Product.m */; };
 		C38B36CB190DDD6000FBB01C /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36CA190DDD6000FBB01C /* CartViewController.m */; };
@@ -180,6 +182,9 @@
 		C3212D571906BE470072BA80 /* MasterPassTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterPassTests.m; sourceTree = "<group>"; };
 		C35E05FE19FDEBB600D93415 /* APResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = APResources.bundle; sourceTree = "<group>"; };
 		C35E05FF19FDEBB600D93415 /* APSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = APSDK.framework; sourceTree = "<group>"; };
+		C35E060319FE757700D93415 /* MPECommerceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPECommerceManager.h; sourceTree = "<group>"; };
+		C35E060419FE757700D93415 /* MPECommerceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPECommerceManager.m; sourceTree = "<group>"; };
+		C35E06061A00A4B000D93415 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C38B36C3190DD0C800FBB01C /* ProductsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsListViewController.h; sourceTree = "<group>"; };
 		C38B36C4190DD0C800FBB01C /* ProductsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsListViewController.m; sourceTree = "<group>"; };
 		C38B36C6190DD19A00FBB01C /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
@@ -325,6 +330,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C35E06071A00A4B000D93415 /* CoreData.framework in Frameworks */,
 				C3212D2F1906BE460072BA80 /* CoreGraphics.framework in Frameworks */,
 				C3212D311906BE460072BA80 /* UIKit.framework in Frameworks */,
 				C3212D2D1906BE460072BA80 /* Foundation.framework in Frameworks */,
@@ -422,6 +428,7 @@
 		C3212D2B1906BE460072BA80 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C35E06061A00A4B000D93415 /* CoreData.framework */,
 				C35E05FE19FDEBB600D93415 /* APResources.bundle */,
 				C35E05FF19FDEBB600D93415 /* APSDK.framework */,
 				C3212D2C1906BE460072BA80 /* Foundation.framework */,
@@ -436,6 +443,7 @@
 		C3212D321906BE460072BA80 /* MasterPass */ = {
 			isa = PBXGroup;
 			children = (
+				C35E060219FE754000D93415 /* eCommerce Manager */,
 				C3BB757D19AFD48E00A7DE29 /* public */,
 				C38B3B11191A7ECD00FBB01C /* Categories */,
 				C31C83B0192D451D0093751D /* Navigation Controllers */,
@@ -477,6 +485,15 @@
 				C3212D541906BE470072BA80 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C35E060219FE754000D93415 /* eCommerce Manager */ = {
+			isa = PBXGroup;
+			children = (
+				C35E060319FE757700D93415 /* MPECommerceManager.h */,
+				C35E060419FE757700D93415 /* MPECommerceManager.m */,
+			);
+			name = "eCommerce Manager";
 			sourceTree = "<group>";
 		};
 		C38B3AFC191A774700FBB01C /* Singletons */ = {
@@ -1189,6 +1206,7 @@
 				C3212D3D1906BE460072BA80 /* AppDelegate.m in Sources */,
 				C3F516F9194639000035570A /* BoldTotalItemCell.m in Sources */,
 				C38B36D7190E5F2D00FBB01C /* UserProfileViewController.m in Sources */,
+				C35E060519FE757700D93415 /* MPECommerceManager.m in Sources */,
 				C3A3CF791923B2EC00EFAE44 /* DrawerItemCell.m in Sources */,
 				C39007F319252FAD00902B6E /* TextViewCell.m in Sources */,
 				C38B36CE190DF33C00FBB01C /* CartManager.m in Sources */,
@@ -1349,6 +1367,42 @@
 				GCC_PREFIX_HEADER = "MasterPass/MasterPass-Prefix.pch";
 				INFOPLIST_FILE = "MasterPass/MasterPass-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-BBBadgeBarButtonItem\"",
+					"-l\"Pods-BButton\"",
+					"-l\"Pods-BlocksKit\"",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-JMGBlockSegue\"",
+					"-l\"Pods-KLScrollSelect\"",
+					"-l\"Pods-M13Checkbox\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-Masonry\"",
+					"-l\"Pods-ObjectiveSugar\"",
+					"-l\"Pods-SDWebImage\"",
+					"-l\"Pods-SIAlertView\"",
+					"-l\"Pods-SVWebViewController\"",
+					"-l\"Pods-SwipeView\"",
+					"-l\"Pods-TPKeyboardAvoiding\"",
+					"-l\"Pods-UIActivityIndicator-for-SDWebImage\"",
+					"-l\"Pods-pop\"",
+					"-l\"c++\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"UIKit\"",
+					"-licucore",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0f7af6f0-9ae5-436f-b4fc-bc97e6b2222d";
 				WRAPPER_EXTENSION = app;
@@ -1371,6 +1425,42 @@
 				GCC_PREFIX_HEADER = "MasterPass/MasterPass-Prefix.pch";
 				INFOPLIST_FILE = "MasterPass/MasterPass-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-BBBadgeBarButtonItem\"",
+					"-l\"Pods-BButton\"",
+					"-l\"Pods-BlocksKit\"",
+					"-l\"Pods-FontAwesomeKit\"",
+					"-l\"Pods-JMGBlockSegue\"",
+					"-l\"Pods-KLScrollSelect\"",
+					"-l\"Pods-M13Checkbox\"",
+					"-l\"Pods-MBProgressHUD\"",
+					"-l\"Pods-Masonry\"",
+					"-l\"Pods-ObjectiveSugar\"",
+					"-l\"Pods-SDWebImage\"",
+					"-l\"Pods-SIAlertView\"",
+					"-l\"Pods-SVWebViewController\"",
+					"-l\"Pods-SwipeView\"",
+					"-l\"Pods-TPKeyboardAvoiding\"",
+					"-l\"Pods-UIActivityIndicator-for-SDWebImage\"",
+					"-l\"Pods-pop\"",
+					"-l\"c++\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"UIKit\"",
+					"-licucore",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0f7af6f0-9ae5-436f-b4fc-bc97e6b2222d";
 				WRAPPER_EXTENSION = app;
