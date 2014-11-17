@@ -34,6 +34,11 @@
  */
 @property (nonatomic, strong) NSString * email;
 /*!
+ @var isPaired
+ @abstract Generated model property: is_paired.
+ */
+@property (nonatomic, strong) NSNumber * isPaired;
+/*!
  @var longAccessToken
  @abstract Generated model property: long_access_token.
  */

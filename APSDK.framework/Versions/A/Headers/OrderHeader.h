@@ -28,10 +28,10 @@
  */
 @property (nonatomic, strong) NSString * id;
 /*!
- @var checkoutAccessToken
- @abstract Generated model property: checkout_access_token.
+ @var checkoutToken
+ @abstract Generated model property: checkout_token.
  */
-@property (nonatomic, strong) NSString * checkoutAccessToken;
+@property (nonatomic, strong) NSString * checkoutToken;
 /*!
  @var createdAt
  @abstract Generated model property: created_at.
@@ -42,6 +42,11 @@
  @abstract Generated model property: status.
  */
 @property (nonatomic, strong) NSString * status;
+/*!
+ @var subtotal
+ @abstract Generated model property: subtotal.
+ */
+@property (nonatomic, strong) NSNumber * subtotal;
 /*!
  @var userId
  @abstract Generated model property: user_id.
