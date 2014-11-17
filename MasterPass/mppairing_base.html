@@ -1,0 +1,21 @@
+<html>
+    <head></head>
+    <body>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://sandbox.masterpass.com/lightbox/Switch/integration/MasterPass.client.js"></script>
+        <script type="text/javascript" language="Javascript">
+        
+        function requestTokenSuccess(data) {
+            MasterPass.client.connect({
+                                      "pairingRequestToken": data.pairing_request_token,
+                                      "callbackUrl": data.callback_url,
+                                      "merchantCheckoutId": data.merchant_checkout_id,
+                                      "requestedDataTypes":"[PROFILE, CARD]",
+                                      "requestPairing":true,
+                                      "version":"v6"
+                                      });
+        }
+        
+        </script>
+    </body>
+</html>
