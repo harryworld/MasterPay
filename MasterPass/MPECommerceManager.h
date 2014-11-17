@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <APSDK/Product+Remote.h>
+#import <APSDK/OrderHeader+Remote.h>
 
 @interface MPECommerceManager : NSObject
 
-- (void)getCurrentCart:(void (^)(NSArray *cart))callback;
++ (instancetype)sharedInstance;
+- (void)getAllProducts:(void (^)(NSArray *products))callback;
+- (void)getCurrentCart:(void (^)(OrderHeader *header, NSArray *cart))callback;
 - (void)addProductToCart:(Product *)product;
 @end

@@ -8,9 +8,10 @@
 
 #import "MPECommerceManager.h"
 #import <APSDK/APObject+Remote.h>
-#import <APSDK/OrderHeader+Remote.h>
 #import <APSDK/OrderDetail+Remote.h>
 #import <APSDK/Product+Remote.h>
+#import <APSDK/AuthManager+Protected.h>
+#import <APSDK/User.h>
 
 @interface MPECommerceManager ()
 @property (nonatomic, strong) NSString *cartId;
@@ -19,21 +20,54 @@
 
 @implementation MPECommerceManager
 
-- (void)getAllProducts:(void (^)(NSArray *products))callback{
-    [Product allAsync:^(NSArray *objects, NSError *error) {
-        if (error) {
-            NSLog(@"Error Retrieving Products: %@", [error localizedDescription]);
-        }
-    }];
++ (instancetype)sharedInstance {
+    static dispatch_once_t once;
+    static MPECommerceManager *sharedInstance;
+    dispatch_once(&once, ^ { sharedInstance = [[self alloc] init]; });
+    return sharedInstance;
 }
 
-- (void)getCurrentCart:(void (^)(NSArray *cart))callback{
-    [self getCurrentCartHeader:^(OrderHeader *header) {
-        [self getCartItemsForHeaderId:header.id callback:^(NSArray *cart) {
-            if (callback) {
-                callback(cart);
+- (void)getAllProducts:(void (^)(NSArray *products))callback{
+    
+    if (self.productCache && self.productCache.count > 0) {
+        if (callback) {
+            callback(self.productCache);
+        }
+    }
+    else {
+        [Product allAsync:^(NSArray *objects, NSError *error) {
+            if (error) {
+                NSLog(@"Error Retrieving Products: %@", [error localizedDescription]);
+            }
+            else {
+                self.productCache = objects;
+                if (callback) {
+                    callback(objects);
+                }
             }
         }];
+    }
+}
+
+- (void)getCurrentCart:(void (^)(OrderHeader *header, NSArray *cart))callback{
+    [self getCurrentCartHeader:^(OrderHeader *header) {
+        
+        if (header) {
+            [self getCartItemsForHeaderId:header.id callback:^(NSArray *cart) {
+                if (callback) {
+                    callback(header, cart);
+                }
+            }];
+        }
+        else {
+            OrderHeader *newHeader = [[OrderHeader alloc]init];
+            newHeader.userId = ((User *)[[AuthManager defaultManager]currentCredentials]).id;
+            [newHeader createAsync:^(id object, NSError *error) {
+                if (callback) {
+                    callback((OrderHeader *)object, [[NSArray alloc]init]);
+                }
+            }];
+        }
     }];
 }
 
@@ -46,7 +80,7 @@
             }
         }
         else if (objects.count == 0) {
-            NSLog(@"No Cart Headers Exist For User: %@",[error localizedDescription]);
+            NSLog(@"Error: No Cart Headers Exist For User");
             if (callback) {
                 callback(nil);
             }
@@ -68,7 +102,6 @@
         if (error) {
             NSLog(@"Error Retrieving Cart Items: %@",[error localizedDescription]);
         }
-        
         if (callback) {
             callback(objects);
         }
@@ -76,13 +109,15 @@
 }
 
 - (void)addProductToCart:(Product *)product{
-    OrderDetail *od = [OrderDetail new];
-    od.orderHeaderId = self.cartId;
-    od.productId = product.id;
-    [od createAsync:^(id object, NSError *error) {
-        if (error) {
-            NSLog(@"Error Adding Product to Cart (%@): %@",self.cartId,[error localizedDescription]);
-        }
+    [self getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+        OrderDetail *od = [[OrderDetail alloc]init];
+        od.orderHeaderId = header.id;
+        od.productId = product.id;
+        [od createAsync:^(id object, NSError *error) {
+            if (error) {
+                NSLog(@"Error Adding Product to Cart (%@): %@",self.cartId,[error localizedDescription]);
+            }
+        }];
     }];
 }
 @end
