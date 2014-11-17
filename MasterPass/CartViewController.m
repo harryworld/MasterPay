@@ -7,13 +7,18 @@
 //
 
 #import "CartViewController.h"
-#import "CartManager.h"
 #import "CartProductCell.h"
+#import "CartManager.h"
 #import "CardManager.h"
 #import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "MasterPassConnectViewController.h"
 #import "BaseNavigationController.h"
 #import "CheckoutViewController.h"
+#import "MPECommerceManager.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <APSDK/User.h>
+#import <APSDK/AuthManager+Protected.h>
+#import <APSDK/OrderDetail.h>
 
 @interface CartViewController ()
 @property (nonatomic, weak)IBOutlet UITableView *cartTable;
@@ -22,6 +27,8 @@
 @property (nonatomic, weak)IBOutlet UILabel *totalLabel;
 @property (nonatomic, weak)IBOutlet UIButton *checkoutButton;
 @property (nonatomic, strong) UIButton *masterPassButton;
+@property (nonatomic, strong) OrderHeader *orderHeader;
+@property (nonatomic, strong) NSArray *orderDetails;
 @end
 
 @implementation CartViewController
@@ -39,10 +46,15 @@
     }
     self.cartTable.tableFooterView = [[UIView alloc] init];
     
-    CartManager *cartManager = [CartManager getInstance];
-    self.totalLabel.text = [self formatCurrency:[NSNumber numberWithDouble:[cartManager total]]];
-    
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
+    [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+        self.orderHeader = header;
+        self.orderDetails = cart;
+        self.totalLabel.text = [self formatCurrency:header.subtotal];
+        [self.cartTable reloadData];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
     
     /*
      *
@@ -53,8 +65,8 @@
      *
      */
     
-    CardManager *cardManager = [CardManager getInstance];
-    unless(cardManager.isLinkedToMasterPass) {
+    User *user = (User *)[[AuthManager defaultManager]currentCredentials];
+    if(![user.isPaired boolValue]) {
         [self.footer removeConstraints:self.footer.constraints];
         [self.footer updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@150);
@@ -107,8 +119,8 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    CartManager *manager = [CartManager getInstance];
-    self.totalLabel.text = [self formatCurrency:[NSNumber numberWithDouble:[manager total]]];
+    
+    self.totalLabel.text = [self formatCurrency:self.orderHeader.subtotal];
     [self.cartTable reloadData];
 }
 
@@ -149,8 +161,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    CartManager *manager = [CartManager getInstance];
-    return [[manager products] count];    //count number of row from counting array hear cataGorry is An Array
+    return [self.orderDetails count];    //count number of row from counting array hear cataGorry is An Array
 }
 
 
@@ -170,8 +181,7 @@
     
     // Here we use the provided setImageWithURL: method to load the web image
     // Ensure you use a placeholder image otherwise cells will be initialized with no image
-    CartManager *manager = [CartManager getInstance];
-    Product *product = (Product*)[[manager products] objectAtIndex:indexPath.row];
+    OrderDetail *product = (OrderDetail *)[self.orderDetails objectAtIndex:indexPath.row];
     cell.product = product;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.layoutMargins = UIEdgeInsetsZero;

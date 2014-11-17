@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Product.h"
 #import "BaseViewController.h"
 @interface CartViewController : BaseViewController
-@property(nonatomic,strong) Product * product;
 @end

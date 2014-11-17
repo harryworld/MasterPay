@@ -14,6 +14,8 @@
 #import <M13Checkbox/M13Checkbox.h>
 #import <BButton/BButton.h>
 #import "BaseNavigationController.h"
+#import <APSDK/User.h>
+#import <APSDK/AuthManager+Protected.h>
 
 @interface LogInViewController ()
 @property(nonatomic, weak)IBOutlet UIView *container;
@@ -104,7 +106,7 @@
         [prefs removeObjectForKey:@"password"];
     }
     [prefs synchronize];
-    [self setupDrawerAndShop];
+    [self login];
 }
 
 -(void)socialLoginAlert{
@@ -112,6 +114,25 @@
     [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
     alert.transitionStyle = SIAlertViewTransitionStyleBounce;
     [alert show];
+}
+
+-(IBAction)login{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    User *user = [User new];
+    user.email = self.usernameField.text;
+    user.password = self.passwordField.text;
+    [[AuthManager defaultManager] signInAs:user async:^(APObject<Authorizable> *object, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if (error) {
+            SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Error" andMessage:[error localizedDescription]];
+            [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+            alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+            [alert show];
+        }
+        else {
+            [self setupDrawerAndShop];
+        }
+    }];
 }
 
 -(IBAction)setupDrawerAndShop{

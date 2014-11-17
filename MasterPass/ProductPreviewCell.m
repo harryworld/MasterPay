@@ -146,7 +146,7 @@
     self.productTitle.text = _product.name;
     self.productPrice.text = [self formatCurrency:_product.price];
     self.productDesc.text = _product.desc;
-    [self.image setImage:[UIImage imageNamed:_product.imageUrl]];
+    [self.image setImageWithURL:[NSURL URLWithString:_product.imageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 }
 
 -(NSString *)formatCurrency:(NSNumber *)price{

@@ -13,12 +13,32 @@
 #import "MasterPassConnectViewController.h"
 #import "MPLinkedCell.h"
 #import "MPLearnMoreCell.h"
+#import "MPManager.h"
+#import <APSDK/AuthManager+Protected.h>
+#import <APSDK/User.h>
+#import <APSDK/APObject+Local.h>
 
-@interface UserProfileViewController ()
+@interface UserProfileViewController () <MPManagerDelegate>
 @property(nonatomic, weak) IBOutlet UITableView *profileTable;
 @end
 
 @implementation UserProfileViewController
+
+//TODO
+/*
+ Pairing Works but none of the events fire correctly yet.
+ Will need extra work to continue with pairing events
+ */
+
+-(NSString *)serverAddress{
+    return @"https://mysterious-beyond-8033.herokuapp.com";
+}
+
+
+-(void)pairingDidComplete:(BOOL)success error:(NSError *)error{
+    NSLog(@"Pairing Did Complete: %d",success);
+}
+
 -(void)viewDidLoad{
     [super viewDidLoad];
     
@@ -44,8 +64,9 @@
 }
 
 -(IBAction)connectMasterPass{
-    CardManager *cm = [CardManager getInstance];
-    if ([cm isLinkedToMasterPass]) {
+    
+    User *user = (User *)[[AuthManager defaultManager] currentCredentials];
+    if ([[user isPaired] boolValue]) {
         SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Connect with MasterPass" andMessage:@"You are already paired with your MasterPass account!"];
         
         [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
@@ -54,13 +75,11 @@
         [alert show];
     }
     else {
-        [self performSegueWithIdentifier:@"MPConnect" sender:nil
-                               withBlock:^(id sender, id destinationVC) {
-                                   NSLog(@"Hello world");
-                                   CardManager *cm = [CardManager getInstance];
-                                   MasterPassConnectViewController *dest = [[((UINavigationController *)destinationVC) viewControllers] firstObject];
-                                   dest.profileAuth = TRUE;
-                               }];
+        MPManager *manager = [MPManager sharedInstance];
+        manager.delegate = self;
+        [manager pairInViewController:self callback:^(BOOL success, NSError *error) {
+            NSLog(@"Pair complete");
+        }];
     }
 }
 
@@ -78,6 +97,11 @@
     
     CardManager *cm = [CardManager getInstance];
     cm.isLinkedToMasterPass = YES;
+    
+    User *user = (User *)[[AuthManager defaultManager] currentCredentials];
+    user.isPaired = @1;
+    [user saveLocal];
+    
     
     [self.profileTable reloadData];
     
@@ -109,8 +133,8 @@
     switch (indexPath.section) {
         case 0:return 44;
         case 1:{
-            CardManager *cm = [CardManager getInstance];
-            if (cm.isLinkedToMasterPass) {
+            User *user = (User *)[[AuthManager defaultManager] currentCredentials];
+            if ([user.isPaired boolValue]) {
                 return 60;
             }
             else {
@@ -197,8 +221,8 @@
         
     }
     else if (indexPath.section == 1) {
-        CardManager *cm = [CardManager getInstance];
-        if (cm.isLinkedToMasterPass) {
+        User *user = (User *)[[AuthManager defaultManager] currentCredentials];
+        if ([user.isPaired boolValue]) {
             MPLinkedCell *cell = [tableView dequeueReusableCellWithIdentifier:linkedCell];
             if (cell == nil)
             {

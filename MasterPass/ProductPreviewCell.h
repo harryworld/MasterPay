@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Product.h"
+#import <APSDK/Product.h>
 
 #define kDefaultCellImageEdgeInset UIEdgeInsetsMake(5, 5, 5, 5)
 @interface ProductPreviewCell : UITableViewCell

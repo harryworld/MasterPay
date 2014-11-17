@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Product.h"
+#import <APSDK/OrderDetail.h>
 
 @interface CartProductCell : UITableViewCell
 @property (nonatomic, weak) IBOutlet UIImageView *productImage;
 @property (nonatomic, weak) IBOutlet UILabel *productName;
 @property (nonatomic, weak) IBOutlet UILabel *productPrice;
 @property (nonatomic, weak) IBOutlet UILabel *productQuant;
-@property (nonatomic, strong) Product *product;
+@property (nonatomic, strong) OrderDetail *product;
 
--(void)setProduct:(Product *)product;
+-(void)setProduct:(OrderDetail *)product;
 -(void)refreshProductInfo;
 @end

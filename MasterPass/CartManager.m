@@ -7,7 +7,7 @@
 //
 
 #import "CartManager.h"
-#import "Product.h"
+#import <APSDK/Product.h>
 
 @implementation CartManager
 static CartManager *sharedInstance;
@@ -28,7 +28,8 @@ static CartManager *sharedInstance;
 }
 
 - (void)addProductToCart:(Product *)product{
-    NSArray *existingProductCheck = [self.products select:^BOOL(Product* object) {
+    //TODO
+    /*NSArray *existingProductCheck = [self.products select:^BOOL(Product* object) {
         return object.productId == product.productId;
     }];
     
@@ -38,27 +39,35 @@ static CartManager *sharedInstance;
     }
     else{
         [self.products addObject:product];
-    }
+    }*/
 }
 
 - (void)cleanCart{
+    //TODO
+    /*
     for (Product *product in self.products) {
         product.quantity = 1;
     }
     [self.products removeAllObjects];
+     */
 }
 
 - (int)cartSize{
+    //TODO
+    /*
     __block int size = 0;
     [self.products each:^(Product* object) {
         size += object.quantity;
     }];
     
     return size;
+     */
+    return 0;
 }
 
 - (NSArray *)expandedCart{
-    NSMutableArray *expanded = [[NSMutableArray alloc]init];
+    //TODO
+    /*NSMutableArray *expanded = [[NSMutableArray alloc]init];
     [self.products each:^(Product* object) {
         for (int i = 0; i < object.quantity; i++) {
             Product *p = [object copy];
@@ -68,6 +77,8 @@ static CartManager *sharedInstance;
     }];
     
     return expanded;
+     */
+    return [NSArray new];
 }
 
 - (double)subtotal{

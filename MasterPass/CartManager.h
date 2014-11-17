@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Product.h"
+#import <APSDK/Product.h>
 
 @interface CartManager : NSObject
 
