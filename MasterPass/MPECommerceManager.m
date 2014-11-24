@@ -110,9 +110,23 @@
 
 - (void)addProductToCart:(Product *)product{
     [self getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+        
+        for(OrderDetail *existing in cart) {
+            if ([existing.productId isEqualToString:product.id]) {
+                existing.quantity = [NSNumber numberWithInt:([existing.quantity intValue] + 1)];
+                [existing updateAsync:^(id object, NSError *error) {
+                    if (error) {
+                        NSLog(@"Error Adding Product to Cart (%@): %@",self.cartId,[error localizedDescription]);
+                    }
+                }];
+                return;
+            }
+        }
+        
         OrderDetail *od = [[OrderDetail alloc]init];
         od.orderHeaderId = header.id;
         od.productId = product.id;
+        od.quantity = @1;
         [od createAsync:^(id object, NSError *error) {
             if (error) {
                 NSLog(@"Error Adding Product to Cart (%@): %@",self.cartId,[error localizedDescription]);

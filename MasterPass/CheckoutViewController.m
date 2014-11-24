@@ -21,14 +21,18 @@
 #import "TextViewCell.h"
 #import "OrderConfirmationViewController.h"
 #import "PasswordViewController.h"
+#import "MPManager.h"
+#import "MPCreditCard.h"
+#import "MPECommerceManager.h"
 
 @interface CheckoutViewController ()
-@property(nonatomic, strong)SwipeView *cardSwipeView;
-@property(nonatomic, strong)ProcessOrderCell *processOrderCell;
-@property(nonatomic, strong)Card *selectedCard;
-@property(nonatomic, strong)ShippingInfo *selectedShippingInfo;
-@property(nonatomic, strong)UIButton *cardSelectorButton;
-@property(nonatomic, strong)NSString *cardType;
+@property(nonatomic, strong) SwipeView *cardSwipeView;
+@property(nonatomic, strong) ProcessOrderCell *processOrderCell;
+@property(nonatomic, strong) MPCreditCard *selectedCard;
+@property(nonatomic, strong) MPAddress *selectedShippingInfo;
+@property(nonatomic, strong) UIButton *cardSelectorButton;
+
+@property(nonatomic, strong) NSString *cardType;
 @end
 
 @implementation CheckoutViewController
@@ -37,7 +41,7 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    
+
     self.containerTable.backgroundColor = [UIColor deepBlueColor];
     self.containerTable.separatorColor = [UIColor deepBlueColor];
     if ([self.containerTable respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -53,13 +57,23 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (processOrder:) name:@"order_processed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (popToRoot) name:@"StartOver" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (confirmOrder ) name:@"ConfirmOrder" object:nil];
-    
-    CardManager *cm = [CardManager getInstance];
-    self.selectedShippingInfo = [[cm shippingDetails] firstObject];
-    
-    [self selectShipping:0];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (confirmOrder ) name:@"MasterPassCheckoutComplete" object:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    MPManager *manager = [MPManager sharedInstance];
+    if ([manager isAppPaired] && !self.precheckoutConfirmation) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [manager precheckoutDataCallback:^(NSArray *cards, NSArray *addresses, NSDictionary *contactInfo, NSDictionary *walletInfo, NSError *error) {
+            self.cards = cards;
+            self.addresses = addresses;
+            self.walletInfo = walletInfo;
+            [self switchToCard:self.cards.firstObject];
+            [self selectDefaultShipping];
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        }];
+    }
 }
 
 - (void) viewDidLayoutSubviews {
@@ -71,6 +85,8 @@
 -(void)viewWillDisappear:(BOOL)animated{
     // If we have a delayed pair - lets pair now
     
+    
+    // TODO
     CardManager *manager = [CardManager getInstance];
     if (manager.wantsDelayedPair) {
         manager.isLinkedToMasterPass = YES;
@@ -86,19 +102,21 @@
 
 -(void)switchCards:(NSNotification *)notification{
     NSDictionary *dict = [notification userInfo];
-    Card *card = (Card *)[dict objectForKey:@"card"];
+    MPCreditCard *card = (MPCreditCard *)[dict objectForKey:@"card"];
     self.isPairing = NO;
     [self switchToCard:card];
 }
 
--(void)switchToCard:(Card *)card{
+-(void)switchToCard:(MPCreditCard *)card{
     self.selectedCard = card;
-    if ([card.isMasterPass boolValue]) {
+    
+    if (card) {
         self.buttonType = kButtonTypeMasterPass;
     }
     else {
         self.buttonType = kButtonTypeProcess;
     }
+    
     [self.containerTable reloadData];
 }
 -(void)addCard:(NSNotification *)notification{
@@ -118,10 +136,19 @@
 
 #pragma mark - Shipping Address
 
+-(void)selectDefaultShipping{
+    for (int i = 0; i < self.addresses.count; i++){
+        MPAddress *address = self.addresses[i];
+        if ([address.selectedAsDefault boolValue]) {
+            [self selectShipping:i];
+            break;
+        }
+    }
+}
+
 -(void)selectShipping:(int)index{
-    CardManager *cm = [CardManager getInstance];
-    if ((index < ([[cm shippingDetails] count])) && (index > -1)) {
-        self.selectedShippingInfo = (ShippingInfo *)[[cm shippingDetails] objectAtIndex:index];
+    if ((index < ([self.addresses count])) && (index > -1)) {
+        self.selectedShippingInfo = (MPAddress *)self.addresses[index];
     }
     else {
         self.selectedShippingInfo = nil;
@@ -161,8 +188,23 @@
 #pragma mark - Processing Orders
 
 -(void)processOrder:(NSNotification *)notification{
-    CardManager *cm = [CardManager getInstance];
-    if (cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue] && !cm.isExpressEnabled) {
+    MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
+    [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+        MPManager *manager = [MPManager sharedInstance];
+        if ([manager isAppPaired] && !self.precheckoutConfirmation) {
+            [manager returnCheckoutForOrder:header.id
+                                 walletInfo:self.walletInfo
+                                       card:self.selectedCard
+                            shippingAddress:self.selectedShippingInfo
+                       showInViewController:self];
+        }
+        else if ([manager isAppPaired] && self.precheckoutConfirmation){
+            [manager completePairCheckoutForOrder:header.id transaction:self.walletInfo[@"transaction_id"] preCheckoutTransaction:self.walletInfo[@"pre_checkout_transaction_id"]];
+        }
+    }];
+    
+    //TODO
+    /*if (cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue] && !cm.isExpressEnabled) {
         [self performSegueWithIdentifier:@"MPCheckout" sender:nil];
     }
     else if (self.isPairing && self.oneTimePairedCard){
@@ -174,7 +216,7 @@
     else{
         //other process
         [self confirmOrder];
-    }
+    }*/
 }
 
 -(void)oneTimePairingComplete{
@@ -187,14 +229,7 @@
 
 -(void)confirmOrder {
     if ([self.navigationController.visibleViewController isEqual:self]) {
-        // Fake Delay and then proceed to confirmation
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeIndeterminate;
-        hud.labelText = @"Processing Your Payment";
-        [self bk_performBlock:^(id obj) {
-            [hud hide:YES];
-            [self performSegueWithIdentifier:@"ConfirmOrder" sender:nil];
-        } afterDelay:2.5];
+        [self performSegueWithIdentifier:@"ConfirmOrder" sender:nil];
     }
     else {
         [self performSelector:@selector(confirmOrder) withObject:nil afterDelay:0.5];
@@ -202,7 +237,10 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"ConfirmOrder"]) {
+    
+    //TODO
+    
+    /*if ([segue.identifier isEqualToString:@"ConfirmOrder"]) {
         CardManager *cm = [CardManager getInstance];
         if ((cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue]) || (self.isPairing && self.oneTimePairedCard)) {
             ((OrderConfirmationViewController *)segue.destinationViewController).purchasedWithMP = true;
@@ -217,7 +255,7 @@
         dest.checkoutAuth = TRUE;
         
         //[self confirmOrder];
-    }
+    }*/
 }
 
 -(void)popToRoot{
@@ -241,7 +279,8 @@
         case 2:return 1;  // Total
         case 3:return 1;  // Card Selector
         case 4:  {        // Card Info Form
-            if (self.selectedCard && self.selectedCard.isMasterPass) {
+            //if (self.selectedCard && self.selectedCard.isMasterPass) { TODO
+            if (self.selectedCard) {
                 return 0;
             }
             else if (self.isPairing && self.oneTimePairedCard){
@@ -288,7 +327,8 @@
         case 5:return 70;  // Shipping Info Form
         case 6:return 44;  // TextView Cell
         case 7:   {        // Process Order Button
-            if (self.selectedCard && self.selectedCard.isMasterPass) {
+            //if (self.selectedCard && self.selectedCard.isMasterPass) { TODO
+            if (self.selectedCard){
                 return 80;
             }
             else if (self.isPairing && !self.oneTimePairedCard){
@@ -444,6 +484,9 @@
                                            reuseIdentifier:cardSelectCellId];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        
+        [cell setCards:self.cards showManualEntry:!self.precheckoutConfirmation]; // TODO
+        [cell setMasterPassImage:self.walletInfo[@"masterpass_logo_url"] andBrandImage:self.walletInfo[@"wallet_partner_logo_url"]];
         cell.showsMPPair = self.oneTimePairedCard ? true : false;
         cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
@@ -540,8 +583,14 @@
         cell.textView.backgroundColor = [UIColor superLightGreyColor];
         cell.textView.textColor = [UIColor steelColor];
         cell.textView.scrollEnabled = NO;
+        if (![NSThread isMainThread]) { NSLog(@"Huh?"); }
         if (self.selectedShippingInfo) {
-            cell.textView.text = [NSString stringWithFormat:@"%@\n%@, %@ %@",self.selectedShippingInfo.street,self.selectedShippingInfo.city,self.selectedShippingInfo.state,self.selectedShippingInfo.zip];
+            cell.textView.text = [NSString stringWithFormat:@"%@ %@\n%@, %@ %@",
+                                  self.selectedShippingInfo.lineOne,
+                                  self.selectedShippingInfo.lineTwo,
+                                  self.selectedShippingInfo.countrySubdivision,
+                                  self.selectedShippingInfo.country,
+                                  self.selectedShippingInfo.postalCode];
         }
         else {
             cell.textView.text = nil;

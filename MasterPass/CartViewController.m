@@ -19,6 +19,7 @@
 #import <APSDK/User.h>
 #import <APSDK/AuthManager+Protected.h>
 #import <APSDK/OrderDetail.h>
+#import "MPManager.h"
 
 @interface CartViewController ()
 @property (nonatomic, weak)IBOutlet UITableView *cartTable;
@@ -65,8 +66,7 @@
      *
      */
     
-    User *user = (User *)[[AuthManager defaultManager]currentCredentials];
-    if(![user.isPaired boolValue]) {
+    if(![[MPManager sharedInstance] isAppPaired]) {
         [self.footer removeConstraints:self.footer.constraints];
         [self.footer updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@150);
@@ -87,7 +87,7 @@
         }];
         
         [self.masterPassButton bk_addEventHandler:^(id sender) {
-            [self startPair];
+            [self pairAndCheckout];
         } forControlEvents:UIControlEventTouchUpInside];
     
         
@@ -114,6 +114,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (oneTimePairingComplete) name:@"ConnectedMasterPass" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(confirmPreCheckout:) name:@"MasterPassPreCheckoutComplete" object:nil];
+    
     [self.cartTable reloadData];
 }
 
@@ -134,8 +136,33 @@
 }
 
 #pragma mark - Pairing Flow
--(void)startPair{
-    [self performSegueWithIdentifier:@"MPConnect" sender:nil];
+
+-(void)pairAndCheckout{
+    MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
+    [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+        MPManager *manager = [MPManager sharedInstance];
+        [manager pairCheckoutForOrder:header.id showInViewController:self];
+    }];
+}
+
+-(void)confirmPreCheckout:(NSNotification *)notification{
+    if (self.navigationController.visibleViewController == self) {
+        NSDictionary *userInfo = [notification userInfo];
+        NSDictionary *cardInfo = userInfo[@"checkout"][@"card"];
+        NSDictionary *shippingInfo = userInfo[@"shipping_address"];
+        MPCreditCard *card = [[MPCreditCard alloc]initWithDictionary:cardInfo];
+        MPAddress *address = [[MPAddress alloc]initWithDictionary:shippingInfo];
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        CheckoutViewController *vc = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
+        vc.precheckoutConfirmation = TRUE;
+        vc.cards = @[card];
+        vc.addresses = @[address];
+        vc.walletInfo = @{@"transaction_id":userInfo[@"checkout"][@"transaction_id"],
+                          @"pre_checkout_transaction_id":userInfo[@"checkout"][@"pre_checkout_transaction_id"]};
+        vc.buttonType = kButtonTypeProcess;
+        [vc.containerTable reloadData];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 -(void)oneTimePairingComplete{

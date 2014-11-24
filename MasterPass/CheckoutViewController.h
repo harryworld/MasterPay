@@ -20,7 +20,12 @@ typedef enum CheckoutAlertType {
 @property(nonatomic, strong)Card *oneTimePairedCard;
 @property(nonatomic, assign)ProcessButtonType buttonType;
 @property(nonatomic, weak) IBOutlet UITableView *containerTable;
-@property(nonatomic, assign)BOOL isPairing;
+@property(nonatomic, assign)BOOL isPairing; //TODO
+
+@property(nonatomic, assign)BOOL precheckoutConfirmation;
+@property(nonatomic, strong) NSArray *cards;
+@property(nonatomic, strong) NSArray *addresses;
+@property(nonatomic, strong) NSDictionary *walletInfo;
 
 -(void)selectShipping:(int)index;
 @end

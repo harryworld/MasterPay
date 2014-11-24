@@ -1,0 +1,23 @@
+<html>
+    <head></head>
+    <body>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://sandbox.masterpass.com/lightbox/Switch/integration/MasterPass.client.js"></script>
+        <script type="text/javascript" language="Javascript">
+            
+        LightboxType = {
+            CONNECT : 0,
+            CHECKOUT : 1
+        }
+        
+        function initiateLightbox(type, options) {
+            if(type == LightboxType.CONNECT){
+                MasterPass.client.connect(options);
+            }
+            else if (type == LightboxType.CHECKOUT){
+                MasterPass.client.checkout(options);
+            }
+        }
+        </script>
+    </body>
+</html>

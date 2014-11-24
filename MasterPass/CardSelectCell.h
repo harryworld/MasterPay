@@ -13,4 +13,8 @@
 @property(nonatomic, assign)BOOL showsMPPair;
 
 -(void)refreshCurrentCardUI:(SwipeView *)swipeView;
+
+-(void)setCards:(NSArray *)cards showManualEntry:(BOOL)manualEntry;
+-(void)setMasterPassImage:(NSString *)mpImageUrl andBrandImage:(NSString *)brandImageUrl;
+
 @end

@@ -17,8 +17,10 @@
 #import <APSDK/AuthManager+Protected.h>
 #import <APSDK/User.h>
 #import <APSDK/APObject+Local.h>
+#import "MPManager.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
-@interface UserProfileViewController () <MPManagerDelegate>
+@interface UserProfileViewController ()
 @property(nonatomic, weak) IBOutlet UITableView *profileTable;
 @end
 
@@ -29,15 +31,6 @@
  Pairing Works but none of the events fire correctly yet.
  Will need extra work to continue with pairing events
  */
-
--(NSString *)serverAddress{
-    return @"https://mysterious-beyond-8033.herokuapp.com";
-}
-
-
--(void)pairingDidComplete:(BOOL)success error:(NSError *)error{
-    NSLog(@"Pairing Did Complete: %d",success);
-}
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -64,23 +57,9 @@
 }
 
 -(IBAction)connectMasterPass{
-    
-    User *user = (User *)[[AuthManager defaultManager] currentCredentials];
-    if ([[user isPaired] boolValue]) {
-        SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Connect with MasterPass" andMessage:@"You are already paired with your MasterPass account!"];
-        
-        [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
-        
-        alert.transitionStyle = SIAlertViewTransitionStyleBounce;
-        [alert show];
-    }
-    else {
-        MPManager *manager = [MPManager sharedInstance];
-        manager.delegate = self;
-        [manager pairInViewController:self callback:^(BOOL success, NSError *error) {
-            NSLog(@"Pair complete");
-        }];
-    }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    MPManager *manager = [MPManager sharedInstance];
+    [manager pairInViewController:self];
 }
 
 -(IBAction)learnMore{
@@ -95,12 +74,10 @@
 
 -(void)connected{
     
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
     CardManager *cm = [CardManager getInstance];
     cm.isLinkedToMasterPass = YES;
-    
-    User *user = (User *)[[AuthManager defaultManager] currentCredentials];
-    user.isPaired = @1;
-    [user saveLocal];
     
     
     [self.profileTable reloadData];
@@ -221,8 +198,7 @@
         
     }
     else if (indexPath.section == 1) {
-        User *user = (User *)[[AuthManager defaultManager] currentCredentials];
-        if ([user.isPaired boolValue]) {
+        if ([[MPManager sharedInstance] isAppPaired]) {
             MPLinkedCell *cell = [tableView dequeueReusableCellWithIdentifier:linkedCell];
             if (cell == nil)
             {

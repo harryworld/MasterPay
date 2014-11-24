@@ -10,12 +10,15 @@
 #import "CardManager.h"
 #import "Card.h"
 #import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "MPManager.h"
 
 @interface CardSelectCell ()
 @property (nonatomic, strong) UIImageView *masterPassImage;
 @property (nonatomic, strong) UIImageView *providerImage;
 @property (nonatomic, strong) UILabel *cardNumber;
 @property (nonatomic, strong) UILabel *expDate;
+@property (nonatomic, strong) NSArray *cards;
+@property (nonatomic, assign) BOOL manualEntryAllowed;
 @end
 
 @implementation CardSelectCell
@@ -67,9 +70,8 @@
             make.centerX.equalTo(self.contentView);
             make.bottom.equalTo(self.contentView).with.offset(-bottomOffset);
         }];
-        CardManager *cm = [CardManager getInstance];
-        
-        if ([cm isLinkedToMasterPass]) {
+        MPManager *manager = [MPManager sharedInstance];
+        if ([manager isAppPaired]) {
             self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
             self.masterPassImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
             [providerImageContainer addSubview:self.masterPassImage];
@@ -92,7 +94,6 @@
         }
         else {
             self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
-            self.masterPassImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
             [providerImageContainer addSubview:self.masterPassImage];
             [self.masterPassImage makeConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(@30);
@@ -108,6 +109,17 @@
     return self;
 }
 
+-(void)setMasterPassImage:(NSString *)mpImageUrl andBrandImage:(NSString *)brandImageUrl{
+    [self.masterPassImage setImageWithURL:[NSURL URLWithString:mpImageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.providerImage setImageWithURL:[NSURL URLWithString:brandImageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+}
+
+-(void)setCards:(NSArray *)cards showManualEntry:(BOOL)manualEntry{
+    self.cards = cards;
+    self.manualEntryAllowed = manualEntry;
+    [self.cardSwipeView reloadData];
+}
+
 -(void)setShowsMPPair:(BOOL)showsMPPair{
     if (showsMPPair != _showsMPPair) {
         _showsMPPair = showsMPPair;
@@ -119,17 +131,16 @@
 
 - (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView
 {
-    CardManager *cm = [CardManager getInstance];
-    if (cm.isLinkedToMasterPass) {
+    MPManager *manager = [MPManager sharedInstance];
+    if ([manager isAppPaired]) {
         //return the total number of items in the carousel
-        CardManager *cm = [CardManager getInstance];
-        return [[cm cards] count] + 1;
+        return [self.cards count] + (self.manualEntryAllowed ? 1 : 0);
     }
-    else if (self.showsMPPair && !cm.wantsDelayedPair){
+    /*else if (self.showsMPPair && !cm.wantsDelayedPair){ //TODO
         return 2;
     }else if(cm.wantsDelayedPair){
         return 1;
-    }
+    }*/
     else {
         return 1;
     }
@@ -141,11 +152,11 @@
 
 - (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
-    CardManager *cm = [CardManager getInstance];
-    Card *currentCard = nil;
+    MPManager *manager = [MPManager sharedInstance];
+    MPCreditCard *currentCard = nil;
     
-    if (index < [[cm cards]count]  && cm.isLinkedToMasterPass) {
-        currentCard = [[cm cards] objectAtIndex:index];
+    if (index < [self.cards count]  && [manager isAppPaired]) {
+        currentCard = [self.cards objectAtIndex:index];
     }
 
     UIImageView *cardImage = nil;
@@ -227,14 +238,17 @@
     }
     
     if (currentCard) {
-        cardImage.image = [UIImage imageNamed:currentCard.iconName];
+        cardImage.image = [UIImage imageNamed:@"black_cc_mc.png"]; //TODO
         cardNumber.hidden = NO;
         cardNumber.text = [NSString stringWithFormat:@" XXXX XXXX XXXX %@",currentCard.lastFour];
         expDate.hidden = NO;
-        expDate.text = currentCard.expDate;
+        expDate.text = [NSString stringWithFormat:@"%@/%@",currentCard.expiryMonth,currentCard.expiryYear];
         cardHolder.hidden = NO;
     }
-    else if((!cm.isLinkedToMasterPass) && (index == 0) && self.showsMPPair) {
+    
+    // TODO this is for pair + checkout
+    
+    else if((![manager isAppPaired]) && (index == 0) && self.showsMPPair) {
         
         // hard coded due to additional requirements
         
@@ -245,6 +259,8 @@
         expDate.text = @"03/17";
         cardHolder.hidden = NO;
     }
+    
+    // manual entry TODO
     else {
         cardImage.image = [UIImage imageNamed:@"blue_cc.png"];
         cardNumber.hidden = NO;
@@ -265,43 +281,47 @@
 #pragma mark - Refresh UI
 
 -(void)refreshCurrentCardUI:(SwipeView *)swipeView{
-    CardManager *cm = [CardManager getInstance];
-    Card *currentCard = nil;
-    if (swipeView.currentPage < [[cm cards]count] && cm.isLinkedToMasterPass) {
-        currentCard = [[cm cards] objectAtIndex:swipeView.currentPage];
+    MPCreditCard *currentCard = nil;
+    MPManager *manager = [MPManager sharedInstance];
+    
+    if (swipeView.currentPage < [self.cards count] && [manager isAppPaired]) {
+        currentCard = [[self cards] objectAtIndex:swipeView.currentPage];
     }
     
     if (currentCard) {
         self.expDate.hidden = NO;
-        self.expDate.text = [NSString stringWithFormat:@"Expires: %@",currentCard.expDate];
+        self.expDate.text = [NSString stringWithFormat:@"Expires: %@/%@",currentCard.expiryMonth, currentCard.expiryYear];
         self.cardNumber.hidden = NO;
         self.cardNumber.text = [NSString stringWithFormat:@"Card ending in %@",currentCard.lastFour];
         self.providerImage.hidden = NO;
         
-        if ([currentCard.isMasterPass boolValue]) {
+        //if ([currentCard.isMasterPass boolValue]) { // TODO ?
+        if (true){
             self.masterPassImage.alpha = 1;
         }
         else {
             self.masterPassImage.alpha = 0.3;
         }
-        
-        [self.providerImage setImage:[UIImage imageNamed:@"bank-logo.png"]];
-        
         // Selected card
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutCardSelected" object:nil userInfo:@{@"card":[[cm cards] objectAtIndex:swipeView.currentPage],@"index":[NSNumber numberWithInteger:swipeView.currentPage]}];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutCardSelected" object:nil userInfo:@{@"card":[[self cards] objectAtIndex:swipeView.currentPage],@"index":[NSNumber numberWithInteger:swipeView.currentPage]}];
     }
-    else if((!cm.isLinkedToMasterPass) && (swipeView.currentPage == 0) && self.showsMPPair){
+    
+    // TODO pair + checkout
+    
+    else if((![manager isAppPaired]) && (swipeView.currentPage == 0) && self.showsMPPair){
         self.expDate.hidden = YES;
         self.expDate.text = nil;
         self.cardNumber.hidden = NO;
         self.cardNumber.text = @"MasterPass Wallet";
         self.providerImage.hidden = YES;
         self.masterPassImage.alpha = 1;
-        [self.providerImage setImage:[UIImage imageNamed:@"bank-logo.png"]];
         
         // pairing
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutPairSelected" object:nil];
     }
+    
+    // Manual entry TODO
+    
     else {
         self.expDate.hidden = YES;
         self.expDate.text = nil;
