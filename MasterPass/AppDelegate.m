@@ -15,7 +15,7 @@
 @implementation AppDelegate
 
 static NSString * const server = @"https://mysterious-beyond-8033.herokuapp.com";
-static NSString * const version = @"/api/v9/";
+static NSString * const version = @"/api/v15/";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -75,7 +75,9 @@ static NSString * const version = @"/api/v9/";
 -(void)checkoutDidComplete:(BOOL)success error:(NSError *)error{
     NSLog(@"Checkout Did Complete: %d",success);
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassCheckoutComplete" object:nil];
+    if (success) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassCheckoutComplete" object:nil];
+    }
 }
 
 -(void)preCheckoutDidComplete:(BOOL)success data:(NSDictionary *)data error:(NSError *)error{
@@ -93,7 +95,9 @@ static NSString * const version = @"/api/v9/";
 -(void)pairCheckoutDidComplete:(BOOL)success error:(NSError *)error{
     NSLog(@"Pair Checkout Did Complete: %d",success);
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassCheckoutComplete" object:nil];
+    //if (success) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassCheckoutComplete" object:nil];
+    //}
 }
 
 -( BOOL)isAppPaired{

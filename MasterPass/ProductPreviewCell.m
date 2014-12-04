@@ -8,6 +8,7 @@
 
 #import "ProductPreviewCell.h"
 #import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "Product+NormalizedPrice.h"
 
 @interface ProductPreviewCell ()
 @end
@@ -144,7 +145,7 @@
 
 -(void)refreshProductInfo{
     self.productTitle.text = _product.name;
-    self.productPrice.text = [self formatCurrency:_product.price];
+    self.productPrice.text = [self formatCurrency:[_product normalizedPrice]];
     self.productDesc.text = _product.desc;
     [self.image setImageWithURL:[NSURL URLWithString:_product.imageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 }

@@ -28,6 +28,71 @@
  */
 @property (nonatomic, strong) NSString * id;
 /*!
+ @var billingAddressCity
+ @abstract Generated model property: billing_address_city.
+ */
+@property (nonatomic, strong) NSString * billingAddressCity;
+/*!
+ @var billingAddressCountry
+ @abstract Generated model property: billing_address_country.
+ */
+@property (nonatomic, strong) NSString * billingAddressCountry;
+/*!
+ @var billingAddressLineOne
+ @abstract Generated model property: billing_address_line_one.
+ */
+@property (nonatomic, strong) NSString * billingAddressLineOne;
+/*!
+ @var billingAddressLineThree
+ @abstract Generated model property: billing_address_line_three.
+ */
+@property (nonatomic, strong) NSString * billingAddressLineThree;
+/*!
+ @var billingAddressLineTwo
+ @abstract Generated model property: billing_address_line_two.
+ */
+@property (nonatomic, strong) NSString * billingAddressLineTwo;
+/*!
+ @var billingAddressPostalCode
+ @abstract Generated model property: billing_address_postal_code.
+ */
+@property (nonatomic, strong) NSString * billingAddressPostalCode;
+/*!
+ @var cardAccountNumber
+ @abstract Generated model property: card_account_number.
+ */
+@property (nonatomic, strong) NSString * cardAccountNumber;
+/*!
+ @var cardBrandId
+ @abstract Generated model property: card_brand_id.
+ */
+@property (nonatomic, strong) NSString * cardBrandId;
+/*!
+ @var cardBrandName
+ @abstract Generated model property: card_brand_name.
+ */
+@property (nonatomic, strong) NSString * cardBrandName;
+/*!
+ @var cardExpiryMonth
+ @abstract Generated model property: card_expiry_month.
+ */
+@property (nonatomic, strong) NSString * cardExpiryMonth;
+/*!
+ @var cardExpiryYear
+ @abstract Generated model property: card_expiry_year.
+ */
+@property (nonatomic, strong) NSString * cardExpiryYear;
+/*!
+ @var cardHolderName
+ @abstract Generated model property: card_holder_name.
+ */
+@property (nonatomic, strong) NSString * cardHolderName;
+/*!
+ @var cardLastFour
+ @abstract Generated model property: card_last_four.
+ */
+@property (nonatomic, strong) NSString * cardLastFour;
+/*!
  @var checkoutToken
  @abstract Generated model property: checkout_token.
  */

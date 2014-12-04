@@ -14,6 +14,7 @@
 #import "BBBadgeBarButtonItem.h"
 #import "MPECommerceManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "Product+NormalizedPrice.h"
 
 @interface ProductsListViewController ()
 @property (nonatomic, strong) NSArray *productsData;
@@ -95,7 +96,7 @@
 
 -(NSArray *)filterInventory:(NSArray *)inventory byLowPrice:(double)lowPrice andHighPrice:(double)highPrice{
     return [inventory select:^BOOL(Product * object) {
-        return ([object.price doubleValue] >= lowPrice && [object.price doubleValue] <= highPrice);
+        return ([[object normalizedPrice] doubleValue] >= lowPrice && [[object normalizedPrice] doubleValue] <= highPrice);
     }];
 }
 
@@ -228,13 +229,16 @@
     [customButton setBackgroundImage:rightImage forState:UIControlStateNormal];
     
     BBBadgeBarButtonItem *rightBarButton = [[BBBadgeBarButtonItem alloc]initWithCustomUIButton:customButton];
-    rightBarButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[[CartManager getInstance] cartSize]];
     rightBarButton.shouldAnimateBadge = YES;
     rightBarButton.shouldHideBadgeAtZero = YES;
     rightBarButton.badgePadding = 2.5;
     rightBarButton.badgeFont = [UIFont boldSystemFontOfSize:11];
     
-    [self.navigationItem setRightBarButtonItem:rightBarButton];
+    MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
+    [ecommerce getCartQuantityCallback:^(NSNumber *quantity) {
+        rightBarButton.badgeValue = [NSString stringWithFormat:@"%d",[quantity intValue]];
+        [self.navigationItem setRightBarButtonItem:rightBarButton];
+    }];
 }
 
 -(void)goToCart{

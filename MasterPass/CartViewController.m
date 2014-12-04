@@ -20,6 +20,7 @@
 #import <APSDK/AuthManager+Protected.h>
 #import <APSDK/OrderDetail.h>
 #import "MPManager.h"
+#import "OrderHeader+NormalizedTotals.h"
 
 @interface CartViewController ()
 @property (nonatomic, weak)IBOutlet UITableView *cartTable;
@@ -52,7 +53,7 @@
     [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
         self.orderHeader = header;
         self.orderDetails = cart;
-        self.totalLabel.text = [self formatCurrency:header.subtotal];
+        self.totalLabel.text = [self formatCurrency:[header normalizedSubTotal]];
         [self.cartTable reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
@@ -122,7 +123,7 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    self.totalLabel.text = [self formatCurrency:self.orderHeader.subtotal];
+    self.totalLabel.text = [self formatCurrency:[self.orderHeader normalizedSubTotal]];
     [self.cartTable reloadData];
 }
 
@@ -138,6 +139,7 @@
 #pragma mark - Pairing Flow
 
 -(void)pairAndCheckout{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
     [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
         MPManager *manager = [MPManager sharedInstance];
@@ -149,9 +151,11 @@
     if (self.navigationController.visibleViewController == self) {
         NSDictionary *userInfo = [notification userInfo];
         NSDictionary *cardInfo = userInfo[@"checkout"][@"card"];
-        NSDictionary *shippingInfo = userInfo[@"shipping_address"];
+        NSDictionary *shippingInfo = userInfo[@"checkout"][@"shipping_address"];
         MPCreditCard *card = [[MPCreditCard alloc]initWithDictionary:cardInfo];
         MPAddress *address = [[MPAddress alloc]initWithDictionary:shippingInfo];
+        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         CheckoutViewController *vc = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
         vc.precheckoutConfirmation = TRUE;
@@ -221,10 +225,33 @@
 }
 
 -(IBAction)moveToCheckout{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     CheckoutViewController *checkout = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
-    NSLog(@"%@",self.navigationController.viewControllers);
-    [self.navigationController pushViewController:checkout animated:YES];
+    
+    MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
+    [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+        
+        checkout.subtotal = [header normalizedSubTotal];
+        checkout.total = [header normalizedSubTotal];
+        //TODO other totals
+        
+        MPManager *manager = [MPManager sharedInstance];
+        if ([manager isAppPaired]) {
+            [manager precheckoutDataCallback:^(NSArray *cards, NSArray *addresses, NSDictionary *contactInfo, NSDictionary *walletInfo, NSError *error) {
+                checkout.cards = cards;
+                checkout.addresses = addresses;
+                checkout.walletInfo = walletInfo;
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                
+                [self.navigationController pushViewController:checkout animated:YES];
+            }];
+        }
+        else {
+            [self.navigationController pushViewController:checkout animated:YES];
+        }
+    }];
 }
 
 - (void) viewDidLayoutSubviews {

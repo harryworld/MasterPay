@@ -27,5 +27,10 @@ typedef enum CheckoutAlertType {
 @property(nonatomic, strong) NSArray *addresses;
 @property(nonatomic, strong) NSDictionary *walletInfo;
 
+@property (nonatomic, strong) NSNumber *subtotal;
+@property (nonatomic, strong) NSNumber *tax;
+@property (nonatomic, strong) NSNumber *shipping;
+@property (nonatomic, strong) NSNumber *total;
+
 -(void)selectShipping:(int)index;
 @end

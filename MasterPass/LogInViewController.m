@@ -14,7 +14,8 @@
 #import <M13Checkbox/M13Checkbox.h>
 #import <BButton/BButton.h>
 #import "BaseNavigationController.h"
-#import <APSDK/User.h>
+#import <APSDK/User+Remote.h>
+#import <APSDK/APObject+Remote.h>
 #import <APSDK/AuthManager+Protected.h>
 
 @interface LogInViewController ()
@@ -24,7 +25,7 @@
 @property(nonatomic, weak)IBOutlet UIView *fbLink;
 @property(nonatomic, weak)IBOutlet UIView *twLink;
 @property(nonatomic, weak)IBOutlet UILabel *rememberLabel;
-@property(nonatomic, weak)IBOutlet UILabel *registerLabel;
+@property(nonatomic, weak)IBOutlet UIButton *registerLabel;
 @property(nonatomic, weak)IBOutlet UIImageView *usernameImage;
 @property(nonatomic, weak)IBOutlet UIImageView *passwordImage;
 @property(nonatomic, weak)IBOutlet UIImageView *fbImage;
@@ -44,7 +45,7 @@
     [self.twLink setBackgroundColor:[UIColor twitterBlue]];
     [self.container.layer setCornerRadius:4];
     [self.rememberLabel setTextColor:[UIColor superGreyColor]];
-    [self.registerLabel setTextColor:[UIColor fireOrangeColor]];
+    [self.registerLabel setTitleColor:[UIColor fireOrangeColor] forState:UIControlStateNormal];
     
     [self.usernameContainer setBackgroundColor:[UIColor whiteColor]];
     [self.usernameContainer.layer setCornerRadius:4];
@@ -56,7 +57,7 @@
     [self.passwordContainer.layer setBorderWidth:1];
     
     
-    self.usernameField.text = @"s.smith@mastercard.com";
+    self.usernameField.text = [[NSUserDefaults standardUserDefaults]stringForKey:@"username"];
     
     FAKFontAwesome *usernameIcon = [FAKFontAwesome userIconWithSize:20];
     [usernameIcon addAttribute:NSForegroundColorAttributeName value:[UIColor fireOrangeColor]];
@@ -98,22 +99,50 @@
 -(void)authenticate{
     // Demo Code
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:self.usernameField.text forKey:@"username"];
     if ([self.rememberPassword checkState] == M13CheckboxStateChecked) {
-        [prefs setObject:self.passwordField.text forKey:@"password"];
+        [prefs setObject:self.usernameField.text forKey:@"username"];
     }
     else {
-        [prefs removeObjectForKey:@"password"];
+        [prefs removeObjectForKey:@"username"];
     }
     [prefs synchronize];
     [self login];
 }
 
 -(void)socialLoginAlert{
-    SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Sorry!" andMessage:@"Facebook and Twitter authentication methods are not enabled on this demo."];
+    SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Social Login" andMessage:@"You can add code here to authenticate via social networks"];
     [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
     alert.transitionStyle = SIAlertViewTransitionStyleBounce;
     [alert show];
+}
+
+-(IBAction)registerUser{
+    if (self.usernameField.text.length == 0) {
+        SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Error" andMessage:@"Please enter an email address"];
+        [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+        alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+        [alert show];
+    }
+    else {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        User *u = [User new];
+        u.email = self.usernameField.text;
+        [u createAsync:^(id object, NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            if (error) {
+                SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Error" andMessage:@"Email already taken - Please try another"];
+                [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+                alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+                [alert show];
+            }
+            else {
+                SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Success" andMessage:@"You have successfully registered. Your password has been set to 'password'"];
+                [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+                alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+                [alert show];
+            }
+        }];
+    }
 }
 
 -(IBAction)login{
@@ -136,7 +165,7 @@
 }
 
 -(IBAction)setupDrawerAndShop{
-    AppDelegate *ad = [[UIApplication sharedApplication]delegate];
+    AppDelegate *ad = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
                                                          bundle: nil];

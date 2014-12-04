@@ -17,7 +17,6 @@
 #import <APSDK/AuthManager+Protected.h>
 #import <APSDK/User.h>
 #import <APSDK/APObject+Local.h>
-#import "MPManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @interface UserProfileViewController ()
@@ -25,12 +24,6 @@
 @end
 
 @implementation UserProfileViewController
-
-//TODO
-/*
- Pairing Works but none of the events fire correctly yet.
- Will need extra work to continue with pairing events
- */
 
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -44,6 +37,22 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (connected) name:@"ConnectedMasterPass" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (connectMasterPass) name:@"mp_connect" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (learnMore) name:@"mp_learn_more" object:nil];
+    
+    // Call precheckout to test if we are actually paired
+    // This is a bit of a hack, but it fixes the issue
+    // where a user un-pairs from MasterPass console
+    // but the ecommerce doesn't know (still thinks
+    // it has a valid long token)
+    
+    
+    MPManager *manager = [MPManager sharedInstance];
+    [manager precheckoutDataCallback:^(NSArray *cards, NSArray *addresses, NSDictionary *contactInfo, NSDictionary *walletInfo, NSError *error) {
+        User *user = (User *)[[AuthManager defaultManager] currentCredentials];
+        user.isPaired = error ? @0 : @1;
+        [user saveLocal];
+        [self.profileTable reloadData];
+    }];
+    
 }
 
 - (void) viewDidLayoutSubviews {
@@ -99,8 +108,15 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     switch (section) {
-        case 0:return 3;
-        case 1:return 1;
+        case 0:return 1;
+        case 1:{
+            if ([[MPManager sharedInstance] isAppPaired]) {
+                return 2;
+            }
+            else {
+                return 1;
+            }
+        }
         case 2:return 1;
         default: return 0;
     }
@@ -110,9 +126,13 @@
     switch (indexPath.section) {
         case 0:return 44;
         case 1:{
-            User *user = (User *)[[AuthManager defaultManager] currentCredentials];
-            if ([user.isPaired boolValue]) {
-                return 60;
+            if ([[MPManager sharedInstance] isAppPaired]) {
+                if (indexPath.row == 0) {
+                    return 60;
+                }
+                else if (indexPath.row == 1){
+                    return 70;
+                }
             }
             else {
                 return 70;
@@ -173,19 +193,14 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
+        User *user = (User *)[[AuthManager defaultManager] currentCredentials];
+        
+        [cell.textField setUserInteractionEnabled:false];
         
         switch (indexPath.row) {
             case 0:
-                cell.textLabel.text = @"Name";
-                cell.textField.text = @"Susan Smith";
-                break;
-            case 1:
                 cell.textLabel.text = @"Email";
-                cell.textField.text = @"s.smith@mastercard.com";
-                break;
-            case 2:
-                cell.textLabel.text = @"Phone";
-                cell.textField.text = @"(808) 233-2342";
+                cell.textField.text = user.email;
                 break;
             default:
                 cell.textLabel.text = nil;
@@ -198,7 +213,7 @@
         
     }
     else if (indexPath.section == 1) {
-        if ([[MPManager sharedInstance] isAppPaired]) {
+        if ([[MPManager sharedInstance] isAppPaired] && indexPath.row == 0) {
             MPLinkedCell *cell = [tableView dequeueReusableCellWithIdentifier:linkedCell];
             if (cell == nil)
             {

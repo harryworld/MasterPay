@@ -7,7 +7,6 @@
 //
 
 #import "CardSelectCell.h"
-#import "CardManager.h"
 #import "Card.h"
 #import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "MPManager.h"
@@ -107,6 +106,39 @@
         
     };
     return self;
+}
+
+-(UIImage *)cardImageForCardType:(NSString *)cardType lastFour:(NSString *)lastFour{
+    
+    // We can't just do a random card because when the view
+    // in the slider is recycled and/or reloaded we will
+    // get a new image.
+    
+    // So we are going to use the last four as a 'seed' and
+    // decide which image to use based on whether it is odd
+    // or even. That way, we get the same image each time.
+    
+    NSArray *availableImages;
+    int index = [lastFour intValue] % 2;
+    
+    if ([cardType isEqualToString:CardTypeAmex]) {
+        availableImages = @[@"amex_black.png",@"amex_blue.png"];
+    }
+    else if ([cardType isEqualToString:CardTypeDiscover]){
+        availableImages = @[@"discover_grey.png",@"discover_orange.png"];
+    }
+    else if ([cardType isEqualToString:CardTypeMasterCard]){
+        availableImages = @[@"black_cc_mc.png",@"orange_cc.png"];
+    }
+    else if([cardType isEqualToString:CardTypeVisa]){
+        availableImages = @[@"visa_blue.png",@"visa_red.png"];
+    }
+    else {
+        index = 0; // only one image
+        availableImages = @[@"black_cc.png"];
+    }
+    
+    return [UIImage imageNamed:availableImages[index]];
 }
 
 -(void)setMasterPassImage:(NSString *)mpImageUrl andBrandImage:(NSString *)brandImageUrl{
@@ -216,7 +248,7 @@
         
         cardHolder = [[UILabel alloc]initWithFrame:CGRectZero];
         cardHolder.font = [UIFont boldSystemFontOfSize:9];
-        cardHolder.text = @"Susan Smith";
+        cardHolder.text = @"";
         cardHolder.tag = 4;
         cardHolder.textColor = [UIColor whiteColor];
         cardHolder.backgroundColor = [UIColor clearColor];
@@ -238,9 +270,10 @@
     }
     
     if (currentCard) {
-        cardImage.image = [UIImage imageNamed:@"black_cc_mc.png"]; //TODO
+        cardImage.image = [self cardImageForCardType:currentCard.brandId lastFour:currentCard.lastFour];
         cardNumber.hidden = NO;
         cardNumber.text = [NSString stringWithFormat:@" XXXX XXXX XXXX %@",currentCard.lastFour];
+        cardHolder.text = currentCard.cardHolderName;
         expDate.hidden = NO;
         expDate.text = [NSString stringWithFormat:@"%@/%@",currentCard.expiryMonth,currentCard.expiryYear];
         cardHolder.hidden = NO;

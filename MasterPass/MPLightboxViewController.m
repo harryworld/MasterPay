@@ -7,11 +7,13 @@
 //
 
 #import "MPLightboxViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MPLightboxViewController ()
 @property (nonatomic, strong) UIWebView *webview;
 @property (nonatomic, strong) NSDictionary *options;
 @property (nonatomic, assign) MPLightBoxType type;
+@property (nonatomic, strong) UIView *loadingView;
 @end
 
 @implementation MPLightboxViewController
@@ -20,9 +22,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.webview = [[UIWebView alloc]initWithFrame:self.view.frame];
+    self.view.backgroundColor = [UIColor blackColor];
+    
+    self.webview = [[UIWebView alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height -20 )];
     self.webview.delegate = self;
     [self.view addSubview:self.webview];
+    
+    self.loadingView = [[UIView alloc]initWithFrame:CGRectMake((self.view.frame.size.width / 2.) - 40, (self.view.frame.size.height / 2.) - 40, 80, 80)];
+    self.loadingView.backgroundColor = [UIColor colorWithWhite:0. alpha:0.6];
+    self.loadingView.layer.cornerRadius = 5;
+    
+    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityView.center = CGPointMake(self.loadingView.frame.size.width / 2., self.loadingView.frame.size.height / 2.);
+    [activityView startAnimating];
+    activityView.tag = 100;
+    [self.loadingView addSubview:activityView];
+    
+    [self.view addSubview:self.loadingView];
 }
 
 - (void)initiateLightBoxOfType:(MPLightBoxType)type WithOptions:(NSDictionary *)options{
@@ -35,6 +51,10 @@
 
 -(void) checkIfLoadDone:(UIWebView *) webView {
     if (webView.loading) { return; }
+    
+    // remove loading view
+    [self.loadingView removeFromSuperview];
+    self.loadingView = nil;
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.options

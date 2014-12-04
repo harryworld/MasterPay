@@ -16,4 +16,5 @@
 - (void)getAllProducts:(void (^)(NSArray *products))callback;
 - (void)getCurrentCart:(void (^)(OrderHeader *header, NSArray *cart))callback;
 - (void)addProductToCart:(Product *)product;
+- (void)getCartQuantityCallback:(void (^)(NSNumber *quantity))callback;
 @end

@@ -134,4 +134,19 @@
         }];
     }];
 }
+
+- (void)getCartQuantityCallback:(void (^)(NSNumber *quantity))callback{
+    [self getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+        int quant = 0;
+        for (OrderDetail *detail in cart) {
+            quant += [detail.quantity intValue];
+        }
+        if (callback) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback([NSNumber numberWithInt:quant]);
+            });
+        }
+    }];
+}
+
 @end

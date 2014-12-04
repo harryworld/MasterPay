@@ -24,8 +24,9 @@
 #import "MPManager.h"
 #import "MPCreditCard.h"
 #import "MPECommerceManager.h"
+#import "OrderHeader+NormalizedTotals.h"
 
-@interface CheckoutViewController ()
+@interface CheckoutViewController () <UIAlertViewDelegate>
 @property(nonatomic, strong) SwipeView *cardSwipeView;
 @property(nonatomic, strong) ProcessOrderCell *processOrderCell;
 @property(nonatomic, strong) MPCreditCard *selectedCard;
@@ -33,6 +34,9 @@
 @property(nonatomic, strong) UIButton *cardSelectorButton;
 
 @property(nonatomic, strong) NSString *cardType;
+
+@property (nonatomic, strong)NSArray *confirmProducts; //used for order confirmation
+@property (nonatomic, assign)BOOL purchasingWithMP;
 @end
 
 @implementation CheckoutViewController
@@ -62,18 +66,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    MPManager *manager = [MPManager sharedInstance];
-    if ([manager isAppPaired] && !self.precheckoutConfirmation) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [manager precheckoutDataCallback:^(NSArray *cards, NSArray *addresses, NSDictionary *contactInfo, NSDictionary *walletInfo, NSError *error) {
-            self.cards = cards;
-            self.addresses = addresses;
-            self.walletInfo = walletInfo;
-            [self switchToCard:self.cards.firstObject];
-            [self selectDefaultShipping];
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        }];
-    }
+    
+    [self selectDefaultCard];
+    [self selectDefaultShipping];
 }
 
 - (void) viewDidLayoutSubviews {
@@ -87,11 +82,11 @@
     
     
     // TODO
-    CardManager *manager = [CardManager getInstance];
+    /*CardManager *manager = [CardManager getInstance];
     if (manager.wantsDelayedPair) {
         manager.isLinkedToMasterPass = YES;
         manager.wantsDelayedPair = NO;
-    }
+    }*/
 }
 
 -(void)dealloc{
@@ -107,10 +102,29 @@
     [self switchToCard:card];
 }
 
+-(void)selectDefaultCard{
+    for (int i = 0; i < self.cards.count; i++){
+        MPCreditCard *card = self.cards[i];
+        if ([card.selectedAsDefault boolValue]) {
+            [self switchToCard:card];
+            [self.cardSwipeView scrollToItemAtIndex:i duration:0.0];
+            return;
+        }
+    }
+    
+    if (self.cards.count > 0) {
+        [self switchToCard:self.cards[0]];
+        [self.cardSwipeView scrollToItemAtIndex:0 duration:0.0];
+    }
+}
+
 -(void)switchToCard:(MPCreditCard *)card{
     self.selectedCard = card;
     
-    if (card) {
+    if (card && self.cards.count == 1){
+        self.buttonType = kButtonTypeProcess;
+    }
+    else if (card) {
         self.buttonType = kButtonTypeMasterPass;
     }
     else {
@@ -141,8 +155,12 @@
         MPAddress *address = self.addresses[i];
         if ([address.selectedAsDefault boolValue]) {
             [self selectShipping:i];
-            break;
+            return;
         }
+    }
+    
+    if (self.addresses.count > 0) {
+        [self selectShipping:0];
     }
 }
 
@@ -154,6 +172,17 @@
         self.selectedShippingInfo = nil;
     }
     [self.containerTable reloadData];
+}
+
+-(void)showShippingPicker{
+    UIAlertView *shippingPicker = [[UIAlertView alloc]initWithTitle:@"Shipping Address" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    
+    for (MPAddress *address in self.addresses) {
+        
+        [shippingPicker addButtonWithTitle:address.shippingAlias ?: address.lineOne];
+    }
+    
+    [shippingPicker show];
 }
 
 #pragma mark - Card Types
@@ -188,10 +217,17 @@
 #pragma mark - Processing Orders
 
 -(void)processOrder:(NSNotification *)notification{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
     [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+        self.confirmProducts = cart;
         MPManager *manager = [MPManager sharedInstance];
-        if ([manager isAppPaired] && !self.precheckoutConfirmation) {
+        if (self.selectedCard == nil) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [self confirmOrder];
+        }
+        else if ([manager isAppPaired] && !self.precheckoutConfirmation) {
+            self.purchasingWithMP = TRUE;
             [manager returnCheckoutForOrder:header.id
                                  walletInfo:self.walletInfo
                                        card:self.selectedCard
@@ -199,24 +235,10 @@
                        showInViewController:self];
         }
         else if ([manager isAppPaired] && self.precheckoutConfirmation){
+            self.purchasingWithMP = TRUE;
             [manager completePairCheckoutForOrder:header.id transaction:self.walletInfo[@"transaction_id"] preCheckoutTransaction:self.walletInfo[@"pre_checkout_transaction_id"]];
         }
     }];
-    
-    //TODO
-    /*if (cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue] && !cm.isExpressEnabled) {
-        [self performSegueWithIdentifier:@"MPCheckout" sender:nil];
-    }
-    else if (self.isPairing && self.oneTimePairedCard){
-        [self confirmOrder];
-    }
-    else if (self.isPairing) {
-        [self performSegueWithIdentifier:@"MPConnect" sender:nil];
-    }
-    else{
-        //other process
-        [self confirmOrder];
-    }*/
 }
 
 -(void)oneTimePairingComplete{
@@ -229,6 +251,7 @@
 
 -(void)confirmOrder {
     if ([self.navigationController.visibleViewController isEqual:self]) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [self performSegueWithIdentifier:@"ConfirmOrder" sender:nil];
     }
     else {
@@ -237,25 +260,12 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
-    //TODO
-    
-    /*if ([segue.identifier isEqualToString:@"ConfirmOrder"]) {
-        CardManager *cm = [CardManager getInstance];
-        if ((cm.isLinkedToMasterPass && self.selectedCard && [self.selectedCard.isMasterPass boolValue]) || (self.isPairing && self.oneTimePairedCard)) {
-            ((OrderConfirmationViewController *)segue.destinationViewController).purchasedWithMP = true;
-        }
-        else {
-            ((OrderConfirmationViewController *)segue.destinationViewController).purchasedWithMP = false;
-        }
+    if ([segue.identifier isEqualToString:@"ConfirmOrder"]) {
+        OrderConfirmationViewController *ocvc = (OrderConfirmationViewController *)[segue destinationViewController];
+        ocvc.products = self.confirmProducts;
+        ocvc.purchasedWithMP = self.purchasingWithMP;
+        ocvc.total = self.total;
     }
-    else if ([[segue identifier] isEqualToString:@"MPCheckout"]) {
-        MasterPassConnectViewController *dest = (MasterPassConnectViewController *)[[(UINavigationController *)[segue destinationViewController] viewControllers] firstObject];
-        
-        dest.checkoutAuth = TRUE;
-        
-        //[self confirmOrder];
-    }*/
 }
 
 -(void)popToRoot{
@@ -439,15 +449,15 @@
         switch (indexPath.row) {
             case 0:
                 cell.textLabel.text = @"Items";
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[self formatCurrency:[NSNumber numberWithDouble:[cm subtotal]]]];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[self formatCurrency:self.subtotal]];
                 break;
             case 1:
                 cell.textLabel.text = @"Tax";
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[self formatCurrency:[NSNumber numberWithDouble:[cm tax]]]];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[self formatCurrency:self.tax]];
                 break;
             case 2:
                 cell.textLabel.text = @"Shipping";
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[self formatCurrency:[NSNumber numberWithDouble:[cm shipping]]]];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",[self formatCurrency:self.shipping]];
                 break;
             default:
                 cell.textLabel.text = nil;
@@ -469,7 +479,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.textLabel.text = @"Total";
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ USD",[self formatCurrency:[NSNumber numberWithDouble:[cm total]]]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ USD",[self formatCurrency:self.total]];
         cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
@@ -583,14 +593,13 @@
         cell.textView.backgroundColor = [UIColor superLightGreyColor];
         cell.textView.textColor = [UIColor steelColor];
         cell.textView.scrollEnabled = NO;
-        if (![NSThread isMainThread]) { NSLog(@"Huh?"); }
         if (self.selectedShippingInfo) {
             cell.textView.text = [NSString stringWithFormat:@"%@ %@\n%@, %@ %@",
-                                  self.selectedShippingInfo.lineOne,
-                                  self.selectedShippingInfo.lineTwo,
-                                  self.selectedShippingInfo.countrySubdivision,
-                                  self.selectedShippingInfo.country,
-                                  self.selectedShippingInfo.postalCode];
+                                  self.selectedShippingInfo.lineOne ?: @"",
+                                  self.selectedShippingInfo.lineTwo?: @"",
+                                  self.selectedShippingInfo.countrySubdivision?: @"",
+                                  self.selectedShippingInfo.country?: @"",
+                                  self.selectedShippingInfo.postalCode?: @""];
         }
         else {
             cell.textView.text = nil;
@@ -639,5 +648,12 @@
     //fallback
     return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                   reuseIdentifier:@"DefaultCell"];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 5) {
+        //SELECT SHIPPING
+        [self showShippingPicker];
+    }
 }
 @end

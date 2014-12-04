@@ -8,6 +8,7 @@
 
 #import "CartProductCell.h"
 #import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "OrderDetail+NormalizedPrice.h"
 
 @implementation CartProductCell
 
@@ -37,7 +38,7 @@
 
 -(void)refreshProductInfo{
     self.productName.text = self.product.productName;
-    self.productPrice.text = [self formatCurrency:self.product.productPrice];
+    self.productPrice.text = [self formatCurrency:[self.product normalizedPrice]];
     [self.productImage setImageWithURL:[NSURL URLWithString:self.product.productImageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     //TODO Fix

@@ -15,9 +15,9 @@
 @property (nonatomic, strong, readonly) NSString *cardAlias;
 @property (nonatomic, strong, readonly) NSString *cardHolderName;
 @property (nonatomic, strong, readonly) NSNumber *cardId;
-@property (nonatomic, strong, readonly) NSNumber *expiryMonth;
-@property (nonatomic, strong, readonly) NSNumber *expiryYear;
-@property (nonatomic, strong, readonly) NSNumber *lastFour;
+@property (nonatomic, strong, readonly) NSString *expiryMonth;
+@property (nonatomic, strong, readonly) NSString *expiryYear;
+@property (nonatomic, strong, readonly) NSString *lastFour;
 @property (nonatomic, strong, readonly) NSNumber *selectedAsDefault;
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
