@@ -70,6 +70,7 @@ FOUNDATION_EXPORT NSString *const CardTypeAmex;
 FOUNDATION_EXPORT NSString *const CardTypeMasterCard;
 FOUNDATION_EXPORT NSString *const CardTypeDiscover;
 FOUNDATION_EXPORT NSString *const CardTypeVisa;
+FOUNDATION_EXPORT NSString *const CardTypeMaestro;
 
 FOUNDATION_EXPORT NSString *const MPErrorNotPaired;
 

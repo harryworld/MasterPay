@@ -27,6 +27,19 @@
 		C3212D561906BE470072BA80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3212D541906BE470072BA80 /* InfoPlist.strings */; };
 		C3212D581906BE470072BA80 /* MasterPassTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3212D571906BE470072BA80 /* MasterPassTests.m */; };
 		C328ED191A1D56FF00BBB069 /* MPCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = C328ED181A1D56FF00BBB069 /* MPCreditCard.m */; };
+		C344559B1A3260C2007941F0 /* amex_black.png in Resources */ = {isa = PBXBuildFile; fileRef = C344558E1A3260C2007941F0 /* amex_black.png */; };
+		C344559C1A3260C2007941F0 /* amex_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C344558F1A3260C2007941F0 /* amex_blue.png */; };
+		C344559D1A3260C2007941F0 /* discover_grey.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455901A3260C2007941F0 /* discover_grey.png */; };
+		C344559E1A3260C2007941F0 /* discover_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455911A3260C2007941F0 /* discover_orange.png */; };
+		C344559F1A3260C2007941F0 /* generic_card_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455921A3260C2007941F0 /* generic_card_blue.png */; };
+		C34455A01A3260C2007941F0 /* generic_card_green.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455931A3260C2007941F0 /* generic_card_green.png */; };
+		C34455A11A3260C2007941F0 /* generic_card_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455941A3260C2007941F0 /* generic_card_orange.png */; };
+		C34455A21A3260C2007941F0 /* maestro_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455951A3260C2007941F0 /* maestro_blue.png */; };
+		C34455A31A3260C2007941F0 /* maestro_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455961A3260C2007941F0 /* maestro_yellow.png */; };
+		C34455A41A3260C2007941F0 /* mastercard_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455971A3260C2007941F0 /* mastercard_blue.png */; };
+		C34455A51A3260C2007941F0 /* mastercard_green.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455981A3260C2007941F0 /* mastercard_green.png */; };
+		C34455A61A3260C2007941F0 /* visa_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455991A3260C2007941F0 /* visa_blue.png */; };
+		C34455A71A3260C2007941F0 /* visa_red.png in Resources */ = {isa = PBXBuildFile; fileRef = C344559A1A3260C2007941F0 /* visa_red.png */; };
 		C35E060019FDEBB700D93415 /* APResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C35E05FE19FDEBB600D93415 /* APResources.bundle */; };
 		C35E060119FDEBB700D93415 /* APSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35E05FF19FDEBB600D93415 /* APSDK.framework */; };
 		C35E060519FE757700D93415 /* MPECommerceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C35E060419FE757700D93415 /* MPECommerceManager.m */; };
@@ -106,12 +119,6 @@
 		C3F5173B1951E9DE0035570A /* black_cc_mc.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F5173A1951E9DE0035570A /* black_cc_mc.png */; };
 		C3F5173F19520A5F0035570A /* TextViewRightImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F5173E19520A5F0035570A /* TextViewRightImageCell.m */; };
 		C3F7E60E1A26A27500AF5245 /* OrderHeader+NormalizedTotals.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F7E60D1A26A27500AF5245 /* OrderHeader+NormalizedTotals.m */; };
-		C3F7E6401A2FFD0900AF5245 /* amex_black.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F7E63A1A2FFD0900AF5245 /* amex_black.png */; };
-		C3F7E6411A2FFD0900AF5245 /* amex_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F7E63B1A2FFD0900AF5245 /* amex_blue.png */; };
-		C3F7E6421A2FFD0900AF5245 /* discover_grey.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F7E63C1A2FFD0900AF5245 /* discover_grey.png */; };
-		C3F7E6431A2FFD0900AF5245 /* discover_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F7E63D1A2FFD0900AF5245 /* discover_orange.png */; };
-		C3F7E6441A2FFD0900AF5245 /* visa_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F7E63E1A2FFD0900AF5245 /* visa_blue.png */; };
-		C3F7E6451A2FFD0900AF5245 /* visa_red.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F7E63F1A2FFD0900AF5245 /* visa_red.png */; };
 		C3F7E6491A300BFF00AF5245 /* UserRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F7E6481A300BFF00AF5245 /* UserRegistrationViewController.m */; };
 		C3F901971923BE4C00400BF3 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F901961923BE4C00400BF3 /* BaseViewController.m */; };
 /* End PBXBuildFile section */
@@ -158,6 +165,19 @@
 		C3212D571906BE470072BA80 /* MasterPassTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterPassTests.m; sourceTree = "<group>"; };
 		C328ED171A1D56FF00BBB069 /* MPCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCreditCard.h; sourceTree = "<group>"; };
 		C328ED181A1D56FF00BBB069 /* MPCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCreditCard.m; sourceTree = "<group>"; };
+		C344558E1A3260C2007941F0 /* amex_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amex_black.png; sourceTree = "<group>"; };
+		C344558F1A3260C2007941F0 /* amex_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amex_blue.png; sourceTree = "<group>"; };
+		C34455901A3260C2007941F0 /* discover_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discover_grey.png; sourceTree = "<group>"; };
+		C34455911A3260C2007941F0 /* discover_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discover_orange.png; sourceTree = "<group>"; };
+		C34455921A3260C2007941F0 /* generic_card_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = generic_card_blue.png; sourceTree = "<group>"; };
+		C34455931A3260C2007941F0 /* generic_card_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = generic_card_green.png; sourceTree = "<group>"; };
+		C34455941A3260C2007941F0 /* generic_card_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = generic_card_orange.png; sourceTree = "<group>"; };
+		C34455951A3260C2007941F0 /* maestro_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maestro_blue.png; sourceTree = "<group>"; };
+		C34455961A3260C2007941F0 /* maestro_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maestro_yellow.png; sourceTree = "<group>"; };
+		C34455971A3260C2007941F0 /* mastercard_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mastercard_blue.png; sourceTree = "<group>"; };
+		C34455981A3260C2007941F0 /* mastercard_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mastercard_green.png; sourceTree = "<group>"; };
+		C34455991A3260C2007941F0 /* visa_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visa_blue.png; sourceTree = "<group>"; };
+		C344559A1A3260C2007941F0 /* visa_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visa_red.png; sourceTree = "<group>"; };
 		C35E05FE19FDEBB600D93415 /* APResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = APResources.bundle; sourceTree = "<group>"; };
 		C35E05FF19FDEBB600D93415 /* APSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = APSDK.framework; sourceTree = "<group>"; };
 		C35E060319FE757700D93415 /* MPECommerceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPECommerceManager.h; sourceTree = "<group>"; };
@@ -269,12 +289,6 @@
 		C3F5173E19520A5F0035570A /* TextViewRightImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewRightImageCell.m; sourceTree = "<group>"; };
 		C3F7E60C1A26A27500AF5245 /* OrderHeader+NormalizedTotals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OrderHeader+NormalizedTotals.h"; sourceTree = "<group>"; };
 		C3F7E60D1A26A27500AF5245 /* OrderHeader+NormalizedTotals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OrderHeader+NormalizedTotals.m"; sourceTree = "<group>"; };
-		C3F7E63A1A2FFD0900AF5245 /* amex_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amex_black.png; sourceTree = "<group>"; };
-		C3F7E63B1A2FFD0900AF5245 /* amex_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amex_blue.png; sourceTree = "<group>"; };
-		C3F7E63C1A2FFD0900AF5245 /* discover_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discover_grey.png; sourceTree = "<group>"; };
-		C3F7E63D1A2FFD0900AF5245 /* discover_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discover_orange.png; sourceTree = "<group>"; };
-		C3F7E63E1A2FFD0900AF5245 /* visa_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visa_blue.png; sourceTree = "<group>"; };
-		C3F7E63F1A2FFD0900AF5245 /* visa_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visa_red.png; sourceTree = "<group>"; };
 		C3F7E6471A300BFF00AF5245 /* UserRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRegistrationViewController.h; sourceTree = "<group>"; };
 		C3F7E6481A300BFF00AF5245 /* UserRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRegistrationViewController.m; sourceTree = "<group>"; };
 		C3F901951923BE4C00400BF3 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -579,12 +593,19 @@
 		C38B3B08191A77F300FBB01C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C3F7E63A1A2FFD0900AF5245 /* amex_black.png */,
-				C3F7E63B1A2FFD0900AF5245 /* amex_blue.png */,
-				C3F7E63C1A2FFD0900AF5245 /* discover_grey.png */,
-				C3F7E63D1A2FFD0900AF5245 /* discover_orange.png */,
-				C3F7E63E1A2FFD0900AF5245 /* visa_blue.png */,
-				C3F7E63F1A2FFD0900AF5245 /* visa_red.png */,
+				C344558E1A3260C2007941F0 /* amex_black.png */,
+				C344558F1A3260C2007941F0 /* amex_blue.png */,
+				C34455901A3260C2007941F0 /* discover_grey.png */,
+				C34455911A3260C2007941F0 /* discover_orange.png */,
+				C34455921A3260C2007941F0 /* generic_card_blue.png */,
+				C34455931A3260C2007941F0 /* generic_card_green.png */,
+				C34455941A3260C2007941F0 /* generic_card_orange.png */,
+				C34455951A3260C2007941F0 /* maestro_blue.png */,
+				C34455961A3260C2007941F0 /* maestro_yellow.png */,
+				C34455971A3260C2007941F0 /* mastercard_blue.png */,
+				C34455981A3260C2007941F0 /* mastercard_green.png */,
+				C34455991A3260C2007941F0 /* visa_blue.png */,
+				C344559A1A3260C2007941F0 /* visa_red.png */,
 				C3950EA2193E4CC00042437A /* product images */,
 				C390082719266A6B00902B6E /* bank-logo.png */,
 				C390082819266A6B00902B6E /* black_cc.png */,
@@ -939,19 +960,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3F7E6441A2FFD0900AF5245 /* visa_blue.png in Resources */,
 				C3212D451906BE470072BA80 /* Images.xcassets in Resources */,
-				C3F7E6431A2FFD0900AF5245 /* discover_orange.png in Resources */,
 				C3B107621922A34C0045EBC0 /* logo.png in Resources */,
-				C3F7E6401A2FFD0900AF5245 /* amex_black.png in Resources */,
 				C3950ED9193E4D760042437A /* Sony-Playstation-4-disc.jpg in Resources */,
+				C34455A21A3260C2007941F0 /* maestro_blue.png in Resources */,
 				C3950ED8193E4D760042437A /* samsung-galaxy-tab-city1.jpg in Resources */,
 				C390084419297DF500902B6E /* orange_cc.png in Resources */,
 				C3950ED2193E4D760042437A /* IdeaPad-Y500-Laptop-PC-Closeup-Removeable-Drive-9L-940x475.jpg in Resources */,
 				C39008181926411F00902B6E /* Icon-76@2x.png in Resources */,
 				C3950ECF193E4D760042437A /* display_hero.jpg in Resources */,
+				C34455A31A3260C2007941F0 /* maestro_yellow.png in Resources */,
 				C3BB758219B0B97500A7DE29 /* blue_cc@2x.png in Resources */,
-				C3F7E6421A2FFD0900AF5245 /* discover_grey.png in Resources */,
 				C3212D371906BE460072BA80 /* InfoPlist.strings in Resources */,
 				C3BB758019B0B93100A7DE29 /* black_cc_mc@2x.png in Resources */,
 				C3950ED0193E4D760042437A /* gear-2-bike.jpg in Resources */,
@@ -959,24 +978,32 @@
 				C3212D401906BE460072BA80 /* Main.storyboard in Resources */,
 				C39007E71925084100902B6E /* masterpass-small-logo.png in Resources */,
 				C390081A1926411F00902B6E /* Icon-Small-50@2x.png in Resources */,
+				C34455A41A3260C2007941F0 /* mastercard_blue.png in Resources */,
 				C39008111926411F00902B6E /* Icon-40.png in Resources */,
+				C344559E1A3260C2007941F0 /* discover_orange.png in Resources */,
 				C390081D1926411F00902B6E /* Icon.png in Resources */,
 				AAB2E5A71986086C0026934A /* mp_password_checkout.png in Resources */,
+				C34455A01A3260C2007941F0 /* generic_card_green.png in Resources */,
+				C34455A61A3260C2007941F0 /* visa_blue.png in Resources */,
 				C390082B19266A6B00902B6E /* black_cc.png in Resources */,
+				C344559F1A3260C2007941F0 /* generic_card_blue.png in Resources */,
 				C390081B1926411F00902B6E /* Icon-Small.png in Resources */,
 				C390081C1926411F00902B6E /* Icon-Small@2x.png in Resources */,
 				C39008121926411F00902B6E /* Icon-40@2x.png in Resources */,
 				C3950ED4193E4D760042437A /* ipad_mini_hero_black.jpg in Resources */,
-				C3F7E6411A2FFD0900AF5245 /* amex_blue.png in Resources */,
 				C39008141926411F00902B6E /* Icon-60@2x.png in Resources */,
 				C390081E1926411F00902B6E /* Icon@2x.png in Resources */,
-				C3F7E6451A2FFD0900AF5245 /* visa_red.png in Resources */,
 				C3950ED3193E4D760042437A /* images.jpg in Resources */,
 				C37483F61A186B8900D10742 /* mp_lightbox_base.html in Resources */,
 				C390081F1926411F00902B6E /* iTunesArtwork.png in Resources */,
+				C344559C1A3260C2007941F0 /* amex_blue.png in Resources */,
 				C3950ECE193E4D760042437A /* 0.jpg in Resources */,
+				C34455A51A3260C2007941F0 /* mastercard_green.png in Resources */,
 				C39008151926411F00902B6E /* Icon-72.png in Resources */,
+				C34455A11A3260C2007941F0 /* generic_card_orange.png in Resources */,
 				C35E060019FDEBB700D93415 /* APResources.bundle in Resources */,
+				C34455A71A3260C2007941F0 /* visa_red.png in Resources */,
+				C344559B1A3260C2007941F0 /* amex_black.png in Resources */,
 				C39008201926411F00902B6E /* iTunesArtwork@2x.png in Resources */,
 				C3950ED7193E4D760042437A /* samsung-galaxy-s4-polycarbonate-body-macro1.jpg in Resources */,
 				C39008131926411F00902B6E /* Icon-60.png in Resources */,
@@ -984,6 +1011,7 @@
 				C3950E9F193E3AB80042437A /* black_cc_mp.png in Resources */,
 				C3950ED6193E4D760042437A /* Nokia-Lumia-520-1-2.jpg in Resources */,
 				C390082C19266A6B00902B6E /* blue_cc.png in Resources */,
+				C344559D1A3260C2007941F0 /* discover_grey.png in Resources */,
 				C3BB758419B0B99D00A7DE29 /* orange_cc@2x.png in Resources */,
 				C3950ED5193E4D760042437A /* kindle-fire1.jpg in Resources */,
 				C3F5173B1951E9DE0035570A /* black_cc_mc.png in Resources */,

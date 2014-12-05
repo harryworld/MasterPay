@@ -22,6 +22,7 @@ NSString *const CardTypeAmex = @"amex";
 NSString *const CardTypeMasterCard = @"master";
 NSString *const CardTypeDiscover = @"discover";
 NSString *const CardTypeVisa = @"visa";
+NSString *const CardTypeMaestro = @"maestro";
 
 NSString *const MPVersion = @"v6";
 

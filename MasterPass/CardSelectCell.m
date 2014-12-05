@@ -127,14 +127,20 @@
         availableImages = @[@"discover_grey.png",@"discover_orange.png"];
     }
     else if ([cardType isEqualToString:CardTypeMasterCard]){
-        availableImages = @[@"black_cc_mc.png",@"orange_cc.png"];
+        availableImages = @[@"mastercard_blue.png",@"mastercard_green.png"];
     }
     else if([cardType isEqualToString:CardTypeVisa]){
         availableImages = @[@"visa_blue.png",@"visa_red.png"];
     }
+    else if ([cardType isEqualToString:CardTypeMaestro]){
+        availableImages = @[@"maestro_blue.png",@"maestro_yellow.png"];
+    }
     else {
-        index = 0; // only one image
-        availableImages = @[@"black_cc.png"];
+        // Some Generic Card
+        index = [lastFour intValue] % 3; // three images
+        availableImages = @[@"generic_card_blue.png",
+                            @"generic_card_green.png",
+                            @"generic_card_orange.png"];
     }
     
     return [UIImage imageNamed:availableImages[index]];
@@ -229,7 +235,7 @@
             make.height.equalTo(@20);
             make.width.equalTo(cardImage);
             make.left.equalTo(cardImage).with.offset(12);
-            make.centerY.equalTo(cardImage).with.offset(7);
+            make.centerY.equalTo(cardImage).with.offset(5);
         }];
         
         expDate = [[UILabel alloc]initWithFrame:CGRectZero];
