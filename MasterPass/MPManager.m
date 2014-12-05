@@ -25,6 +25,10 @@ NSString *const CardTypeVisa = @"visa";
 
 NSString *const MPVersion = @"v6";
 
+NSString *const MPErrorDomain = @"MasterPassErrorDomain";
+NSString *const MPErrorNotPaired = @"No long access token found associated with user (user not paired with Masterpass)";
+NSInteger const MPErrorCodeBadRequest = 400;
+
 #pragma mark - Init
 
 + (instancetype)sharedInstance{
@@ -151,6 +155,8 @@ NSString *const MPVersion = @"v6";
     
     NSAssert([self isAppPaired], @"User must be paired with MasterPass before calling precheckout");
     
+    [self checkDelegateSanity];
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/masterpass/precheckout",[self.delegate serverAddress]]];
     
     NSError *jsonError;
@@ -195,6 +201,28 @@ NSString *const MPVersion = @"v6";
             }
             else {
                 NSLog(@"Recieved Precheckout Data: %@",json);
+                
+                if ([json[@"status"] isEqualToString:@"error"]) {
+                    
+                    if ([json[@"errors"] isEqualToString:MPErrorNotPaired]) {
+                        
+                        // User is not paired. They may have disconnected
+                        // via the MasterPass console.
+                        // We will optionally reset that pairing status here
+                        
+                        if ([self.delegate respondsToSelector:@selector(resetUserPairing)]) {
+                            [self.delegate resetUserPairing];
+                        }
+                    }
+                    
+                    
+                    if (callback) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            callback(nil,nil,nil, nil, [NSError errorWithDomain:MPErrorDomain code:MPErrorCodeBadRequest userInfo:@{NSLocalizedDescriptionKey:json[@"errors"]}]);
+                        });
+                    }
+                    return;
+                }
                 
                 NSArray *cardData = (NSArray *)[json objectForKey:@"cards"];
                 NSMutableArray *cards = [[NSMutableArray alloc]init];

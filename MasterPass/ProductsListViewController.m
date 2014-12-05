@@ -9,7 +9,6 @@
 #import "ProductsListViewController.h"
 #import <APSDK/Product.h>
 #import "CartViewController.h"
-#import "CartManager.h"
 #import "ProductPreviewCell.h"
 #import "BBBadgeBarButtonItem.h"
 #import "MPECommerceManager.h"

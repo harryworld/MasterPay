@@ -56,6 +56,8 @@
 
 -(void)pairCheckoutDidComplete:(BOOL)success error:(NSError *)error;
 
+- (void)resetUserPairing;
+
 @end
 
 @interface MPManager : NSObject
@@ -68,6 +70,8 @@ FOUNDATION_EXPORT NSString *const CardTypeAmex;
 FOUNDATION_EXPORT NSString *const CardTypeMasterCard;
 FOUNDATION_EXPORT NSString *const CardTypeDiscover;
 FOUNDATION_EXPORT NSString *const CardTypeVisa;
+
+FOUNDATION_EXPORT NSString *const MPErrorNotPaired;
 
 @property (nonatomic, strong) id<MPManagerDelegate> delegate;
 

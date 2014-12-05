@@ -13,9 +13,8 @@
 #import <APSDK/APObject+Local.h>
 
 @implementation AppDelegate
-
-static NSString * const server = @"https://mysterious-beyond-8033.herokuapp.com";
-static NSString * const version = @"/api/v15/";
+static NSString * const server = @"https://gadgetshop.anypresenceapp.com";
+static NSString * const version = @"/api/v1/";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -92,16 +91,22 @@ static NSString * const version = @"/api/v15/";
     }
 }
 
--(void)pairCheckoutDidComplete:(BOOL)success error:(NSError *)error{
+- (void)pairCheckoutDidComplete:(BOOL)success error:(NSError *)error{
     NSLog(@"Pair Checkout Did Complete: %d",success);
     
-    //if (success) {
+    if (success) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassCheckoutComplete" object:nil];
-    //}
+    }
 }
 
--( BOOL)isAppPaired{
+- ( BOOL)isAppPaired{
     return [((User *)[[AuthManager defaultManager]currentCredentials]).isPaired boolValue];
+}
+
+- (void)resetUserPairing{
+    User *currentUser = ((User *)[[AuthManager defaultManager]currentCredentials]);
+    currentUser.isPaired = @0;
+    [currentUser saveLocal];
 }
 
 - (NSArray *)supportedDataTypes{

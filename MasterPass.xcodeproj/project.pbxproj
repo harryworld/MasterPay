@@ -9,11 +9,9 @@
 /* Begin PBXBuildFile section */
 		936E59227FEB448A801A00EA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88E6AC0A76634904AFF81993 /* libPods.a */; };
 		AAB2E5A71986086C0026934A /* mp_password_checkout.png in Resources */ = {isa = PBXBuildFile; fileRef = AAB2E5A61986086C0026934A /* mp_password_checkout.png */; };
-		AAB2E5AA198608BF0026934A /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB2E5A9198608BF0026934A /* PasswordViewController.m */; };
 		C30FABB81A1FB97A003672B7 /* MPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FABB71A1FB97A003672B7 /* MPAddress.m */; };
 		C31C83A2192CF8380093751D /* MPLinkedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83A1192CF8380093751D /* MPLinkedCell.m */; };
 		C31C83A7192D15990093751D /* MPLearnMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83A6192D15990093751D /* MPLearnMoreCell.m */; };
-		C31C83AB192D1E200093751D /* ShippingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83AA192D1E200093751D /* ShippingInfo.m */; };
 		C31C83AF192D41B40093751D /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C31C83AE192D41B40093751D /* BaseNavigationController.m */; };
 		C3212D2D1906BE460072BA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3212D2C1906BE460072BA80 /* Foundation.framework */; };
 		C3212D2F1906BE460072BA80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3212D2E1906BE460072BA80 /* CoreGraphics.framework */; };
@@ -40,16 +38,12 @@
 		C37483F71A186B8900D10742 /* MPLightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37483F41A186B8900D10742 /* MPLightboxViewController.m */; };
 		C38B36C5190DD0C800FBB01C /* ProductsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36C4190DD0C800FBB01C /* ProductsListViewController.m */; };
 		C38B36CB190DDD6000FBB01C /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36CA190DDD6000FBB01C /* CartViewController.m */; };
-		C38B36CE190DF33C00FBB01C /* CartManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36CD190DF33C00FBB01C /* CartManager.m */; };
 		C38B36D1190E041400FBB01C /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36D0190E041400FBB01C /* CheckoutViewController.m */; };
-		C38B36D4190E55A000FBB01C /* MasterPassConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36D3190E55A000FBB01C /* MasterPassConnectViewController.m */; };
 		C38B36D7190E5F2D00FBB01C /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B36D6190E5F2D00FBB01C /* UserProfileViewController.m */; };
 		C38B3AFB1919485700FBB01C /* ProductPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B3AFA1919485700FBB01C /* ProductPreviewCell.m */; };
 		C38B3B14191A7EEE00FBB01C /* UIColor+ExtendedColors.m in Sources */ = {isa = PBXBuildFile; fileRef = C38B3B13191A7EEE00FBB01C /* UIColor+ExtendedColors.m */; };
 		C39007D01924D44200902B6E /* SubtotalItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C39007CF1924D44200902B6E /* SubtotalItemCell.m */; };
 		C39007D31924D76C00902B6E /* CardSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C39007D21924D76C00902B6E /* CardSelectCell.m */; };
-		C39007D71924DA9E00902B6E /* CardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C39007D61924DA9E00902B6E /* CardManager.m */; };
-		C39007DC1924DBC000902B6E /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = C39007DB1924DBC000902B6E /* Card.m */; };
 		C39007E11924EC6600902B6E /* SubtotalTitleItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C39007E01924EC6600902B6E /* SubtotalTitleItemCell.m */; };
 		C39007E51924EDE100902B6E /* TotalItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C39007E41924EDE100902B6E /* TotalItemCell.m */; };
 		C39007E71925084100902B6E /* masterpass-small-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C39007E61925084100902B6E /* masterpass-small-logo.png */; };
@@ -78,7 +72,6 @@
 		C390082B19266A6B00902B6E /* black_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = C390082819266A6B00902B6E /* black_cc.png */; };
 		C390082C19266A6B00902B6E /* blue_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = C390082919266A6B00902B6E /* blue_cc.png */; };
 		C3900830192691B500902B6E /* MPConnectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C390082F192691B500902B6E /* MPConnectCell.m */; };
-		C390083E1926CFE600902B6E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C390083D1926CFE600902B6E /* SettingsViewController.m */; };
 		C390084419297DF500902B6E /* orange_cc.png in Resources */ = {isa = PBXBuildFile; fileRef = C390084319297DF500902B6E /* orange_cc.png */; };
 		C3900848192A27CC00902B6E /* OrderConfirmationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3900847192A27CC00902B6E /* OrderConfirmationCell.m */; };
 		C390084A192A309300902B6E /* connect_with_masterpass.png in Resources */ = {isa = PBXBuildFile; fileRef = C3900849192A309300902B6E /* connect_with_masterpass.png */; };
@@ -137,8 +130,6 @@
 		88E6AC0A76634904AFF81993 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B2D70B233CF4D368F785B91 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AAB2E5A61986086C0026934A /* mp_password_checkout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mp_password_checkout.png; path = PairingSite/mp_password_checkout.png; sourceTree = "<group>"; };
-		AAB2E5A8198608BF0026934A /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
-		AAB2E5A9198608BF0026934A /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		BDCE99066D7B03C8E1C43595 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C30FABB61A1FB97A003672B7 /* MPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAddress.h; sourceTree = "<group>"; };
 		C30FABB71A1FB97A003672B7 /* MPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAddress.m; sourceTree = "<group>"; };
@@ -146,8 +137,6 @@
 		C31C83A1192CF8380093751D /* MPLinkedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLinkedCell.m; sourceTree = "<group>"; };
 		C31C83A5192D15990093751D /* MPLearnMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLearnMoreCell.h; sourceTree = "<group>"; };
 		C31C83A6192D15990093751D /* MPLearnMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLearnMoreCell.m; sourceTree = "<group>"; };
-		C31C83A9192D1E200093751D /* ShippingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingInfo.h; sourceTree = "<group>"; };
-		C31C83AA192D1E200093751D /* ShippingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingInfo.m; sourceTree = "<group>"; };
 		C31C83AD192D41B40093751D /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
 		C31C83AE192D41B40093751D /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		C3212D291906BE460072BA80 /* MasterPass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterPass.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,12 +176,8 @@
 		C38B36C4190DD0C800FBB01C /* ProductsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsListViewController.m; sourceTree = "<group>"; };
 		C38B36C9190DDD6000FBB01C /* CartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartViewController.h; sourceTree = "<group>"; };
 		C38B36CA190DDD6000FBB01C /* CartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartViewController.m; sourceTree = "<group>"; };
-		C38B36CC190DF33C00FBB01C /* CartManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartManager.h; sourceTree = "<group>"; };
-		C38B36CD190DF33C00FBB01C /* CartManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartManager.m; sourceTree = "<group>"; };
 		C38B36CF190E041400FBB01C /* CheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutViewController.h; sourceTree = "<group>"; };
 		C38B36D0190E041400FBB01C /* CheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutViewController.m; sourceTree = "<group>"; };
-		C38B36D2190E55A000FBB01C /* MasterPassConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterPassConnectViewController.h; sourceTree = "<group>"; };
-		C38B36D3190E55A000FBB01C /* MasterPassConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterPassConnectViewController.m; sourceTree = "<group>"; };
 		C38B36D5190E5F2D00FBB01C /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
 		C38B36D6190E5F2D00FBB01C /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		C38B3AF91919485700FBB01C /* ProductPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPreviewCell.h; sourceTree = "<group>"; };
@@ -203,10 +188,6 @@
 		C39007CF1924D44200902B6E /* SubtotalItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubtotalItemCell.m; sourceTree = "<group>"; };
 		C39007D11924D76C00902B6E /* CardSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardSelectCell.h; sourceTree = "<group>"; };
 		C39007D21924D76C00902B6E /* CardSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardSelectCell.m; sourceTree = "<group>"; };
-		C39007D51924DA9E00902B6E /* CardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardManager.h; sourceTree = "<group>"; };
-		C39007D61924DA9E00902B6E /* CardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardManager.m; sourceTree = "<group>"; };
-		C39007DA1924DBC000902B6E /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
-		C39007DB1924DBC000902B6E /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
 		C39007DF1924EC6600902B6E /* SubtotalTitleItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubtotalTitleItemCell.h; sourceTree = "<group>"; };
 		C39007E01924EC6600902B6E /* SubtotalTitleItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubtotalTitleItemCell.m; sourceTree = "<group>"; };
 		C39007E31924EDE100902B6E /* TotalItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalItemCell.h; sourceTree = "<group>"; };
@@ -242,8 +223,6 @@
 		C390082919266A6B00902B6E /* blue_cc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blue_cc.png; sourceTree = "<group>"; };
 		C390082E192691B500902B6E /* MPConnectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPConnectCell.h; sourceTree = "<group>"; };
 		C390082F192691B500902B6E /* MPConnectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPConnectCell.m; sourceTree = "<group>"; };
-		C390083C1926CFE600902B6E /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		C390083D1926CFE600902B6E /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		C390084319297DF500902B6E /* orange_cc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orange_cc.png; sourceTree = "<group>"; };
 		C3900846192A27CC00902B6E /* OrderConfirmationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderConfirmationCell.h; sourceTree = "<group>"; };
 		C3900847192A27CC00902B6E /* OrderConfirmationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderConfirmationCell.m; sourceTree = "<group>"; };
@@ -364,13 +343,13 @@
 		C30131791A30FBBE007E89E4 /* Application Logic */ = {
 			isa = PBXGroup;
 			children = (
+				C3212D3E1906BE460072BA80 /* Main.storyboard */,
+				C38B3B05191A77D000FBB01C /* App Delegate */,
 				C38B3AFD191A776000FBB01C /* View Controllers */,
 				C3B1074E192276880045EBC0 /* Third Party */,
 				C38B3B03191A77B700FBB01C /* TableViewCells */,
 				C3212D331906BE460072BA80 /* Supporting Files */,
-				C38B3AFC191A774700FBB01C /* Singletons */,
 				C38B3B08191A77F300FBB01C /* Resources */,
-				C38B3B07191A77E200FBB01C /* Objects */,
 				C31C83B0192D451D0093751D /* Navigation Controllers */,
 				C38B3B11191A7ECD00FBB01C /* Categories */,
 			);
@@ -393,15 +372,6 @@
 				C31C83A6192D15990093751D /* MPLearnMoreCell.m */,
 			);
 			name = "MP Learn More";
-			sourceTree = "<group>";
-		};
-		C31C83A8192D1E0D0093751D /* Shipping Info */ = {
-			isa = PBXGroup;
-			children = (
-				C31C83A9192D1E200093751D /* ShippingInfo.h */,
-				C31C83AA192D1E200093751D /* ShippingInfo.m */,
-			);
-			name = "Shipping Info";
 			sourceTree = "<group>";
 		};
 		C31C83AC192D419A0093751D /* Base Nav */ = {
@@ -511,16 +481,6 @@
 			name = "MasterPass Manager";
 			sourceTree = "<group>";
 		};
-		C38B3AFC191A774700FBB01C /* Singletons */ = {
-			isa = PBXGroup;
-			children = (
-				C38B3B05191A77D000FBB01C /* App Delegate */,
-				C39007D81924DAA100902B6E /* Card Manager */,
-				C38B3B06191A77D800FBB01C /* Cart Manager */,
-			);
-			name = Singletons;
-			sourceTree = "<group>";
-		};
 		C38B3AFD191A776000FBB01C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,10 +490,8 @@
 				C38B3B00191A778D00FBB01C /* Checkout */,
 				C3B10751192277BD0045EBC0 /* Drawer */,
 				C3B1075D19227F7F0045EBC0 /* Log In */,
-				C38B3B01191A779800FBB01C /* MasterPass Connect */,
 				C39007EC19252CEE00902B6E /* Order Confirmation */,
 				C38B3AFE191A777300FBB01C /* Product List */,
-				C390083B1926CFC900902B6E /* Settings */,
 				C38B3B02191A77A700FBB01C /* UserProfile */,
 			);
 			name = "View Controllers";
@@ -562,19 +520,8 @@
 			children = (
 				C38B36CF190E041400FBB01C /* CheckoutViewController.h */,
 				C38B36D0190E041400FBB01C /* CheckoutViewController.m */,
-				AAB2E5A8198608BF0026934A /* PasswordViewController.h */,
-				AAB2E5A9198608BF0026934A /* PasswordViewController.m */,
 			);
 			name = Checkout;
-			sourceTree = "<group>";
-		};
-		C38B3B01191A779800FBB01C /* MasterPass Connect */ = {
-			isa = PBXGroup;
-			children = (
-				C38B36D2190E55A000FBB01C /* MasterPassConnectViewController.h */,
-				C38B36D3190E55A000FBB01C /* MasterPassConnectViewController.m */,
-			);
-			name = "MasterPass Connect";
 			sourceTree = "<group>";
 		};
 		C38B3B02191A77A700FBB01C /* UserProfile */ = {
@@ -629,24 +576,6 @@
 			name = "App Delegate";
 			sourceTree = "<group>";
 		};
-		C38B3B06191A77D800FBB01C /* Cart Manager */ = {
-			isa = PBXGroup;
-			children = (
-				C38B36CC190DF33C00FBB01C /* CartManager.h */,
-				C38B36CD190DF33C00FBB01C /* CartManager.m */,
-			);
-			name = "Cart Manager";
-			sourceTree = "<group>";
-		};
-		C38B3B07191A77E200FBB01C /* Objects */ = {
-			isa = PBXGroup;
-			children = (
-				C39007DD1924DBC300902B6E /* Card */,
-				C31C83A8192D1E0D0093751D /* Shipping Info */,
-			);
-			name = Objects;
-			sourceTree = "<group>";
-		};
 		C38B3B08191A77F300FBB01C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -685,7 +614,6 @@
 				C390080F1926411F00902B6E /* iTunesArtwork.png */,
 				C39008101926411F00902B6E /* iTunesArtwork@2x.png */,
 				C3B107611922A34C0045EBC0 /* logo.png */,
-				C3212D3E1906BE460072BA80 /* Main.storyboard */,
 				C39007E61925084100902B6E /* masterpass-small-logo.png */,
 				C390084319297DF500902B6E /* orange_cc.png */,
 				C3BB758319B0B99D00A7DE29 /* orange_cc@2x.png */,
@@ -726,24 +654,6 @@
 				C39007D21924D76C00902B6E /* CardSelectCell.m */,
 			);
 			name = CardSelect;
-			sourceTree = "<group>";
-		};
-		C39007D81924DAA100902B6E /* Card Manager */ = {
-			isa = PBXGroup;
-			children = (
-				C39007D51924DA9E00902B6E /* CardManager.h */,
-				C39007D61924DA9E00902B6E /* CardManager.m */,
-			);
-			name = "Card Manager";
-			sourceTree = "<group>";
-		};
-		C39007DD1924DBC300902B6E /* Card */ = {
-			isa = PBXGroup;
-			children = (
-				C39007DA1924DBC000902B6E /* Card.h */,
-				C39007DB1924DBC000902B6E /* Card.m */,
-			);
-			name = Card;
 			sourceTree = "<group>";
 		};
 		C39007DE1924EC3400902B6E /* SubtotalTitleItem */ = {
@@ -807,15 +717,6 @@
 				C390082F192691B500902B6E /* MPConnectCell.m */,
 			);
 			name = "MPConnect Cell";
-			sourceTree = "<group>";
-		};
-		C390083B1926CFC900902B6E /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				C390083C1926CFE600902B6E /* SettingsViewController.h */,
-				C390083D1926CFE600902B6E /* SettingsViewController.m */,
-			);
-			name = Settings;
 			sourceTree = "<group>";
 		};
 		C3900845192A272A00902B6E /* OrderConfirmation */ = {
@@ -1149,9 +1050,7 @@
 				C39007E11924EC6600902B6E /* SubtotalTitleItemCell.m in Sources */,
 				C3F901971923BE4C00400BF3 /* BaseViewController.m in Sources */,
 				C364DE951A269E090041ACF2 /* Product+NormalizedPrice.m in Sources */,
-				C390083E1926CFE600902B6E /* SettingsViewController.m in Sources */,
 				C30FABB81A1FB97A003672B7 /* MPAddress.m in Sources */,
-				C38B36D4190E55A000FBB01C /* MasterPassConnectViewController.m in Sources */,
 				C3F7E6491A300BFF00AF5245 /* UserRegistrationViewController.m in Sources */,
 				C3900848192A27CC00902B6E /* OrderConfirmationCell.m in Sources */,
 				C37483F71A186B8900D10742 /* MPLightboxViewController.m in Sources */,
@@ -1160,12 +1059,10 @@
 				C38B36D1190E041400FBB01C /* CheckoutViewController.m in Sources */,
 				C39007D01924D44200902B6E /* SubtotalItemCell.m in Sources */,
 				C3F5173F19520A5F0035570A /* TextViewRightImageCell.m in Sources */,
-				C31C83AB192D1E200093751D /* ShippingInfo.m in Sources */,
 				C39007EF19252E1500902B6E /* OrderConfirmationViewController.m in Sources */,
 				C39007EB19251B6300902B6E /* ProcessOrderCell.m in Sources */,
 				C38B3AFB1919485700FBB01C /* ProductPreviewCell.m in Sources */,
 				C3B1075B192279710045EBC0 /* ICSDrawerController.m in Sources */,
-				C39007DC1924DBC000902B6E /* Card.m in Sources */,
 				C3900824192645A100902B6E /* TextFieldCell.m in Sources */,
 				C3F7E60E1A26A27500AF5245 /* OrderHeader+NormalizedTotals.m in Sources */,
 				C3D909431922265600F6630D /* CartProductCell.m in Sources */,
@@ -1178,7 +1075,6 @@
 				C39007F319252FAD00902B6E /* TextViewCell.m in Sources */,
 				C37483F51A186B8900D10742 /* MPManager.m in Sources */,
 				C328ED191A1D56FF00BBB069 /* MPCreditCard.m in Sources */,
-				C38B36CE190DF33C00FBB01C /* CartManager.m in Sources */,
 				C38B36C5190DD0C800FBB01C /* ProductsListViewController.m in Sources */,
 				C3B1076019227F9B0045EBC0 /* LogInViewController.m in Sources */,
 				C31C83A2192CF8380093751D /* MPLinkedCell.m in Sources */,
@@ -1186,12 +1082,10 @@
 				C3F516F41946152A0035570A /* TableTitleCell.m in Sources */,
 				C364DE981A26A0780041ACF2 /* OrderDetail+NormalizedPrice.m in Sources */,
 				C3900830192691B500902B6E /* MPConnectCell.m in Sources */,
-				C39007D71924DA9E00902B6E /* CardManager.m in Sources */,
 				C38B36CB190DDD6000FBB01C /* CartViewController.m in Sources */,
 				C39007E51924EDE100902B6E /* TotalItemCell.m in Sources */,
 				C3212D391906BE460072BA80 /* main.m in Sources */,
 				C39007D31924D76C00902B6E /* CardSelectCell.m in Sources */,
-				AAB2E5AA198608BF0026934A /* PasswordViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

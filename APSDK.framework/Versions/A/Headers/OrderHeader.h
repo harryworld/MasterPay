@@ -103,6 +103,11 @@
  */
 @property (nonatomic, strong) NSDate * createdAt;
 /*!
+ @var shipping
+ @abstract Generated model property: shipping.
+ */
+@property (nonatomic, strong) NSNumber * shipping;
+/*!
  @var status
  @abstract Generated model property: status.
  */
@@ -112,6 +117,16 @@
  @abstract Generated model property: subtotal.
  */
 @property (nonatomic, strong) NSNumber * subtotal;
+/*!
+ @var tax
+ @abstract Generated model property: tax.
+ */
+@property (nonatomic, strong) NSNumber * tax;
+/*!
+ @var total
+ @abstract Generated model property: total.
+ */
+@property (nonatomic, strong) NSNumber * total;
 /*!
  @var userId
  @abstract Generated model property: user_id.

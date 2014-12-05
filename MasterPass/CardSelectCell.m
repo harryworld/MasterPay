@@ -7,7 +7,6 @@
 //
 
 #import "CardSelectCell.h"
-#import "Card.h"
 #import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "MPManager.h"
 
@@ -275,7 +274,12 @@
         cardNumber.text = [NSString stringWithFormat:@" XXXX XXXX XXXX %@",currentCard.lastFour];
         cardHolder.text = currentCard.cardHolderName;
         expDate.hidden = NO;
-        expDate.text = [NSString stringWithFormat:@"%@/%@",currentCard.expiryMonth,currentCard.expiryYear];
+        if (currentCard.expiryMonth && currentCard.expiryYear) {
+            expDate.text = [NSString stringWithFormat:@"%@/%@",currentCard.expiryMonth,currentCard.expiryYear];
+        }
+        else {
+            expDate.text = nil;
+        }
         cardHolder.hidden = NO;
     }
     

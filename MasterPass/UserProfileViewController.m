@@ -9,8 +9,6 @@
 #import "UserProfileViewController.h"
 #import "TextFieldCell.h"
 #import "MPConnectCell.h"
-#import "CardManager.h"
-#import "MasterPassConnectViewController.h"
 #import "MPLinkedCell.h"
 #import "MPLearnMoreCell.h"
 #import "MPManager.h"
@@ -46,13 +44,14 @@
     
     
     MPManager *manager = [MPManager sharedInstance];
-    [manager precheckoutDataCallback:^(NSArray *cards, NSArray *addresses, NSDictionary *contactInfo, NSDictionary *walletInfo, NSError *error) {
-        User *user = (User *)[[AuthManager defaultManager] currentCredentials];
-        user.isPaired = error ? @0 : @1;
-        [user saveLocal];
-        [self.profileTable reloadData];
-    }];
-    
+    if ([manager isAppPaired]) {
+        [manager precheckoutDataCallback:^(NSArray *cards, NSArray *addresses, NSDictionary *contactInfo, NSDictionary *walletInfo, NSError *error) {
+            // Hack to force pairing status reload.
+            // This can be replaced once there is a
+            // public pairing status check against MasterPass
+            [self.profileTable reloadData];
+        }];
+    }
 }
 
 - (void) viewDidLayoutSubviews {
@@ -85,10 +84,6 @@
     
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     
-    CardManager *cm = [CardManager getInstance];
-    cm.isLinkedToMasterPass = YES;
-    
-    
     [self.profileTable reloadData];
     
     SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Connect with MasterPass" andMessage:@"Your account is now paired with your MasterPass wallet. The next time you checkout, you will simply need to enter your MasterPass password to process the order."];
@@ -109,14 +104,7 @@
     
     switch (section) {
         case 0:return 1;
-        case 1:{
-            if ([[MPManager sharedInstance] isAppPaired]) {
-                return 2;
-            }
-            else {
-                return 1;
-            }
-        }
+        case 1:return 1;
         case 2:return 1;
         default: return 0;
     }
@@ -127,12 +115,7 @@
         case 0:return 44;
         case 1:{
             if ([[MPManager sharedInstance] isAppPaired]) {
-                if (indexPath.row == 0) {
-                    return 60;
-                }
-                else if (indexPath.row == 1){
-                    return 70;
-                }
+                return 60;
             }
             else {
                 return 70;
@@ -213,7 +196,7 @@
         
     }
     else if (indexPath.section == 1) {
-        if ([[MPManager sharedInstance] isAppPaired] && indexPath.row == 0) {
+        if ([[MPManager sharedInstance] isAppPaired]) {
             MPLinkedCell *cell = [tableView dequeueReusableCellWithIdentifier:linkedCell];
             if (cell == nil)
             {

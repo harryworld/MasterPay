@@ -17,6 +17,7 @@
 #import <APSDK/User+Remote.h>
 #import <APSDK/APObject+Remote.h>
 #import <APSDK/AuthManager+Protected.h>
+#import "UserRegistrationViewController.h"
 
 @interface LogInViewController ()
 @property(nonatomic, weak)IBOutlet UIView *container;
@@ -117,32 +118,14 @@
 }
 
 -(IBAction)registerUser{
-    if (self.usernameField.text.length == 0) {
-        SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Error" andMessage:@"Please enter an email address"];
-        [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
-        alert.transitionStyle = SIAlertViewTransitionStyleBounce;
-        [alert show];
-    }
-    else {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        User *u = [User new];
-        u.email = self.usernameField.text;
-        [u createAsync:^(id object, NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            if (error) {
-                SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Error" andMessage:@"Email already taken - Please try another"];
-                [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
-                alert.transitionStyle = SIAlertViewTransitionStyleBounce;
-                [alert show];
-            }
-            else {
-                SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Success" andMessage:@"You have successfully registered. Your password has been set to 'password'"];
-                [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
-                alert.transitionStyle = SIAlertViewTransitionStyleBounce;
-                [alert show];
-            }
-        }];
-    }
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
+                                                         bundle: nil];
+    
+    UserRegistrationViewController *registerView = [storyboard instantiateViewControllerWithIdentifier:@"RegisterView"];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:registerView];
+    
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 -(IBAction)login{

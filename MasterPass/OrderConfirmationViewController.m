@@ -8,12 +8,10 @@
 
 #import "OrderConfirmationViewController.h"
 #import "TextViewCell.h"
-#import "CartManager.h"
 #import "ContinueShoppingCell.h"
 #import "TableTitleCell.h"
 #import "CartProductCell.h"
 #import "BoldTotalItemCell.h"
-#import "CardManager.h"
 #import "TextViewRightImageCell.h"
 
 @interface OrderConfirmationViewController ()
@@ -28,12 +26,6 @@
     [super viewDidLoad];
     self.confirmationTable.backgroundColor = [UIColor superGreyColor];
     self.footer.backgroundColor = [UIColor fireOrangeColor];
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    CartManager *cm = [CartManager getInstance];
-    [cm.products removeAllObjects];
 }
 
 - (void) viewDidLayoutSubviews {

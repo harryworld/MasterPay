@@ -11,22 +11,19 @@
 #import "SubtotalItemCell.h"
 #import "SubtotalTitleItemCell.h"
 #import "CardSelectCell.h"
-#import "CartManager.h"
-#import "CardManager.h"
 #import "TotalItemCell.h"
 #import "TextFieldCell.h"
-#import "MasterPassConnectViewController.h"
-#import "ShippingInfo.h"
 #import "BaseNavigationController.h"
 #import "TextViewCell.h"
 #import "OrderConfirmationViewController.h"
-#import "PasswordViewController.h"
 #import "MPManager.h"
 #import "MPCreditCard.h"
 #import "MPECommerceManager.h"
 #import "OrderHeader+NormalizedTotals.h"
 
-@interface CheckoutViewController () <UIAlertViewDelegate>
+@interface CheckoutViewController () <UIAlertViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
+@property(nonatomic, strong) UIPickerView *addressPickerView;
+@property(nonatomic, strong) UIToolbar *addressPickerToolbar;
 @property(nonatomic, strong) SwipeView *cardSwipeView;
 @property(nonatomic, strong) ProcessOrderCell *processOrderCell;
 @property(nonatomic, strong) MPCreditCard *selectedCard;
@@ -51,7 +48,25 @@
     if ([self.containerTable respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.containerTable setSeparatorInset:UIEdgeInsetsZero];
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (oneTimePairingComplete) name:@"ConnectedMasterPass" object:nil];
+    
+    self.addressPickerView = [[UIPickerView alloc]initWithFrame:
+                              CGRectMake(0, self.view.frame.size.height - 216., self.view.frame.size.width, 216.)];
+    self.addressPickerView.delegate = self;
+    self.addressPickerView.dataSource = self;
+    self.addressPickerView.backgroundColor = [UIColor whiteColor];
+    self.addressPickerView.showsSelectionIndicator = YES;
+    self.addressPickerView.hidden = YES;
+    [self.view addSubview:self.addressPickerView];
+    
+    self.addressPickerToolbar= [[UIToolbar alloc] initWithFrame:CGRectMake(0,self.addressPickerView.frame.origin.y - 44,320,44)];
+    [self.addressPickerToolbar setBarStyle:UIBarStyleBlackOpaque];
+    self.addressPickerToolbar.hidden = YES;
+    UIBarButtonItem *barButtonDone = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                                      style:UIBarButtonItemStyleBordered target:self action:@selector(pickerDone:)];
+    
+    self.addressPickerToolbar.items = [[NSArray alloc] initWithObjects:barButtonDone,nil];
+    barButtonDone.tintColor=[UIColor whiteColor];
+    [self.view addSubview:self.addressPickerToolbar];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (switchCards:) name:@"CheckoutCardSelected" object:nil];
     
@@ -64,8 +79,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (confirmOrder ) name:@"MasterPassCheckoutComplete" object:nil];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     
     [self selectDefaultCard];
     [self selectDefaultShipping];
@@ -77,18 +92,6 @@
     self.containerTable.layoutMargins = UIEdgeInsetsZero;
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    // If we have a delayed pair - lets pair now
-    
-    
-    // TODO
-    /*CardManager *manager = [CardManager getInstance];
-    if (manager.wantsDelayedPair) {
-        manager.isLinkedToMasterPass = YES;
-        manager.wantsDelayedPair = NO;
-    }*/
-}
-
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
@@ -98,7 +101,6 @@
 -(void)switchCards:(NSNotification *)notification{
     NSDictionary *dict = [notification userInfo];
     MPCreditCard *card = (MPCreditCard *)[dict objectForKey:@"card"];
-    self.isPairing = NO;
     [self switchToCard:card];
 }
 
@@ -134,7 +136,6 @@
     [self.containerTable reloadData];
 }
 -(void)addCard:(NSNotification *)notification{
-    self.isPairing = NO;
     self.selectedCard = nil;
     [self selectShipping:0];
     self.buttonType = kButtonTypeProcess;
@@ -142,7 +143,6 @@
 }
 
 -(void)pairMP:(NSNotification *)notification{
-    self.isPairing = YES;
     self.selectedCard = nil;
     [self selectShipping:0];
     [self.containerTable reloadData];
@@ -175,14 +175,8 @@
 }
 
 -(void)showShippingPicker{
-    UIAlertView *shippingPicker = [[UIAlertView alloc]initWithTitle:@"Shipping Address" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-    
-    for (MPAddress *address in self.addresses) {
-        
-        [shippingPicker addButtonWithTitle:address.shippingAlias ?: address.lineOne];
-    }
-    
-    [shippingPicker show];
+    self.addressPickerToolbar.hidden = !self.addressPickerView.hidden;
+    self.addressPickerView.hidden = !self.addressPickerView.hidden;
 }
 
 #pragma mark - Card Types
@@ -241,14 +235,6 @@
     }];
 }
 
--(void)oneTimePairingComplete{
-    CardManager *cm = [CardManager getInstance];
-    self.oneTimePairedCard = cm.cards.firstObject;
-    [self selectShipping:0];
-    self.buttonType = kButtonTypeProcess;
-    [self.containerTable reloadData];
-}
-
 -(void)confirmOrder {
     if ([self.navigationController.visibleViewController isEqual:self]) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -270,8 +256,6 @@
 
 -(void)popToRoot{
     [self.navigationController popToRootViewControllerAnimated:NO];
-    CartManager *cm = [CartManager getInstance];
-    [cm cleanCart];
 }
 
 #pragma mark - UITableView Delegate
@@ -289,39 +273,15 @@
         case 2:return 1;  // Total
         case 3:return 1;  // Card Selector
         case 4:  {        // Card Info Form
-            //if (self.selectedCard && self.selectedCard.isMasterPass) { TODO
             if (self.selectedCard) {
-                return 0;
-            }
-            else if (self.isPairing && self.oneTimePairedCard){
-                return 0;
-            }
-            else if (self.isPairing){
                 return 0;
             }
             else {
                 return 4;
             }
         }
-        case 5:  {         // Shipping Info Form
-            if (self.isPairing && self.oneTimePairedCard) {
-                return 1;
-            }
-            else if (self.isPairing){
-                return 0;
-            }
-            else {
-                return 1;
-            }
-        }
-        case 6:{            // TextView Cell
-            if (self.isPairing && !self.oneTimePairedCard) {
-                return 1;
-            }
-            else{
-                return 0;
-            }
-        }
+        case 5:return 1;  // Shipping Info
+        case 6:return 0;  // TextView Cell
         case 7:return 1;  // Process Order Button
         default:return 0;
     }
@@ -337,11 +297,7 @@
         case 5:return 70;  // Shipping Info Form
         case 6:return 44;  // TextView Cell
         case 7:   {        // Process Order Button
-            //if (self.selectedCard && self.selectedCard.isMasterPass) { TODO
             if (self.selectedCard){
-                return 80;
-            }
-            else if (self.isPairing && !self.oneTimePairedCard){
                 return 80;
             }
             else {
@@ -353,13 +309,10 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (self.isPairing && self.oneTimePairedCard && section == 4) {
-        return 0;
-    }
-    else if (section == 4 && !self.selectedCard && (!self.isPairing || self.oneTimePairedCard)){
+    if (section == 4 && !self.selectedCard){
         return 44;
     }
-    else if (section == 5 && (!self.isPairing || self.oneTimePairedCard)) {
+    else if (section == 5) {
         return 44;
     }
     else {
@@ -368,12 +321,8 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    if (self.isPairing && self.oneTimePairedCard && section == 4) {
-        return nil;
-    }
-    
-    if ((section == 4 || section == 5) && (!self.isPairing || self.oneTimePairedCard)) {
+
+    if (section == 4 || section == 5) {
         
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 44)];
         view.backgroundColor = [UIColor superGreyColor];
@@ -410,7 +359,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CartManager *cm = [CartManager getInstance];
     static NSString *totalTitleCellId = @"TotalTitleCell";
     static NSString *subTotalTitleCellId = @"SubtotalTitleCell";
     static NSString *subTotalCellId = @"SubtotalCell";
@@ -497,7 +445,6 @@
         
         [cell setCards:self.cards showManualEntry:!self.precheckoutConfirmation]; // TODO
         [cell setMasterPassImage:self.walletInfo[@"masterpass_logo_url"] andBrandImage:self.walletInfo[@"wallet_partner_logo_url"]];
-        cell.showsMPPair = self.oneTimePairedCard ? true : false;
         cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
@@ -521,56 +468,39 @@
             [[cell.contentView viewWithTag:kCheckoutAlertTypeCardType] removeFromSuperview];
         }
         
-        if(self.oneTimePairedCard && self.isPairing) {
-            switch (indexPath.row) {
-                case 0:
-                    cell.textLabel.text = @"Card Number";
-                    cell.textField.text = [NSString stringWithFormat:@"Card ending in %@",self.oneTimePairedCard.lastFour];
-                    break;
-                case 1:
-                    cell.textLabel.text = @"Exp Date";
-                    cell.textField.text = self.oneTimePairedCard.expDate;
-                    break;
-                default:
-                    cell.textLabel.text = nil;
-                    break;
+        switch (indexPath.row) {
+            case 0:
+                cell.textLabel.text = @"Full Name";
+                break;
+            case 1:{
+                cell.textLabel.text = nil;
+                cell.textField.text = self.cardType;
+                cell.textField.userInteractionEnabled = NO;
+                self.cardSelectorButton = [[UIButton alloc]initWithFrame:CGRectZero];
+                [self.cardSelectorButton setTitle:@"Select Card Type" forState:UIControlStateNormal];
+                [self.cardSelectorButton setTitleColor:[UIColor steelColor] forState:UIControlStateNormal];
+                self.cardSelectorButton.tag = kCheckoutAlertTypeCardType;
+                [self.cardSelectorButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
+                self.cardSelectorButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+                [cell.contentView addSubview:self.cardSelectorButton];
+                [self.cardSelectorButton bk_addEventHandler:^(id sender) {
+                    [self chooseCardType];
+                } forControlEvents:UIControlEventTouchUpInside];
+                [self.cardSelectorButton makeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(cell.contentView).with.insets(UIEdgeInsetsMake(10, 10, 10, 10));
+                    make.center.equalTo(cell.contentView);
+                }];
+                break;
             }
-        }
-        else {
-            switch (indexPath.row) {
-                case 0:
-                    cell.textLabel.text = @"Full Name";
-                    break;
-                case 1:{
-                    cell.textLabel.text = nil;
-                    cell.textField.text = self.cardType;
-                    cell.textField.userInteractionEnabled = NO;
-                    self.cardSelectorButton = [[UIButton alloc]initWithFrame:CGRectZero];
-                    [self.cardSelectorButton setTitle:@"Select Card Type" forState:UIControlStateNormal];
-                    [self.cardSelectorButton setTitleColor:[UIColor steelColor] forState:UIControlStateNormal];
-                    self.cardSelectorButton.tag = kCheckoutAlertTypeCardType;
-                    [self.cardSelectorButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
-                    self.cardSelectorButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-                    [cell.contentView addSubview:self.cardSelectorButton];
-                    [self.cardSelectorButton bk_addEventHandler:^(id sender) {
-                        [self chooseCardType];
-                    } forControlEvents:UIControlEventTouchUpInside];
-                    [self.cardSelectorButton makeConstraints:^(MASConstraintMaker *make) {
-                        make.edges.equalTo(cell.contentView).with.insets(UIEdgeInsetsMake(10, 10, 10, 10));
-                        make.center.equalTo(cell.contentView);
-                    }];
-                    break;
-                }
-                case 2:
-                    cell.textLabel.text = @"Card Number";
-                    break;
-                case 3:
-                    cell.textLabel.text = @"Exp Date";
-                    break;
-                default:
-                    cell.textLabel.text = nil;
-                    break;
-            }
+            case 2:
+                cell.textLabel.text = @"Card Number";
+                break;
+            case 3:
+                cell.textLabel.text = @"Exp Date";
+                break;
+            default:
+                cell.textLabel.text = nil;
+                break;
         }
         cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
@@ -589,17 +519,18 @@
         
         cell.textView.textAlignment = NSTextAlignmentLeft;
         cell.textView.font = [UIFont systemFontOfSize:14];
+        [cell.textView setUserInteractionEnabled:NO];
         cell.contentView.backgroundColor = [UIColor superLightGreyColor];
         cell.textView.backgroundColor = [UIColor superLightGreyColor];
         cell.textView.textColor = [UIColor steelColor];
         cell.textView.scrollEnabled = NO;
         if (self.selectedShippingInfo) {
             cell.textView.text = [NSString stringWithFormat:@"%@ %@\n%@, %@ %@",
-                                  self.selectedShippingInfo.lineOne ?: @"",
-                                  self.selectedShippingInfo.lineTwo?: @"",
-                                  self.selectedShippingInfo.countrySubdivision?: @"",
-                                  self.selectedShippingInfo.country?: @"",
-                                  self.selectedShippingInfo.postalCode?: @""];
+                                  [self nullSafeString:self.selectedShippingInfo.lineOne],
+                                  [self nullSafeString:self.selectedShippingInfo.lineTwo],
+                                  [self nullSafeString:self.selectedShippingInfo.countrySubdivision],
+                                  [self nullSafeString:self.selectedShippingInfo.country],
+                                  [self nullSafeString:self.selectedShippingInfo.postalCode]];
         }
         else {
             cell.textView.text = nil;
@@ -650,10 +581,54 @@
                                   reuseIdentifier:@"DefaultCell"];
 }
 
+-(NSString *)nullSafeString:(NSString *)str{
+    if ((!str) || ([str isEqual: [NSNull null]])) {
+        return @"";
+    }
+    return str;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 5) {
         //SELECT SHIPPING
         [self showShippingPicker];
     }
 }
+
+#pragma mark - UIPickerViewDelegate
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    [self selectShipping:(int)row];
+}
+
+// tell the picker how many rows are available for a given component
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    
+    return self.addresses.count;
+}
+
+// tell the picker how many components it will have
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+// tell the picker the title for a given component
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    MPAddress *address = ((MPAddress *)self.addresses[row]);
+    return address.shippingAlias ?: address.lineOne;
+}
+
+// tell the picker the width of each row for a given component
+-(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    int sectionWidth = 300;
+    
+    return sectionWidth;
+}
+
+-(void)pickerDone:(id)sender{
+    
+    self.addressPickerToolbar.hidden = !self.addressPickerView.hidden;
+    self.addressPickerView.hidden = !self.addressPickerView.hidden;
+}
+
 @end

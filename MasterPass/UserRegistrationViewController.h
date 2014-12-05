@@ -10,5 +10,6 @@
 #import "BaseViewController.h"
 
 @interface UserRegistrationViewController : BaseViewController 
-
+@property (nonatomic, weak) IBOutlet UITextField *emailField;
+@property (nonatomic, weak) IBOutlet UIButton *registerButton;
 @end

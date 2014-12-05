@@ -8,10 +8,7 @@
 
 #import "CartViewController.h"
 #import "CartProductCell.h"
-#import "CartManager.h"
-#import "CardManager.h"
 #import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
-#import "MasterPassConnectViewController.h"
 #import "BaseNavigationController.h"
 #import "CheckoutViewController.h"
 #import "MPECommerceManager.h"
@@ -113,8 +110,6 @@
         }];
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (oneTimePairingComplete) name:@"ConnectedMasterPass" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(confirmPreCheckout:) name:@"MasterPassPreCheckoutComplete" object:nil];
     
     [self.cartTable reloadData];
@@ -149,53 +144,51 @@
 
 -(void)confirmPreCheckout:(NSNotification *)notification{
     if (self.navigationController.visibleViewController == self) {
-        NSDictionary *userInfo = [notification userInfo];
-        NSDictionary *cardInfo = userInfo[@"checkout"][@"card"];
-        NSDictionary *shippingInfo = userInfo[@"checkout"][@"shipping_address"];
-        MPCreditCard *card = [[MPCreditCard alloc]initWithDictionary:cardInfo];
-        MPAddress *address = [[MPAddress alloc]initWithDictionary:shippingInfo];
+        
+        // TODO merge with moveToCheckout:
         
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        CheckoutViewController *vc = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
-        vc.precheckoutConfirmation = TRUE;
-        vc.cards = @[card];
-        vc.addresses = @[address];
-        vc.walletInfo = @{@"transaction_id":userInfo[@"checkout"][@"transaction_id"],
-                          @"pre_checkout_transaction_id":userInfo[@"checkout"][@"pre_checkout_transaction_id"]};
-        vc.buttonType = kButtonTypeProcess;
-        [vc.containerTable reloadData];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-}
-
--(void)oneTimePairingComplete{
-    if (self.navigationController.visibleViewController == self) {
-        CardManager *cm = [CardManager getInstance];
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        CheckoutViewController *vc = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
-        vc.oneTimePairedCard = cm.cards.firstObject;
-        vc.isPairing = YES;
-        [vc selectShipping:0];
-        vc.buttonType = kButtonTypeProcess;
-        [vc.containerTable reloadData];
+        CheckoutViewController *checkout = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
         
-        [self.navigationController pushViewController:vc animated:YES];
+        MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
+        [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+            
+            checkout.subtotal = [header normalizedSubTotal];
+            checkout.total = [header normalizedTotal];
+            checkout.tax = [header normalizedTax];
+            checkout.shipping = [header normalizedShipping];
+            
+            NSDictionary *userInfo = [notification userInfo];
+            NSDictionary *cardInfo = userInfo[@"checkout"][@"card"];
+            NSDictionary *shippingInfo = userInfo[@"checkout"][@"shipping_address"];
+            MPCreditCard *card = [[MPCreditCard alloc]initWithDictionary:cardInfo];
+            MPAddress *address = [[MPAddress alloc]initWithDictionary:shippingInfo];
+            
+            checkout.precheckoutConfirmation = TRUE;
+            checkout.cards = @[card];
+            checkout.addresses = @[address];
+            checkout.walletInfo = @{@"transaction_id":userInfo[@"checkout"][@"transaction_id"],
+                              @"pre_checkout_transaction_id":userInfo[@"checkout"][@"pre_checkout_transaction_id"]};
+            checkout.buttonType = kButtonTypeProcess;
+            [checkout.containerTable reloadData];
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [self.navigationController pushViewController:checkout animated:YES];
+            
+        }];
     }
 }
 
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;    //count of section
+    return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.orderDetails count];    //count number of row from counting array hear cataGorry is An Array
+    return [self.orderDetails count];
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -204,24 +197,16 @@
     
     CartProductCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[CartProductCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:MyIdentifier];
     }
-    
-    // Here we use the provided setImageWithURL: method to load the web image
-    // Ensure you use a placeholder image otherwise cells will be initialized with no image
+
     OrderDetail *product = (OrderDetail *)[self.orderDetails objectAtIndex:indexPath.row];
     cell.product = product;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.layoutMargins = UIEdgeInsetsZero;
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(IBAction)moveToCheckout{
@@ -234,18 +219,35 @@
     [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
         
         checkout.subtotal = [header normalizedSubTotal];
-        checkout.total = [header normalizedSubTotal];
-        //TODO other totals
+        checkout.total = [header normalizedTotal];
+        checkout.tax = [header normalizedTax];
+        checkout.shipping = [header normalizedShipping];
         
         MPManager *manager = [MPManager sharedInstance];
         if ([manager isAppPaired]) {
             [manager precheckoutDataCallback:^(NSArray *cards, NSArray *addresses, NSDictionary *contactInfo, NSDictionary *walletInfo, NSError *error) {
-                checkout.cards = cards;
-                checkout.addresses = addresses;
-                checkout.walletInfo = walletInfo;
-                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 
-                [self.navigationController pushViewController:checkout animated:YES];
+                if (error) {
+                    
+                    SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Error" andMessage:[error localizedDescription]];
+                    [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+                    alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+                    [alert show];
+                    
+                    [self.cartTable reloadData];
+                    
+                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                }
+                else {
+                    
+                    checkout.cards = cards;
+                    checkout.addresses = addresses;
+                    checkout.walletInfo = walletInfo;
+                    
+                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                    
+                    [self.navigationController pushViewController:checkout animated:YES];
+                }
             }];
         }
         else {

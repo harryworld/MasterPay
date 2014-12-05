@@ -10,4 +10,7 @@
 
 @interface OrderHeader (NormalizedTotals)
 -(NSNumber *)normalizedSubTotal;
+-(NSNumber *)normalizedTax;
+-(NSNumber *)normalizedShipping;
+-(NSNumber *)normalizedTotal;
 @end
