@@ -64,6 +64,23 @@
      *
      */
     
+    [self notPairedUISetup];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(confirmPreCheckout:) name:@"MasterPassPreCheckoutComplete" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(precheckoutCancelled) name:@"MasterPassPreCheckoutCancelled" object:nil];
+    
+    [self.cartTable reloadData];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    self.totalLabel.text = [self formatCurrency:[self.orderHeader normalizedSubTotal]];
+    [self.cartTable reloadData];
+}
+
+-(void)notPairedUISetup{
     if(![[MPManager sharedInstance] isAppPaired]) {
         [self.footer removeConstraints:self.footer.constraints];
         [self.footer updateConstraints:^(MASConstraintMaker *make) {
@@ -87,7 +104,7 @@
         [self.masterPassButton bk_addEventHandler:^(id sender) {
             [self pairAndCheckout];
         } forControlEvents:UIControlEventTouchUpInside];
-    
+        
         
         [self.checkoutButton makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.footer).with.offset(-10);
@@ -109,17 +126,6 @@
             make.centerX.equalTo(self.footer);
         }];
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(confirmPreCheckout:) name:@"MasterPassPreCheckoutComplete" object:nil];
-    
-    [self.cartTable reloadData];
-}
-
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    self.totalLabel.text = [self formatCurrency:[self.orderHeader normalizedSubTotal]];
-    [self.cartTable reloadData];
 }
 
 #pragma mark - Data Formatting
@@ -140,6 +146,10 @@
         MPManager *manager = [MPManager sharedInstance];
         [manager pairCheckoutForOrder:header.id showInViewController:self];
     }];
+}
+
+-(void)precheckoutCancelled{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 -(void)confirmPreCheckout:(NSNotification *)notification{
@@ -229,14 +239,24 @@
                 
                 if (error) {
                     
-                    SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Error" andMessage:[error localizedDescription]];
+                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                    
+                    [self notPairedUISetup];
+                    
+                    SIAlertView *alert = nil;
+                    
+                    if ([error.localizedDescription isEqualToString:MPErrorNotPaired]) {
+                        alert = [[SIAlertView alloc]initWithTitle:@"Message" andMessage:@"Your account is no longer paired with your MasterPass wallet. Please pair again."];
+                    }
+                    else {
+                        alert = [[SIAlertView alloc]initWithTitle:@"Error" andMessage:[error localizedDescription]];
+                    }
+                    
                     [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
                     alert.transitionStyle = SIAlertViewTransitionStyleBounce;
                     [alert show];
                     
                     [self.cartTable reloadData];
-                    
-                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 }
                 else {
                     
@@ -252,6 +272,7 @@
         }
         else {
             [self.navigationController pushViewController:checkout animated:YES];
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         }
     }];
 }

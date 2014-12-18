@@ -14,7 +14,7 @@
 
 @implementation AppDelegate
 static NSString * const server = @"https://gadgetshop.anypresenceapp.com";
-static NSString * const version = @"/api/v1/";
+static NSString * const version = @"/api/v2/";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -69,6 +69,9 @@ static NSString * const version = @"/api/v1/";
         
         [[NSNotificationCenter defaultCenter]postNotificationName:@"ConnectedMasterPass" object:nil];
     }
+    else {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassConnectionCancelled" object:nil];
+    }
 }
 
 -(void)checkoutDidComplete:(BOOL)success error:(NSError *)error{
@@ -76,6 +79,9 @@ static NSString * const version = @"/api/v1/";
     
     if (success) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassCheckoutComplete" object:nil];
+    }
+    else {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassCheckoutCancelled" object:nil];
     }
 }
 
@@ -89,6 +95,9 @@ static NSString * const version = @"/api/v1/";
         
         [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassPreCheckoutComplete" object:nil userInfo:data];
     }
+    else {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassPreCheckoutCancelled" object:nil userInfo:data];
+    }
 }
 
 - (void)pairCheckoutDidComplete:(BOOL)success error:(NSError *)error{
@@ -96,6 +105,9 @@ static NSString * const version = @"/api/v1/";
     
     if (success) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassCheckoutComplete" object:nil];
+    }
+    else {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"MasterPassCheckoutCancelled" object:nil];
     }
 }
 
@@ -114,7 +126,7 @@ static NSString * const version = @"/api/v1/";
 }
 
 - (NSArray *)supportedCardTypes{
-    return @[CardTypeAmex,CardTypeDiscover,CardTypeMasterCard];
+    return @[CardTypeAmex,CardTypeDiscover,CardTypeMasterCard,CardTypeMaestro];
 }
 
 @end

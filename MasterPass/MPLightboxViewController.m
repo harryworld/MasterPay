@@ -87,7 +87,7 @@
     NSURL *currentUrl = request.URL;
     NSString *currentUrlString = [NSString stringWithFormat:@"%@://%@%@",currentUrl.scheme,currentUrl.host,currentUrl.path];
     
-    if ([currentUrlString isEqualToString:[self.options objectForKey:@"callbackUrl"]]) {
+    if ([currentUrlString isEqualToString:[[self.options objectForKey:@"callbackUrl"] stringByReplacingOccurrencesOfString:@"\\" withString:@""]]) {
         NSOperationQueue *queue = [[NSOperationQueue alloc] init];
         [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
             
@@ -95,10 +95,16 @@
                 NSLog(@"Error: %@",[error localizedDescription]);
             }
             else{
+                
+                NSLog(@"%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
+                
                 NSError * jsonError;
                 NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
                                                                      options:0
                                                                        error:&jsonError];
+                
+                NSLog(@"%@",json);
+                
                 if (jsonError) {
                     NSLog(@"Error: %@",[jsonError localizedDescription]);
                 }

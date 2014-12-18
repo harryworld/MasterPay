@@ -481,7 +481,6 @@ NSInteger const MPErrorCodeBadRequest = 400;
             NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
                                                                  options:0
                                                                    error:&jsonError];
-            NSLog(@"%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
             
             if (jsonError) {
                 NSLog(@"JSON Error: %@",[jsonError localizedDescription]);
@@ -511,6 +510,60 @@ NSInteger const MPErrorCodeBadRequest = 400;
         [self checkDelegateSanity];
         if ([self.delegate respondsToSelector:@selector(preCheckoutDidComplete:data:error:)]) {
             [self.delegate preCheckoutDidComplete:success data:data error:error];
+        }
+    }];
+}
+
+#pragma mark - Manual Checkout
+
+- (void)completeManualCheckoutForOrder:(NSString *)orderNumber{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/masterpass/non_masterpass_checkout",[self.delegate serverAddress]]];
+    
+    NSError *jsonError;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"order_header_id":orderNumber} options:0 error:&jsonError];
+    
+    if (jsonError) {
+        NSLog(@"JSON Error: %@",[jsonError localizedDescription]);
+        return;
+    }
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody: jsonData];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        
+        if (error) {
+            NSLog(@"Error: %@",[error localizedDescription]);
+        }
+        else{
+            NSError * jsonError;
+            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
+                                                                 options:0
+                                                                   error:&jsonError];
+            NSLog(@"%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
+            
+            if (jsonError) {
+                NSLog(@"JSON Error: %@",[jsonError localizedDescription]);
+            }
+            else {
+                if ([json[@"status"] isEqualToString:@"success"]) {
+                    NSLog(@"Completed Manual Checkout Successfully");
+                    
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(manualCheckoutDidComplete:error:)]) {
+                        [self.delegate manualCheckoutDidComplete:TRUE error:nil];
+                    }
+                }
+                else {
+                    NSLog(@"%@",json);
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(manualCheckoutDidComplete:error:)]) {
+                        [self.delegate manualCheckoutDidComplete:FALSE error:error];
+                    }
+                }
+            }
         }
     }];
 }

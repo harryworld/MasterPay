@@ -43,9 +43,7 @@
         make.center.equalTo(header);
     }];
     self.navigationItem.titleView = header;
-    
-    [self refreshCartBadge];
-    
+        
     self.productsData = [[NSMutableArray alloc]init];
     self.productScrollSelect.backgroundColor = [UIColor colorWithRed:201./255. green:203./255. blue:214./255. alpha:1.];
     [self.productScrollSelect setAutoScrollEnabled:NO];

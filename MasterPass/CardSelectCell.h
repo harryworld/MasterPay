@@ -10,11 +10,12 @@
 #import <SwipeView/SwipeView.h>
 @interface CardSelectCell : UITableViewCell <SwipeViewDataSource,SwipeViewDelegate>
 @property(nonatomic, strong)SwipeView *cardSwipeView;
-@property(nonatomic, assign)BOOL showsMPPair;
+
+@property (nonatomic, assign) BOOL returnCheckout;
 
 -(void)refreshCurrentCardUI:(SwipeView *)swipeView;
 
 -(void)setCards:(NSArray *)cards showManualEntry:(BOOL)manualEntry;
 -(void)setMasterPassImage:(NSString *)mpImageUrl andBrandImage:(NSString *)brandImageUrl;
-
+-(void)reloadMPImageUI;
 @end

@@ -33,6 +33,7 @@
     self.profileTable.tableFooterView = [[UIView alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (connected) name:@"ConnectedMasterPass" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (notConnected) name:@"MasterPassConnectionCancelled" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (connectMasterPass) name:@"mp_connect" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (learnMore) name:@"mp_learn_more" object:nil];
     
@@ -80,7 +81,7 @@
     
 }
 
--(void)connected{
+-(void)connected {
     
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     
@@ -93,6 +94,11 @@
     alert.transitionStyle = SIAlertViewTransitionStyleBounce;
     [alert show];
 }
+
+-(void)notConnected {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
 #pragma mark - UITableView Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

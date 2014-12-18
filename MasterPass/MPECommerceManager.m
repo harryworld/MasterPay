@@ -60,13 +60,42 @@
             }];
         }
         else {
-            OrderHeader *newHeader = [[OrderHeader alloc]init];
-            newHeader.userId = ((User *)[[AuthManager defaultManager]currentCredentials]).id;
-            [newHeader createAsync:^(id object, NSError *error) {
-                if (callback) {
-                    callback((OrderHeader *)object, [[NSArray alloc]init]);
+            
+            /*
+             * Possible race condition here if we try to get the cart
+             * header a bunch of times. If we figure that there is no cart,
+             * we start a mutex lock on the singleton instance, and check again. 
+             * If we are still sure that there is no cart, we will create one.
+             */
+            
+            @synchronized (self) {
+                NSError *queryError = nil;
+                NSArray *headers = [OrderHeader query:@"my_open_orders" params:@{} error:&queryError];
+                
+                // Just kidding, there is a cart. Proceed as normal.
+                if (!queryError && headers.count > 0) {
+                    [self getCartItemsForHeaderId:[(headers[0]) id] callback:^(NSArray *cart) {
+                        if (callback) {
+                            callback(header, cart);
+                        }
+                    }];
                 }
-            }];
+                // There is not a cart, create one
+                else if (!queryError && headers.count == 0) {
+                    NSError *createError = nil;
+                    OrderHeader *newHeader = [[OrderHeader alloc]init];
+                    newHeader.userId = ((User *)[[AuthManager defaultManager]currentCredentials]).id;
+                    [newHeader create:&createError];
+                    [self getCurrentCart:callback];
+                }
+                // Some other error. Do not recurse here, for fear of an infinite loop.
+                else {
+                    NSLog(@"Error Retrieving Cart: %@", [queryError localizedDescription]);
+                    if (callback) {
+                        callback(nil,nil);
+                    }
+                }
+            }
         }
     }];
 }

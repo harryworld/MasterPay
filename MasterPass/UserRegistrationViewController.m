@@ -42,12 +42,13 @@
                 [alert show];
             }
             else {
-                [self dismissViewControllerAnimated:YES completion:^{
-                    SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Success" andMessage:@"You have successfully registered."];
-                    [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
-                    alert.transitionStyle = SIAlertViewTransitionStyleBounce;
-                    [alert show];
+                SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Success" andMessage:@"You have successfully registered."];
+                [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
+                    [self close];
                 }];
+                alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+                [alert show];
+
             }
         }];
     }

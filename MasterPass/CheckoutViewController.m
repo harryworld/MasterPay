@@ -20,6 +20,7 @@
 #import "MPCreditCard.h"
 #import "MPECommerceManager.h"
 #import "OrderHeader+NormalizedTotals.h"
+#import "ShippingSelectCell.h"
 
 @interface CheckoutViewController () <UIAlertViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 @property(nonatomic, strong) UIPickerView *addressPickerView;
@@ -76,7 +77,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (processOrder:) name:@"order_processed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (popToRoot) name:@"StartOver" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (confirmOrder ) name:@"MasterPassCheckoutComplete" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (confirmOrder) name:@"MasterPassCheckoutComplete" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkoutCancelled) name:@"MasterPassCheckoutCancelled" object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -217,6 +219,7 @@
         self.confirmProducts = cart;
         MPManager *manager = [MPManager sharedInstance];
         if (self.selectedCard == nil) {
+            [manager completeManualCheckoutForOrder:header.id];
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             [self confirmOrder];
         }
@@ -243,6 +246,10 @@
     else {
         [self performSelector:@selector(confirmOrder) withObject:nil afterDelay:0.5];
     }
+}
+
+-(void)checkoutCancelled {
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -366,6 +373,7 @@
     static NSString *processOrderCellId = @"ProcessOrderCell";
     static NSString *textFieldCellId = @"TextFieldCell";
     static NSString *textViewCellId = @"TextViewCell";
+    static NSString *selectShippingCellId = @"SelectShippingCell";
     
     if (indexPath.section == 0) { // Subtotal Title
         
@@ -442,9 +450,13 @@
                                            reuseIdentifier:cardSelectCellId];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        
+        [cell setReturnCheckout:!self.precheckoutConfirmation];
         [cell setCards:self.cards showManualEntry:!self.precheckoutConfirmation]; // TODO
-        [cell setMasterPassImage:self.walletInfo[@"masterpass_logo_url"] andBrandImage:self.walletInfo[@"wallet_partner_logo_url"]];
+        [cell reloadMPImageUI]; //
+        
+        if (!self.precheckoutConfirmation) {
+            [cell setMasterPassImage:self.walletInfo[@"masterpass_logo_url"] andBrandImage:self.walletInfo[@"wallet_partner_logo_url"]];
+        }
         cell.layoutMargins = UIEdgeInsetsZero;
         return cell;
         
@@ -508,22 +520,15 @@
     }
     else if (indexPath.section == 5) { // Shipping
         
-        TextViewCell *cell = [tableView dequeueReusableCellWithIdentifier:textViewCellId];
+        ShippingSelectCell *cell = [tableView dequeueReusableCellWithIdentifier:selectShippingCellId];
         
         if (cell == nil)
         {
-            cell = [[TextViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                       reuseIdentifier:textViewCellId];
+            cell = [[ShippingSelectCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:selectShippingCellId];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.selectShippingButton addTarget:self action:@selector(showShippingPicker) forControlEvents:UIControlEventTouchUpInside];
         }
-        
-        cell.textView.textAlignment = NSTextAlignmentLeft;
-        cell.textView.font = [UIFont systemFontOfSize:14];
-        [cell.textView setUserInteractionEnabled:NO];
-        cell.contentView.backgroundColor = [UIColor superLightGreyColor];
-        cell.textView.backgroundColor = [UIColor superLightGreyColor];
-        cell.textView.textColor = [UIColor steelColor];
-        cell.textView.scrollEnabled = NO;
         if (self.selectedShippingInfo) {
             cell.textView.text = [NSString stringWithFormat:@"%@ %@\n%@, %@ %@",
                                   [self nullSafeString:self.selectedShippingInfo.lineOne],
@@ -531,6 +536,7 @@
                                   [self nullSafeString:self.selectedShippingInfo.countrySubdivision],
                                   [self nullSafeString:self.selectedShippingInfo.country],
                                   [self nullSafeString:self.selectedShippingInfo.postalCode]];
+            
         }
         else {
             cell.textView.text = nil;
@@ -588,13 +594,6 @@
     return str;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 5) {
-        //SELECT SHIPPING
-        [self showShippingPicker];
-    }
-}
-
 #pragma mark - UIPickerViewDelegate
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
@@ -603,7 +602,6 @@
 
 // tell the picker how many rows are available for a given component
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    
     return self.addresses.count;
 }
 

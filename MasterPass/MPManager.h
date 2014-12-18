@@ -50,11 +50,13 @@
  * @param success the status of the checkout
  * @param error any errors that occurred during checkout
  */
--(void)checkoutDidComplete:(BOOL)success error:(NSError *)error;
+- (void)checkoutDidComplete:(BOOL)success error:(NSError *)error;
 
--(void)preCheckoutDidComplete:(BOOL)success data:(NSDictionary *)data error:(NSError *)error;
+- (void)preCheckoutDidComplete:(BOOL)success data:(NSDictionary *)data error:(NSError *)error;
 
--(void)pairCheckoutDidComplete:(BOOL)success error:(NSError *)error;
+- (void)pairCheckoutDidComplete:(BOOL)success error:(NSError *)error;
+
+- (void)manualCheckoutDidComplete:(BOOL)success error:(NSError *)error;
 
 - (void)resetUserPairing;
 
@@ -118,7 +120,7 @@ FOUNDATION_EXPORT NSString *const MPErrorNotPaired;
                                               NSError *error)
                                      )callback;
 
--(void)returnCheckoutForOrder:(NSString *)orderNumber
+- (void)returnCheckoutForOrder:(NSString *)orderNumber
                    walletInfo:(NSDictionary *)walletInfo
                          card:(MPCreditCard *)card
               shippingAddress:(MPAddress *)shippingAddress
@@ -129,8 +131,12 @@ FOUNDATION_EXPORT NSString *const MPErrorNotPaired;
 -(void)pairCheckoutForOrder:(NSString *)orderNumber
        showInViewController:(UIViewController*)viewController;
 
--(void)completePairCheckoutForOrder:(NSString *)orderNumber
+- (void)completePairCheckoutForOrder:(NSString *)orderNumber
                         transaction:(NSString *)transactionId
              preCheckoutTransaction:(NSString *)precheckoutTransactionId;
+
+#pragma mark - Manual Checkout
+
+- (void)completeManualCheckoutForOrder:(NSString *)orderNumber;
 
 @end

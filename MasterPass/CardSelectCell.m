@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *expDate;
 @property (nonatomic, strong) NSArray *cards;
 @property (nonatomic, assign) BOOL manualEntryAllowed;
+@property (nonatomic, strong) UIView *providerImageContainer;
 @end
 
 @implementation CardSelectCell
@@ -26,9 +27,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.contentView.backgroundColor = [UIColor superGreyColor];
-        
-        _showsMPPair = YES;
-        
+                
         self.cardSwipeView = [[SwipeView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 200)];
         self.cardSwipeView.alignment = SwipeViewAlignmentCenter;
         self.cardSwipeView.dataSource = self;
@@ -56,55 +55,84 @@
             make.right.equalTo(self.contentView);
             make.centerX.equalTo(self.contentView);
         }];
-        
-        CGFloat bottomOffset = 5;
-        
-        UIView *providerImageContainer = [[UIView alloc]initWithFrame:CGRectZero];
-        providerImageContainer.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:providerImageContainer];
-        [providerImageContainer makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@150);
-            make.height.equalTo(@35);
-            make.centerX.equalTo(self.contentView);
-            make.bottom.equalTo(self.contentView).with.offset(-bottomOffset);
-        }];
-        MPManager *manager = [MPManager sharedInstance];
-        if ([manager isAppPaired]) {
-            self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
-            self.masterPassImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
-            [providerImageContainer addSubview:self.masterPassImage];
-            [self.masterPassImage makeConstraints:^(MASConstraintMaker *make) {
-                make.height.equalTo(@30);
-                make.width.equalTo(@45);
-                make.centerY.equalTo(providerImageContainer);
-                make.left.equalTo(providerImageContainer).with.offset(bottomOffset);
-            }];
-            
-            self.providerImage = [[UIImageView alloc]initWithFrame:CGRectZero];
-            self.providerImage.backgroundColor = [UIColor clearColor];
-            [providerImageContainer addSubview:self.providerImage];
-            [self.providerImage makeConstraints:^(MASConstraintMaker *make) {
-                make.height.equalTo(@30);
-                make.width.equalTo(@80);
-                make.centerY.equalTo(providerImageContainer);
-                make.right.equalTo(providerImageContainer).with.offset(-bottomOffset);
-            }];
-        }
-        else {
-            self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
-            [providerImageContainer addSubview:self.masterPassImage];
-            [self.masterPassImage makeConstraints:^(MASConstraintMaker *make) {
-                make.height.equalTo(@30);
-                make.width.equalTo(@45);
-                make.center.equalTo(providerImageContainer);
-            }];
 
-        }
         
         [self refreshCurrentCardUI:self.cardSwipeView];
         
     };
     return self;
+}
+
+-(void)reloadMPImageUI{
+    
+    if (self.providerImageContainer) {
+        
+        [self.masterPassImage removeFromSuperview];
+        self.masterPassImage = nil;
+        
+        [self.providerImage removeFromSuperview];
+        self.providerImage = nil;
+        
+        [self.providerImageContainer removeFromSuperview];
+        self.providerImageContainer = nil;
+    }
+    
+    CGFloat bottomOffset = 5;
+    
+    self.providerImageContainer = [[UIView alloc]initWithFrame:CGRectZero];
+    self.providerImageContainer.backgroundColor = [UIColor clearColor];
+    [self.contentView addSubview:self.providerImageContainer];
+    [self.providerImageContainer makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@150);
+        make.height.equalTo(@35);
+        make.centerX.equalTo(self.contentView);
+        make.bottom.equalTo(self.contentView).with.offset(-bottomOffset);
+    }];
+    
+    if (self.returnCheckout) {
+        self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
+        self.masterPassImage.image = [UIImage imageNamed:@"masterpass-small-logo.png"];
+        [self.providerImageContainer addSubview:self.masterPassImage];
+        [self.masterPassImage makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@30);
+            make.width.equalTo(@45);
+            make.centerY.equalTo(self.providerImageContainer);
+            make.left.equalTo(self.providerImageContainer).with.offset(bottomOffset);
+        }];
+        
+        self.providerImage = [[UIImageView alloc]initWithFrame:CGRectZero];
+        self.providerImage.backgroundColor = [UIColor clearColor];
+        [self.providerImageContainer addSubview:self.providerImage];
+        [self.providerImage makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@30);
+            make.width.equalTo(@80);
+            make.centerY.equalTo(self.providerImageContainer);
+            make.right.equalTo(self.providerImageContainer).with.offset(-bottomOffset);
+        }];
+    }
+    else {
+        self.masterPassImage = [[UIImageView alloc]initWithFrame:CGRectZero];
+        [self.providerImageContainer addSubview:self.masterPassImage];
+        [self.masterPassImage setImage:[UIImage imageNamed:@"masterpass-small-logo"]];
+        [self.masterPassImage makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@30);
+            make.width.equalTo(@45);
+            make.center.equalTo(self.providerImageContainer);
+        }];
+    }
+    
+    MPCreditCard *currentCard = nil;
+    MPManager *manager = [MPManager sharedInstance];
+    
+    if (self.cardSwipeView.currentPage < [self.cards count] && [manager isAppPaired]) {
+        currentCard = [[self cards] objectAtIndex:self.cardSwipeView.currentPage];
+    }
+    
+    if (!currentCard) {
+        self.masterPassImage.hidden = YES;
+        self.providerImage.hidden = YES;
+    }
+    
 }
 
 -(UIImage *)cardImageForCardType:(NSString *)cardType lastFour:(NSString *)lastFour{
@@ -120,7 +148,7 @@
     NSArray *availableImages;
     int index = [lastFour intValue] % 2;
     
-    if ([cardType isEqualToString:CardTypeAmex]) {
+    if ([cardType isEqualToString:CardTypeAmex])  {
         availableImages = @[@"amex_black.png",@"amex_blue.png"];
     }
     else if ([cardType isEqualToString:CardTypeDiscover]){
@@ -157,30 +185,11 @@
     [self.cardSwipeView reloadData];
 }
 
--(void)setShowsMPPair:(BOOL)showsMPPair{
-    if (showsMPPair != _showsMPPair) {
-        _showsMPPair = showsMPPair;
-        [self refreshCurrentCardUI:self.cardSwipeView];
-    }
-}
-
 #pragma mark - SwipeView methods
 
 - (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView
 {
-    MPManager *manager = [MPManager sharedInstance];
-    if ([manager isAppPaired]) {
-        //return the total number of items in the carousel
-        return [self.cards count] + (self.manualEntryAllowed ? 1 : 0);
-    }
-    /*else if (self.showsMPPair && !cm.wantsDelayedPair){ //TODO
-        return 2;
-    }else if(cm.wantsDelayedPair){
-        return 1;
-    }*/
-    else {
-        return 1;
-    }
+   return [self.cards count] + (self.manualEntryAllowed ? 1 : 0);
 }
 
 -(CGSize)swipeViewItemSize:(SwipeView *)swipeView{
@@ -276,10 +285,8 @@
     
     if (currentCard) {
         cardImage.image = [self cardImageForCardType:currentCard.brandId lastFour:currentCard.lastFour];
-        cardNumber.hidden = NO;
         cardNumber.text = [NSString stringWithFormat:@" XXXX XXXX XXXX %@",currentCard.lastFour];
         cardHolder.text = currentCard.cardHolderName;
-        expDate.hidden = NO;
         if (currentCard.expiryMonth && currentCard.expiryYear) {
             expDate.text = [NSString stringWithFormat:@"%@/%@",currentCard.expiryMonth,currentCard.expiryYear];
         }
@@ -288,27 +295,9 @@
         }
         cardHolder.hidden = NO;
     }
-    
-    // TODO this is for pair + checkout
-    
-    else if((![manager isAppPaired]) && (index == 0) && self.showsMPPair) {
-        
-        // hard coded due to additional requirements
-        
-        cardImage.image = [UIImage imageNamed:@"black_cc_mc.png"];
-        cardNumber.hidden = NO;
-        cardNumber.text = [NSString stringWithFormat:@" XXXX XXXX XXXX %@",@"8733"];
-        expDate.hidden = NO;
-        expDate.text = @"03/17";
-        cardHolder.hidden = NO;
-    }
-    
-    // manual entry TODO
+    // Manual Entry Card
     else {
         cardImage.image = [UIImage imageNamed:@"blue_cc.png"];
-        cardNumber.hidden = NO;
-        expDate.hidden = NO;
-        cardHolder.hidden = NO;
         cardNumber.text = @" 0000 0000 0000 0000";
         expDate.text = @"00/00";
         cardHolder.text = @"NAME";
@@ -332,46 +321,15 @@
     }
     
     if (currentCard) {
-        self.expDate.hidden = NO;
         self.expDate.text = [NSString stringWithFormat:@"Expires: %@/%@",currentCard.expiryMonth, currentCard.expiryYear];
-        self.cardNumber.hidden = NO;
         self.cardNumber.text = [NSString stringWithFormat:@"Card ending in %@",currentCard.lastFour];
-        self.providerImage.hidden = NO;
         
-        //if ([currentCard.isMasterPass boolValue]) { // TODO ?
-        if (true){
-            self.masterPassImage.alpha = 1;
-        }
-        else {
-            self.masterPassImage.alpha = 0.3;
-        }
         // Selected card
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutCardSelected" object:nil userInfo:@{@"card":[[self cards] objectAtIndex:swipeView.currentPage],@"index":[NSNumber numberWithInteger:swipeView.currentPage]}];
     }
-    
-    // TODO pair + checkout
-    
-    else if((![manager isAppPaired]) && (swipeView.currentPage == 0) && self.showsMPPair){
-        self.expDate.hidden = YES;
-        self.expDate.text = nil;
-        self.cardNumber.hidden = NO;
-        self.cardNumber.text = @"MasterPass Wallet";
-        self.providerImage.hidden = YES;
-        self.masterPassImage.alpha = 1;
-        
-        // pairing
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutPairSelected" object:nil];
-    }
-    
-    // Manual entry TODO
-    
     else {
-        self.expDate.hidden = YES;
         self.expDate.text = nil;
-        self.cardNumber.hidden = NO;
         self.cardNumber.text = @"New Credit Card";
-        self.providerImage.hidden = YES;
-        self.masterPassImage.alpha = 0;
         
         // add new card
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CheckoutNewCardSelected" object:nil];

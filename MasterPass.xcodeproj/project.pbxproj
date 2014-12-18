@@ -40,6 +40,7 @@
 		C34455A51A3260C2007941F0 /* mastercard_green.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455981A3260C2007941F0 /* mastercard_green.png */; };
 		C34455A61A3260C2007941F0 /* visa_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C34455991A3260C2007941F0 /* visa_blue.png */; };
 		C34455A71A3260C2007941F0 /* visa_red.png in Resources */ = {isa = PBXBuildFile; fileRef = C344559A1A3260C2007941F0 /* visa_red.png */; };
+		C34455AB1A38A9F8007941F0 /* ShippingSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C34455AA1A38A9F8007941F0 /* ShippingSelectCell.m */; };
 		C35E060019FDEBB700D93415 /* APResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C35E05FE19FDEBB600D93415 /* APResources.bundle */; };
 		C35E060119FDEBB700D93415 /* APSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35E05FF19FDEBB600D93415 /* APSDK.framework */; };
 		C35E060519FE757700D93415 /* MPECommerceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C35E060419FE757700D93415 /* MPECommerceManager.m */; };
@@ -178,6 +179,8 @@
 		C34455981A3260C2007941F0 /* mastercard_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mastercard_green.png; sourceTree = "<group>"; };
 		C34455991A3260C2007941F0 /* visa_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visa_blue.png; sourceTree = "<group>"; };
 		C344559A1A3260C2007941F0 /* visa_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visa_red.png; sourceTree = "<group>"; };
+		C34455A91A38A9F8007941F0 /* ShippingSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingSelectCell.h; sourceTree = "<group>"; };
+		C34455AA1A38A9F8007941F0 /* ShippingSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingSelectCell.m; sourceTree = "<group>"; };
 		C35E05FE19FDEBB600D93415 /* APResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = APResources.bundle; sourceTree = "<group>"; };
 		C35E05FF19FDEBB600D93415 /* APSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = APSDK.framework; sourceTree = "<group>"; };
 		C35E060319FE757700D93415 /* MPECommerceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPECommerceManager.h; sourceTree = "<group>"; };
@@ -479,6 +482,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C34455A81A38A9D4007941F0 /* ShippingSelect */ = {
+			isa = PBXGroup;
+			children = (
+				C34455A91A38A9F8007941F0 /* ShippingSelectCell.h */,
+				C34455AA1A38A9F8007941F0 /* ShippingSelectCell.m */,
+			);
+			name = ShippingSelect;
+			sourceTree = "<group>";
+		};
 		C37483EF1A186B6900D10742 /* MasterPass Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -550,6 +562,7 @@
 		C38B3B03191A77B700FBB01C /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				C34455A81A38A9D4007941F0 /* ShippingSelect */,
 				C3F5173C195209470035570A /* TextViewRightImage */,
 				C3F516F5194638D40035570A /* Bold Total Item */,
 				C39007D41924D77100902B6E /* CardSelect */,
@@ -1114,6 +1127,7 @@
 				C39007E51924EDE100902B6E /* TotalItemCell.m in Sources */,
 				C3212D391906BE460072BA80 /* main.m in Sources */,
 				C39007D31924D76C00902B6E /* CardSelectCell.m in Sources */,
+				C34455AB1A38A9F8007941F0 /* ShippingSelectCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1165,6 +1179,7 @@
 /* Begin XCBuildConfiguration section */
 		C3212D591906BE470072BA80 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDCE99066D7B03C8E1C43595 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1208,6 +1223,7 @@
 		};
 		C3212D5A1906BE470072BA80 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDCE99066D7B03C8E1C43595 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1361,6 +1377,7 @@
 		};
 		C3212D5F1906BE470072BA80 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDCE99066D7B03C8E1C43595 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MasterPass.app/MasterPass";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1383,6 +1400,7 @@
 		};
 		C3212D601906BE470072BA80 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDCE99066D7B03C8E1C43595 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MasterPass.app/MasterPass";
 				FRAMEWORK_SEARCH_PATHS = (
