@@ -83,7 +83,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self refreshCartBadge];
+    [self refreshCartBadge];    
 }
 
 -(void)fullInventory:(void (^)(NSArray *products))callback{

@@ -75,12 +75,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (addCard:) name:@"CheckoutNewCardSelected" object:nil];
     
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (processOrder:) name:@"order_processed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (popToRoot) name:@"StartOver" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (confirmOrder) name:@"MasterPassCheckoutComplete" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkoutCancelled) name:@"MasterPassCheckoutCancelled" object:nil];
 }
-
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
@@ -213,13 +213,16 @@
 #pragma mark - Processing Orders
 
 -(void)processOrder:(NSNotification *)notification{
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
     [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
         self.confirmProducts = cart;
         MPManager *manager = [MPManager sharedInstance];
         if (self.selectedCard == nil) {
-            [manager completeManualCheckoutForOrder:header.id];
+            
+            
+            //[manager completeManualCheckoutForOrder:header.id];
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             [self confirmOrder];
         }

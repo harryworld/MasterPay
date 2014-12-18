@@ -303,10 +303,20 @@ NSInteger const MPErrorCodeBadRequest = 400;
             }
             else {
                 NSLog(@"Approved Return Checkout Request: %@",json);
-                if (callback) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        callback(json, nil);
-                    });
+                if ([json hasKey:@"status"] && ![json[@"status"] isEqualToString:@"success"]) {
+                    if (callback) {
+                        NSError *err = [NSError errorWithDomain:MPErrorDomain code:783 userInfo:@{NSLocalizedDescriptionKey:json[@"errors"]}];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            callback(nil, err);
+                        });
+                    }
+                }
+                else {
+                    if (callback) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            callback(json, nil);
+                        });
+                    }
                 }
             }
             
@@ -433,10 +443,21 @@ NSInteger const MPErrorCodeBadRequest = 400;
             }
             else {
                 NSLog(@"Approved Pair Checkout Request: %@",json);
-                if (callback) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        callback(json, nil);
-                    });
+                
+                if ([json hasKey:@"status"] && ![json[@"status"] isEqualToString:@"success"]) {
+                    if (callback) {
+                        NSError *err = [NSError errorWithDomain:MPErrorDomain code:783 userInfo:@{NSLocalizedDescriptionKey:json[@"errors"]}];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            callback(nil, err);
+                        });
+                    }
+                }
+                else {
+                    if (callback) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            callback(json, nil);
+                        });
+                    }
                 }
             }
             
@@ -486,18 +507,17 @@ NSInteger const MPErrorCodeBadRequest = 400;
                 NSLog(@"JSON Error: %@",[jsonError localizedDescription]);
             }
             else {
-                //TODO FIX THIS GARBAGE
-                if ([json[@"status"] isEqualToString:@"success"]) {
+                //TODO FIX THIS
+                if ([json hasKey:@"status"] && ![json[@"status"] isEqualToString:@"success"]) {
                     NSLog(@"Completed Checkout Successfully");
-                    
-                    if (self.delegate && [self.delegate respondsToSelector:@selector(pairCheckoutDidComplete:error:)]) {
-                        [self.delegate pairCheckoutDidComplete:TRUE error:nil];
-                    }
-                }
-                else {
                     NSLog(@"%@",json);
                     if (self.delegate && [self.delegate respondsToSelector:@selector(pairCheckoutDidComplete:error:)]) {
                         [self.delegate pairCheckoutDidComplete:FALSE error:error];
+                    }
+                }
+                else {
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(pairCheckoutDidComplete:error:)]) {
+                        [self.delegate pairCheckoutDidComplete:TRUE error:nil];
                     }
                 }
             }
