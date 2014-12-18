@@ -51,6 +51,7 @@
     self.productScrollSelect.dataSource = self;
     
     [self.productFilter bk_addEventHandler:^(UISegmentedControl * sender) {
+        
         NSInteger index = [sender selectedSegmentIndex];
         
         switch (index) {
@@ -69,13 +70,13 @@
             default:
                 break;
         }
-        [self.productScrollSelect reloadData];
+        //[self.productScrollSelect reloadData];
     } forControlEvents:UIControlEventValueChanged];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self fullInventory:^(NSArray *products) {
-        self.productsData = products;
-        self.fullProductsData = products;
+        self.productsData = [NSArray arrayWithArray:products];
+        self.fullProductsData = [NSArray arrayWithArray:products];
         [self.productScrollSelect reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
