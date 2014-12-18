@@ -8,12 +8,10 @@
 
 #import "OrderConfirmationViewController.h"
 #import "TextViewCell.h"
-#import "CartManager.h"
 #import "ContinueShoppingCell.h"
 #import "TableTitleCell.h"
 #import "CartProductCell.h"
 #import "BoldTotalItemCell.h"
-#import "CardManager.h"
 #import "TextViewRightImageCell.h"
 
 @interface OrderConfirmationViewController ()
@@ -28,12 +26,6 @@
     [super viewDidLoad];
     self.confirmationTable.backgroundColor = [UIColor superGreyColor];
     self.footer.backgroundColor = [UIColor fireOrangeColor];
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    CartManager *cm = [CartManager getInstance];
-    [cm.products removeAllObjects];
 }
 
 - (void) viewDidLayoutSubviews {
@@ -61,10 +53,7 @@
     switch (section) {
         case 0:return 1;
         case 1:return 1;
-        case 2:{
-            CartManager *cm = [CartManager getInstance];
-            return [[cm products] count];
-        }
+        case 2:return self.products.count;
         case 3:return 1;
         case 4:return 1;
         case 5:return 1;
@@ -140,8 +129,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        CartManager *cm = [CartManager getInstance];
-        [cell setProduct:(Product *)[[cm products] objectAtIndex:indexPath.row]];
+        [cell setProduct:(OrderDetail *)[self.products objectAtIndex:indexPath.row]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
         cell.productName.textColor = [UIColor deepBlueColor];
         cell.productQuant.textColor = [UIColor deepBlueColor];
@@ -186,8 +174,7 @@
         }
         
         cell.textLabel.text = @"Total";
-        CartManager *cm = [CartManager getInstance];
-        cell.detailTextLabel.text = [self formatCurrency:[NSNumber numberWithDouble:[cm total]]];
+        cell.detailTextLabel.text = [self formatCurrency:self.total];
         
         return cell;
         

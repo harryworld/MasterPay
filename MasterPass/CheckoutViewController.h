@@ -14,13 +14,20 @@ typedef enum CheckoutAlertType {
     kCheckoutAlertTypeShippingInfo
 } CheckoutAlertType;
 #import "ProcessOrderCell.h"
-#import "Card.h"
 
 @interface CheckoutViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
-@property(nonatomic, strong)Card *oneTimePairedCard;
 @property(nonatomic, assign)ProcessButtonType buttonType;
 @property(nonatomic, weak) IBOutlet UITableView *containerTable;
-@property(nonatomic, assign)BOOL isPairing;
+
+@property(nonatomic, assign)BOOL precheckoutConfirmation;
+@property(nonatomic, strong) NSArray *cards;
+@property(nonatomic, strong) NSArray *addresses;
+@property(nonatomic, strong) NSDictionary *walletInfo;
+
+@property (nonatomic, strong) NSNumber *subtotal;
+@property (nonatomic, strong) NSNumber *tax;
+@property (nonatomic, strong) NSNumber *shipping;
+@property (nonatomic, strong) NSNumber *total;
 
 -(void)selectShipping:(int)index;
 @end

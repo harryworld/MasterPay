@@ -9,16 +9,20 @@
 #import "UserProfileViewController.h"
 #import "TextFieldCell.h"
 #import "MPConnectCell.h"
-#import "CardManager.h"
-#import "MasterPassConnectViewController.h"
 #import "MPLinkedCell.h"
 #import "MPLearnMoreCell.h"
+#import "MPManager.h"
+#import <APSDK/AuthManager+Protected.h>
+#import <APSDK/User.h>
+#import <APSDK/APObject+Local.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface UserProfileViewController ()
 @property(nonatomic, weak) IBOutlet UITableView *profileTable;
 @end
 
 @implementation UserProfileViewController
+
 -(void)viewDidLoad{
     [super viewDidLoad];
     
@@ -29,8 +33,26 @@
     self.profileTable.tableFooterView = [[UIView alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (connected) name:@"ConnectedMasterPass" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (notConnected) name:@"MasterPassConnectionCancelled" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (connectMasterPass) name:@"mp_connect" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (learnMore) name:@"mp_learn_more" object:nil];
+    
+    // Call precheckout to test if we are actually paired
+    // This is a bit of a hack, but it fixes the issue
+    // where a user un-pairs from MasterPass console
+    // but the ecommerce doesn't know (still thinks
+    // it has a valid long token)
+    
+    
+    MPManager *manager = [MPManager sharedInstance];
+    if ([manager isAppPaired]) {
+        [manager precheckoutDataCallback:^(NSArray *cards, NSArray *addresses, NSDictionary *contactInfo, NSDictionary *walletInfo, NSError *error) {
+            // Hack to force pairing status reload.
+            // This can be replaced once there is a
+            // public pairing status check against MasterPass
+            [self.profileTable reloadData];
+        }];
+    }
 }
 
 - (void) viewDidLayoutSubviews {
@@ -44,24 +66,9 @@
 }
 
 -(IBAction)connectMasterPass{
-    CardManager *cm = [CardManager getInstance];
-    if ([cm isLinkedToMasterPass]) {
-        SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Connect with MasterPass" andMessage:@"You are already paired with your MasterPass account!"];
-        
-        [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
-        
-        alert.transitionStyle = SIAlertViewTransitionStyleBounce;
-        [alert show];
-    }
-    else {
-        [self performSegueWithIdentifier:@"MPConnect" sender:nil
-                               withBlock:^(id sender, id destinationVC) {
-                                   NSLog(@"Hello world");
-                                   CardManager *cm = [CardManager getInstance];
-                                   MasterPassConnectViewController *dest = [[((UINavigationController *)destinationVC) viewControllers] firstObject];
-                                   dest.profileAuth = TRUE;
-                               }];
-    }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    MPManager *manager = [MPManager sharedInstance];
+    [manager pairInViewController:self];
 }
 
 -(IBAction)learnMore{
@@ -74,10 +81,9 @@
     
 }
 
--(void)connected{
+-(void)connected {
     
-    CardManager *cm = [CardManager getInstance];
-    cm.isLinkedToMasterPass = YES;
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     
     [self.profileTable reloadData];
     
@@ -88,6 +94,11 @@
     alert.transitionStyle = SIAlertViewTransitionStyleBounce;
     [alert show];
 }
+
+-(void)notConnected {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
 #pragma mark - UITableView Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -98,7 +109,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     switch (section) {
-        case 0:return 3;
+        case 0:return 1;
         case 1:return 1;
         case 2:return 1;
         default: return 0;
@@ -109,8 +120,7 @@
     switch (indexPath.section) {
         case 0:return 44;
         case 1:{
-            CardManager *cm = [CardManager getInstance];
-            if (cm.isLinkedToMasterPass) {
+            if ([[MPManager sharedInstance] isAppPaired]) {
                 return 60;
             }
             else {
@@ -172,19 +182,14 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
+        User *user = (User *)[[AuthManager defaultManager] currentCredentials];
+        
+        [cell.textField setUserInteractionEnabled:false];
         
         switch (indexPath.row) {
             case 0:
-                cell.textLabel.text = @"Name";
-                cell.textField.text = @"Susan Smith";
-                break;
-            case 1:
                 cell.textLabel.text = @"Email";
-                cell.textField.text = @"s.smith@mastercard.com";
-                break;
-            case 2:
-                cell.textLabel.text = @"Phone";
-                cell.textField.text = @"(808) 233-2342";
+                cell.textField.text = user.email;
                 break;
             default:
                 cell.textLabel.text = nil;
@@ -197,8 +202,7 @@
         
     }
     else if (indexPath.section == 1) {
-        CardManager *cm = [CardManager getInstance];
-        if (cm.isLinkedToMasterPass) {
+        if ([[MPManager sharedInstance] isAppPaired]) {
             MPLinkedCell *cell = [tableView dequeueReusableCellWithIdentifier:linkedCell];
             if (cell == nil)
             {

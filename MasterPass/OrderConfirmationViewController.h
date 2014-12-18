@@ -10,4 +10,6 @@
 
 @interface OrderConfirmationViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, assign) BOOL purchasedWithMP;
+@property (nonatomic, strong) NSArray *products;
+@property (nonatomic, strong) NSNumber *total;
 @end

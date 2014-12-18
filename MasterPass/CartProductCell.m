@@ -8,6 +8,7 @@
 
 #import "CartProductCell.h"
 #import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "OrderDetail+NormalizedPrice.h"
 
 @implementation CartProductCell
 
@@ -30,16 +31,18 @@
     [self.layer setRasterizationScale: [UIScreen mainScreen].scale];
 }
 
--(void)setProduct:(Product *)product{
+-(void)setProduct:(OrderDetail *)product{
     _product = product;
     [self refreshProductInfo];
 }
 
 -(void)refreshProductInfo{
-    self.productName.text = self.product.name;
-    self.productPrice.text = [self formatCurrency:self.product.price];
-    self.productImage.image = [UIImage imageNamed:self.product.imageUrl];
-    self.productQuant.text = [NSString stringWithFormat:@"Quantity: %d",self.product.quantity];
+    self.productName.text = self.product.productName;
+    self.productPrice.text = [self formatCurrency:[self.product normalizedPrice]];
+    [self.productImage setImageWithURL:[NSURL URLWithString:self.product.productImageUrl] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    //TODO Fix
+    self.productQuant.text = [NSString stringWithFormat:@"Quantity: %d",[self.product.quantity intValue]];
 }
 -(NSString *)formatCurrency:(NSNumber *)price{
     double currency = [price doubleValue];

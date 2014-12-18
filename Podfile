@@ -1,8 +1,9 @@
 platform :ios, '6.0'
 xcodeproj 'MasterPass'
+source 'https://github.com/CocoaPods/Specs.git'
 
 pod 'ObjectiveSugar'
-pod 'KLScrollSelect', :git => 'https://github.com/AnyPresence-Services/KLScrollSelect.git', :branch => 'No-Autoscroll'
+pod 'KLScrollSelect', :git => 'https://github.com/DavidBenko/KLScrollSelect.git', :branch => 'full-feature'
 pod 'SDWebImage'
 pod 'UIActivityIndicator-for-SDWebImage'
 pod 'pop', '~> 1.0'

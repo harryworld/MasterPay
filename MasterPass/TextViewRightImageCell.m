@@ -11,9 +11,7 @@
 @implementation TextViewRightImageCell
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        
-        UIEdgeInsets padding = UIEdgeInsetsMake(10, 10, 10, 10);
-        
+                
         self.contentView.backgroundColor = [UIColor superGreyColor];
         self.textView = [[UITextView alloc]initWithFrame:CGRectZero];
         self.textView.textColor = [UIColor deepBlueColor];

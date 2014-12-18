@@ -16,7 +16,7 @@
         UIEdgeInsets padding = UIEdgeInsetsMake(5, 30, 5, 30);
         
         UITextView *textView = [[UITextView alloc]initWithFrame:CGRectZero];
-        textView.text = @"Your account is now paired with your MasterPass wallet";
+        textView.text = @"Your account is now paired with your MasterPass wallet.";
         textView.textColor = [UIColor whiteColor];
         textView.backgroundColor = [UIColor brightBlueColor];
         textView.editable = NO;
