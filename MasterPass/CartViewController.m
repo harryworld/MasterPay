@@ -45,15 +45,7 @@
     }
     self.cartTable.tableFooterView = [[UIView alloc] init];
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
-    [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
-        self.orderHeader = header;
-        self.orderDetails = cart;
-        self.totalLabel.text = [self formatCurrency:[header normalizedSubTotal]];
-        [self.cartTable reloadData];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }];
+    [self reloadCart];
     
     /*
      *
@@ -70,7 +62,19 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(precheckoutCancelled) name:@"MasterPassPreCheckoutCancelled" object:nil];
     
-    [self.cartTable reloadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (reloadCart) name:@"StartOver" object:nil];
+}
+
+-(void)reloadCart{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
+    [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+        self.orderHeader = header;
+        self.orderDetails = cart;
+        self.totalLabel.text = [self formatCurrency:[header normalizedSubTotal]];
+        [self.cartTable reloadData];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 -(void)viewDidAppear:(BOOL)animated{

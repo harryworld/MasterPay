@@ -135,6 +135,7 @@
     user.password = self.passwordField.text;
     [[AuthManager defaultManager] signInAs:user async:^(APObject<Authorizable> *object, NSError *error) {
         if (error) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Error" andMessage:[error localizedDescription]];
             [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
             alert.transitionStyle = SIAlertViewTransitionStyleBounce;
@@ -151,6 +152,10 @@
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                     [self setupDrawerAndShop];
                 }];
+            }
+            else {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self setupDrawerAndShop];
             }
         }
     }];
