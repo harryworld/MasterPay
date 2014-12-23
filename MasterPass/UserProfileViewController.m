@@ -188,7 +188,7 @@
         
         switch (indexPath.row) {
             case 0:
-                cell.textLabel.text = @"Email";
+                cell.textLabel.text = @"Username";
                 cell.textField.text = user.email;
                 break;
             default:

@@ -134,7 +134,6 @@
     user.email = self.usernameField.text;
     user.password = self.passwordField.text;
     [[AuthManager defaultManager] signInAs:user async:^(APObject<Authorizable> *object, NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
         if (error) {
             SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"Error" andMessage:[error localizedDescription]];
             [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
@@ -142,7 +141,17 @@
             [alert show];
         }
         else {
-            [self setupDrawerAndShop];
+            MPManager *manager = [MPManager sharedInstance];
+            if ([manager isAppPaired]) {
+                [manager precheckoutDataCallback:^(NSArray *cards, NSArray *addresses, NSDictionary *contactInfo, NSDictionary *walletInfo, NSError *error) {
+                    // Hack to force pairing status reload.
+                    // This can be replaced once there is a
+                    // public pairing status check against MasterPass
+                    
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    [self setupDrawerAndShop];
+                }];
+            }
         }
     }];
 }

@@ -157,8 +157,11 @@
 #pragma mark - animation
 - (IBAction) initiateAddProduct:(Product*)product toCart:(UIView *)sender fromCell:(UITableViewCell *)cell{
     MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
-    [ecommerce addProductToCart:product];
-    [self animateViewToCart:sender fromParent:cell];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ecommerce addProductToCart:product callback:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self animateViewToCart:sender fromParent:cell];
+    }];
 }
 
 -(void)animateViewToCart:(UIView *)sender fromParent:(UITableViewCell *)parent{

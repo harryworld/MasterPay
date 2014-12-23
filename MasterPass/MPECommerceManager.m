@@ -137,15 +137,20 @@
     }];
 }
 
-- (void)addProductToCart:(Product *)product{
+- (void)addProductToCart:(Product *)product callback:(void (^)(NSError *error))callback{
     [self getCurrentCart:^(OrderHeader *header, NSArray *cart) {
         
         for(OrderDetail *existing in cart) {
             if ([existing.productId isEqualToString:product.id]) {
                 existing.quantity = [NSNumber numberWithInt:([existing.quantity intValue] + 1)];
                 [existing updateAsync:^(id object, NSError *error) {
+                    
                     if (error) {
                         NSLog(@"Error Adding Product to Cart (%@): %@",self.cartId,[error localizedDescription]);
+                    }
+                    
+                    if (callback) {
+                        callback(error);
                     }
                 }];
                 return;
@@ -159,6 +164,10 @@
         [od createAsync:^(id object, NSError *error) {
             if (error) {
                 NSLog(@"Error Adding Product to Cart (%@): %@",self.cartId,[error localizedDescription]);
+            }
+            
+            if (callback) {
+                callback(error);
             }
         }];
     }];
