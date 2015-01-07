@@ -63,7 +63,7 @@
     [self.addressPickerToolbar setBarStyle:UIBarStyleBlackOpaque];
     self.addressPickerToolbar.hidden = YES;
     UIBarButtonItem *barButtonDone = [[UIBarButtonItem alloc] initWithTitle:@"Done"
-                                                                      style:UIBarButtonItemStyleBordered target:self action:@selector(pickerDone:)];
+                                                                      style:UIBarButtonItemStylePlain target:self action:@selector(pickerDone:)];
     
     self.addressPickerToolbar.items = [[NSArray alloc] initWithObjects:barButtonDone,nil];
     barButtonDone.tintColor=[UIColor whiteColor];
