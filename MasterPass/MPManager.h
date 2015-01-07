@@ -30,8 +30,20 @@
  */
 - (BOOL)isAppPaired;
 
+/**
+ * Returns an array of supported data types (card, address, profile, etc)
+ * for this app
+ *
+ * @return the supported data types
+ */
 - (NSArray *)supportedDataTypes;
 
+/**
+ * Returns an array of supported card types (MasterCard, Visa, Discover, etc)
+ * for this app
+ *
+ * @return the supported card types
+ */
 - (NSArray *)supportedCardTypes;
 
 @optional
@@ -52,12 +64,36 @@
  */
 - (void)checkoutDidComplete:(BOOL)success error:(NSError *)error;
 
+/**
+ * Method that executes when precheckout completes
+ *
+ * @param success the status of the checkout
+ * @param data the precheckout data
+ * @param error any errors that occurred during checkout
+ */
 - (void)preCheckoutDidComplete:(BOOL)success data:(NSDictionary *)data error:(NSError *)error;
 
+/**
+ * Method that executes when pair & checkout completes
+ *
+ * @param success the status of the checkout
+ * @param error any errors that occurred during checkout
+ */
 - (void)pairCheckoutDidComplete:(BOOL)success error:(NSError *)error;
 
+/**
+ * Method that executes when manual checkout completes
+ *
+ * @param success the status of the checkout
+ * @param error any errors that occurred during checkout
+ */
 - (void)manualCheckoutDidComplete:(BOOL)success error:(NSError *)error;
 
+/**
+ * Method to force the reset of a user token
+ * This is usually acheived by forceably removing the 
+ * long access token from the user object
+ */
 - (void)resetUserPairing;
 
 @end
@@ -68,11 +104,11 @@ FOUNDATION_EXPORT NSString *const DataTypeCard;         // Constant for Card Dat
 FOUNDATION_EXPORT NSString *const DataTypeAddress;      // Constant for Address Datatype. Used for initializing some MP services.
 FOUNDATION_EXPORT NSString *const DataTypeProfile;      // Constant for Profile Datatype. Used for initializing some MP services.
 
-FOUNDATION_EXPORT NSString *const CardTypeAmex;
-FOUNDATION_EXPORT NSString *const CardTypeMasterCard;
-FOUNDATION_EXPORT NSString *const CardTypeDiscover;
-FOUNDATION_EXPORT NSString *const CardTypeVisa;
-FOUNDATION_EXPORT NSString *const CardTypeMaestro;
+FOUNDATION_EXPORT NSString *const CardTypeAmex;         // Constant for American Express Card Support
+FOUNDATION_EXPORT NSString *const CardTypeMasterCard;   // Constant for MasterCard Card Support
+FOUNDATION_EXPORT NSString *const CardTypeDiscover;     // Constant for Discover Card Support
+FOUNDATION_EXPORT NSString *const CardTypeVisa;         // Constant for Visa Card Support
+FOUNDATION_EXPORT NSString *const CardTypeMaestro;      // Constant for Maestro Card Support
 
 FOUNDATION_EXPORT NSString *const MPErrorNotPaired;
 
