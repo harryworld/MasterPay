@@ -15,7 +15,7 @@
 @property (nonatomic, strong) UIImageView *providerImage;
 @property (nonatomic, strong) UILabel *cardNumber;
 @property (nonatomic, strong) UILabel *expDate;
-@property (nonatomic, strong) NSArray *cards;
+@property (nonatomic, weak) NSArray *cards;
 @property (nonatomic, assign) BOOL manualEntryAllowed;
 @property (nonatomic, strong) UIView *providerImageContainer;
 @end

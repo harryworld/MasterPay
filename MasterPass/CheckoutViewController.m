@@ -25,8 +25,6 @@
 @interface CheckoutViewController () <UIAlertViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 @property(nonatomic, strong) UIPickerView *addressPickerView;
 @property(nonatomic, strong) UIToolbar *addressPickerToolbar;
-@property(nonatomic, strong) SwipeView *cardSwipeView;
-@property(nonatomic, strong) ProcessOrderCell *processOrderCell;
 @property(nonatomic, strong) MPCreditCard *selectedCard;
 @property(nonatomic, strong) MPAddress *selectedShippingInfo;
 @property(nonatomic, strong) UIButton *cardSelectorButton;
@@ -95,6 +93,7 @@
 }
 
 -(void)dealloc{
+    NSLog(@"Dealloc: %@",self);
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
@@ -111,14 +110,12 @@
         MPCreditCard *card = self.cards[i];
         if ([card.selectedAsDefault boolValue]) {
             [self switchToCard:card];
-            [self.cardSwipeView scrollToItemAtIndex:i duration:0.0];
             return;
         }
     }
     
     if (self.cards.count > 0) {
         [self switchToCard:self.cards[0]];
-        [self.cardSwipeView scrollToItemAtIndex:0 duration:0.0];
     }
 }
 
@@ -213,33 +210,29 @@
 #pragma mark - Processing Orders
 
 -(void)processOrder:(NSNotification *)notification{
-    
-    CFIndex rc = CFGetRetainCount((__bridge CFTypeRef)self);
-    NSLog(@"Process Order: %@",self);
-    NSLog(@"Retain Count: %ld",rc);
-    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
+    __weak typeof(self) weakSelf = self;
     [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
-        self.confirmProducts = cart;
+        weakSelf.confirmProducts = cart;
         MPManager *manager = [MPManager sharedInstance];
-        if (self.selectedCard == nil) {
+        if (weakSelf.selectedCard == nil) {
             
             
             //[manager completeManualCheckoutForOrder:header.id];
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            [self confirmOrder];
+            [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
+            [weakSelf confirmOrder];
         }
         else if ([manager isAppPaired] && !self.precheckoutConfirmation) {
-            self.purchasingWithMP = TRUE;
+            weakSelf.purchasingWithMP = TRUE;
             [manager returnCheckoutForOrder:header.id
-                                 walletInfo:self.walletInfo
-                                       card:self.selectedCard
-                            shippingAddress:self.selectedShippingInfo
-                       showInViewController:self];
+                                 walletInfo:weakSelf.walletInfo
+                                       card:weakSelf.selectedCard
+                            shippingAddress:weakSelf.selectedShippingInfo
+                       showInViewController:weakSelf];
         }
-        else if ([manager isAppPaired] && self.precheckoutConfirmation){
-            self.purchasingWithMP = TRUE;
+        else if ([manager isAppPaired] && weakSelf.precheckoutConfirmation){
+            weakSelf.purchasingWithMP = TRUE;
             [manager completePairCheckoutForOrder:header.id transaction:self.walletInfo[@"transaction_id"] preCheckoutTransaction:self.walletInfo[@"pre_checkout_transaction_id"]];
         }
     }];
@@ -249,9 +242,6 @@
     if ([self.navigationController.visibleViewController isEqual:self]) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [self performSegueWithIdentifier:@"ConfirmOrder" sender:nil];
-    }
-    else {
-        [self performSelector:@selector(confirmOrder) withObject:nil afterDelay:0.5];
     }
 }
 
@@ -502,9 +492,7 @@
                 [self.cardSelectorButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
                 self.cardSelectorButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
                 [cell.contentView addSubview:self.cardSelectorButton];
-                [self.cardSelectorButton bk_addEventHandler:^(id sender) {
-                    [self chooseCardType];
-                } forControlEvents:UIControlEventTouchUpInside];
+                [self.cardSelectorButton addTarget:self action:@selector(chooseCardType) forControlEvents:UIControlEventTouchUpInside];
                 [self.cardSelectorButton makeConstraints:^(MASConstraintMaker *make) {
                     make.edges.equalTo(cell.contentView).with.insets(UIEdgeInsetsMake(10, 10, 10, 10));
                     make.center.equalTo(cell.contentView);
@@ -582,7 +570,6 @@
                                            reuseIdentifier:processOrderCellId];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        self.processOrderCell = cell;
         [cell setButtonType:self.buttonType];
         cell.layoutMargins = UIEdgeInsetsZero;
         return cell;

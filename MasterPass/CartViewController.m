@@ -66,6 +66,7 @@
 }
 
 -(void)dealloc{
+    NSLog(@"Dealloc: %@",self);
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
@@ -197,6 +198,9 @@
             [weakSelf.navigationController pushViewController:checkout animated:YES];
         }];
     }
+    else {
+        NSLog(@"INVISIBLE CART VIEW: %@", self);
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -234,10 +238,11 @@
     __weak typeof(self) weakSelf = self;
     
     MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    __block CheckoutViewController *checkout = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
+    
     [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
-        
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        CheckoutViewController *checkout = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
         
         checkout.subtotal = [header normalizedSubTotal];
         checkout.total = [header normalizedTotal];
