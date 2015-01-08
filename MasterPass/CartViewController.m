@@ -65,6 +65,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (reloadCart) name:@"StartOver" object:nil];
 }
 
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 -(void)reloadCart{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
@@ -162,11 +166,13 @@
         // TODO merge with moveToCheckout:
         
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        CheckoutViewController *checkout = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
         
         MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
+        __weak typeof(self) weakSelf = self;
         [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+            
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            CheckoutViewController *checkout = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
             
             checkout.subtotal = [header normalizedSubTotal];
             checkout.total = [header normalizedTotal];
@@ -187,8 +193,8 @@
             checkout.buttonType = kButtonTypeProcess;
             [checkout.containerTable reloadData];
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            [self.navigationController pushViewController:checkout animated:YES];
             
+            [weakSelf.navigationController pushViewController:checkout animated:YES];
         }];
     }
 }
@@ -225,12 +231,13 @@
 
 -(IBAction)moveToCheckout{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    CheckoutViewController *checkout = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
+    __weak typeof(self) weakSelf = self;
     
     MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
     [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
+        
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        CheckoutViewController *checkout = (CheckoutViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"Checkout"];
         
         checkout.subtotal = [header normalizedSubTotal];
         checkout.total = [header normalizedTotal];
@@ -242,13 +249,10 @@
             [manager precheckoutDataCallback:^(NSArray *cards, NSArray *addresses, NSDictionary *contactInfo, NSDictionary *walletInfo, NSError *error) {
                 
                 if (error) {
-                    
-                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                    
-                    [self notPairedUISetup];
+                    [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
+                    [weakSelf notPairedUISetup];
                     
                     SIAlertView *alert = nil;
-                    
                     if ([error.localizedDescription isEqualToString:MPErrorNotPaired]) {
                         alert = [[SIAlertView alloc]initWithTitle:@"Message" andMessage:@"Your account is no longer paired with your MasterPass wallet. Please pair again."];
                     }
@@ -260,7 +264,7 @@
                     alert.transitionStyle = SIAlertViewTransitionStyleBounce;
                     [alert show];
                     
-                    [self.cartTable reloadData];
+                    [weakSelf.cartTable reloadData];
                 }
                 else {
                     
@@ -268,15 +272,14 @@
                     checkout.addresses = addresses;
                     checkout.walletInfo = walletInfo;
                     
-                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                    
-                    [self.navigationController pushViewController:checkout animated:YES];
+                    [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
+                    [weakSelf.navigationController pushViewController:checkout animated:YES];
                 }
             }];
         }
         else {
-            [self.navigationController pushViewController:checkout animated:YES];
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [weakSelf.navigationController pushViewController:checkout animated:YES];
+            [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
         }
     }];
 }
@@ -284,7 +287,6 @@
 - (void) viewDidLayoutSubviews {
     
     [super viewDidLayoutSubviews];
-    
     self.cartTable.layoutMargins = UIEdgeInsetsZero;
 }
 @end

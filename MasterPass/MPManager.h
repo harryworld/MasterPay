@@ -112,7 +112,7 @@ FOUNDATION_EXPORT NSString *const CardTypeMaestro;      // Constant for Maestro 
 
 FOUNDATION_EXPORT NSString *const MPErrorNotPaired;
 
-@property (nonatomic, strong) id<MPManagerDelegate> delegate;
+@property (nonatomic, weak) id<MPManagerDelegate> delegate;
 
 
 #pragma mark - Init

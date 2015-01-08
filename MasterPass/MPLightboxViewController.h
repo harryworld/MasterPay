@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, MPLightBoxType) {
 
 @interface MPLightboxViewController : UIViewController <UIWebViewDelegate>
 
-@property (nonatomic, strong) id<MPLightboxViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<MPLightboxViewControllerDelegate> delegate;
 
 - (void)initiateLightBoxOfType:(MPLightBoxType)type WithOptions:(NSDictionary *)options;
 @end

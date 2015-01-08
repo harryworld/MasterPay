@@ -214,6 +214,10 @@
 
 -(void)processOrder:(NSNotification *)notification{
     
+    CFIndex rc = CFGetRetainCount((__bridge CFTypeRef)self);
+    NSLog(@"Process Order: %@",self);
+    NSLog(@"Retain Count: %ld",rc);
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     MPECommerceManager *ecommerce = [MPECommerceManager sharedInstance];
     [ecommerce getCurrentCart:^(OrderHeader *header, NSArray *cart) {
