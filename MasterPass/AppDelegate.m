@@ -3,7 +3,7 @@
 //  MasterPass
 //
 //  Created by David Benko on 4/22/14.
-//  Copyright (c) 2014 David Benko. All rights reserved.
+//  Copyright (c) 2015 AnyPresence, Inc. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -13,11 +13,16 @@
 #import <APSDK/APObject+Local.h>
 
 @implementation AppDelegate
-static NSString * const server = @"https://gadgetshop.anypresenceapp.com";
-static NSString * const version = @"/api/v2/";
+static NSString * const sampleUrl = @"https://sample.com";  // Don't change this
+static NSString * const server = @"https://morning-beyond-8791.herokuapp.com";     // Change this to your server endpoint
+static NSString * const version = @"/api/v3/";              // Change this to match your api version
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    NSAssert(![server isEqualToString:sampleUrl],
+             @"Replace server URL with correct server endpoint");
+    
     // Override point for customization after application launch.
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     //[[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];

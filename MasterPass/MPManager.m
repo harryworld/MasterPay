@@ -3,7 +3,7 @@
 //  MPTestPairApp
 //
 //  Created by David Benko on 10/31/14.
-//  Copyright (c) 2014 David Benko. All rights reserved.
+//  Copyright (c) 2015 AnyPresence, Inc. All rights reserved.
 //
 
 #import "MPManager.h"
@@ -347,7 +347,7 @@ NSInteger const MPErrorCodeBadRequest = 400;
                                              @"consumerWalletId":walletInfo[@"consumer_wallet_id"],
                                              @"version":MPVersion};
             
-            NSLog(@"%@",lightBoxParams);
+            NSLog(@"Params %@",lightBoxParams);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showLightboxWindowOfType:MPLightBoxTypeCheckout options:lightBoxParams inViewController:viewController];
