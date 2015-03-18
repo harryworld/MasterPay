@@ -87,6 +87,8 @@
     NSURL *currentUrl = request.URL;
     NSString *currentUrlString = [NSString stringWithFormat:@"%@://%@%@",currentUrl.scheme,currentUrl.host,currentUrl.path];
     
+    NSLog(@"%@",currentUrlString);
+    
     if ([currentUrlString isEqualToString:[[self.options objectForKey:@"callbackUrl"] stringByReplacingOccurrencesOfString:@"\\" withString:@""]]) {
         NSOperationQueue *queue = [[NSOperationQueue alloc] init];
         [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){

@@ -77,6 +77,14 @@ NSInteger const MPErrorCodeBadRequest = 400;
                                              @"requestPairing":@1,
                                              @"version":MPVersion};
             
+            if ([self.delegate respondsToSelector:@selector(expressCheckoutEnabled)]) {
+                if ([self.delegate expressCheckoutEnabled]) {
+                    NSMutableDictionary *mutableParams = [lightBoxParams mutableCopy];
+                    [mutableParams setObject:@1 forKey:@"requestExpressCheckout"];
+                    lightBoxParams = mutableParams;
+                }
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showLightboxWindowOfType:MPLightBoxTypeConnect options:lightBoxParams inViewController:viewController];
             });
@@ -354,6 +362,93 @@ NSInteger const MPErrorCodeBadRequest = 400;
             });
         }
     }];
+}
+
+-(BOOL)expressCheckoutEnabled {
+    if ([self.delegate respondsToSelector:@selector(expressCheckoutEnabled)]) {
+        return [self.delegate expressCheckoutEnabled];
+    }
+    else return false;
+}
+
+-(void)expressCheckoutForOrder:(NSString *)orderNumber walletInfo:(NSDictionary *)walletInfo card:(MPCreditCard *)card shippingAddress:(MPAddress *)shippingAddress callback:(void (^)(BOOL success, NSDictionary *response, NSError *error))callback{
+    
+    NSAssert([self isAppPaired], @"User must be paired with MasterPass before calling return checkout");
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/masterpass/express_checkout",[self.delegate serverAddress]]];
+    
+    NSError *jsonError;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{
+                                                                 @"order_header_id":orderNumber,
+                                                                 @"precheckout_transaction_id":walletInfo[@"precheckout_transaction_id"],
+                                                                 @"card_id":card.cardId,
+                                                                 @"shipping_id":shippingAddress.addressId
+                                                                 }
+                                                       options:0 error:&jsonError];
+    
+    if (jsonError) {
+        if (callback) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(false,nil,jsonError);
+            });
+        }
+        return;
+    }
+    
+    NSLog(@"%@",[[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding]);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody: jsonData];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        
+        if (error) {
+            if (callback) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    callback(false,nil,error);
+                });
+            }
+        }
+        else{
+            NSError * jsonError;
+            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
+                                                                 options:0
+                                                                   error:&jsonError];
+            NSLog(@"%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
+            
+            if (jsonError) {
+                if (callback) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        callback(false, nil,jsonError);
+                    });
+                }
+            }
+            else {
+                NSLog(@"Approved Express Checkout: %@",json);
+                if ([json hasKey:@"status"] && ![json[@"status"] isEqualToString:@"success"]) {
+                    if (callback) {
+                        NSError *err = [NSError errorWithDomain:MPErrorDomain code:783 userInfo:@{NSLocalizedDescriptionKey:json[@"errors"]}];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            callback(false, json, err);
+                        });
+                    }
+                }
+                else {
+                    if (callback) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            callback(true, json, nil);
+                        });
+                    }
+                }
+            }
+            
+        }
+        
+    }];
+
 }
 
 -(void)lightBox:(MPLightboxViewController *)pairingViewController didCompleteCheckout:(BOOL)success error:(NSError *)error{

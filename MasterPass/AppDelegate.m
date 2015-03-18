@@ -14,7 +14,7 @@
 
 @implementation AppDelegate
 static NSString * const sampleUrl = @"https://sample.com";  // Don't change this
-static NSString * const server = @"https://morning-beyond-8791.herokuapp.com";     // Change this to your server endpoint
+static NSString * const server = @"https://gs-express-app.herokuapp.com";     // Change this to your server endpoint
 static NSString * const version = @"/api/v3/";              // Change this to match your api version
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -132,6 +132,10 @@ static NSString * const version = @"/api/v3/";              // Change this to ma
 
 - (NSArray *)supportedCardTypes{
     return @[CardTypeAmex,CardTypeDiscover,CardTypeMasterCard,CardTypeMaestro];
+}
+
+- (BOOL)expressCheckoutEnabled {
+    return true;
 }
 
 @end

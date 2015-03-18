@@ -96,6 +96,9 @@
  */
 - (void)resetUserPairing;
 
+
+- (BOOL)expressCheckoutEnabled;
+
 @end
 
 @interface MPManager : NSObject
@@ -170,6 +173,12 @@ FOUNDATION_EXPORT NSString *const MPErrorNotPaired;
 - (void)completePairCheckoutForOrder:(NSString *)orderNumber
                         transaction:(NSString *)transactionId
              preCheckoutTransaction:(NSString *)precheckoutTransactionId;
+
+#pragma mark - Express Checkout
+
+-(BOOL)expressCheckoutEnabled;
+
+-(void)expressCheckoutForOrder:(NSString *)orderNumber walletInfo:(NSDictionary *)walletInfo card:(MPCreditCard *)card shippingAddress:(MPAddress *)shippingAddress callback:(void (^)(BOOL success, NSDictionary *response, NSError *error))callback;
 
 #pragma mark - Manual Checkout
 

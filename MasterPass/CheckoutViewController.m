@@ -224,11 +224,35 @@
         }
         else if ([manager isAppPaired] && !self.precheckoutConfirmation) {
             weakSelf.purchasingWithMP = TRUE;
-            [manager returnCheckoutForOrder:header.id
-                                 walletInfo:weakSelf.walletInfo
-                                       card:weakSelf.selectedCard
-                            shippingAddress:weakSelf.selectedShippingInfo
-                       showInViewController:weakSelf];
+            
+            if ([manager expressCheckoutEnabled]) {
+                [manager expressCheckoutForOrder:header.id
+                                      walletInfo:weakSelf.walletInfo
+                                            card:weakSelf.selectedCard
+                                 shippingAddress:weakSelf.selectedShippingInfo
+                                        callback:^(BOOL success, NSDictionary *response, NSError *error) {
+                                            
+                                            if (success) {
+                                                [self confirmOrder];
+                                            }
+                                            else {
+                                                [self checkoutCancelled];
+                                                SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"Error" andMessage:[error localizedDescription]];
+                                                                          
+                                                [alertView addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+                                                alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+                                                [alertView show];
+
+                                            }
+                                        }];
+            }
+            else {
+                [manager returnCheckoutForOrder:header.id
+                                     walletInfo:weakSelf.walletInfo
+                                           card:weakSelf.selectedCard
+                                shippingAddress:weakSelf.selectedShippingInfo
+                           showInViewController:weakSelf];
+            }
         }
         else if ([manager isAppPaired] && weakSelf.precheckoutConfirmation){
             weakSelf.purchasingWithMP = TRUE;
