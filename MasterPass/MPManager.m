@@ -481,6 +481,15 @@ NSInteger const MPErrorCodeBadRequest = 400;
                                              @"allowedCardTypes":[self.delegate supportedCardTypes],
                                              @"requestPairing":@1,
                                              @"version":MPVersion};
+            
+            if ([self.delegate respondsToSelector:@selector(expressCheckoutEnabled)]) {
+                if ([self.delegate expressCheckoutEnabled]) {
+                    NSMutableDictionary *mutableParams = [lightBoxParams mutableCopy];
+                    [mutableParams setObject:@1 forKey:@"requestExpressCheckout"];
+                    lightBoxParams = mutableParams;
+                }
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showLightboxWindowOfType:MPLightBoxTypePreCheckout options:lightBoxParams inViewController:viewController];
             });
