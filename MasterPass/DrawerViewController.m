@@ -32,11 +32,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 6;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return @" GADGET SHOP";
+    return @" MasterPay";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -91,6 +91,13 @@
             cell.iconView.image = [gearIcon imageWithSize:CGSizeMake(20, 20)];
             break;
         }
+        case 5:{
+            cell.itemLabel.text = @"Friends";
+            FAKFontAwesome *gearIcon = [FAKFontAwesome cogsIconWithSize:20];
+            [gearIcon addAttribute:NSForegroundColorAttributeName value:[UIColor superGreyColor]];
+            cell.iconView.image = [gearIcon imageWithSize:CGSizeMake(20, 20)];
+            break;
+        }
         default:
             cell.itemLabel.text = nil;
             cell.iconView.image = nil;
@@ -132,6 +139,12 @@
         case 4:{
             UIViewController *rePower = [storyboard instantiateViewControllerWithIdentifier:@"rePower"];
             BaseNavigationController *nav = [[BaseNavigationController alloc]initWithRootViewController:rePower];
+            [self.drawer replaceCenterViewControllerWithViewController:nav];
+            break;
+        }
+        case 5:{
+            UIViewController *friendList = [storyboard instantiateViewControllerWithIdentifier:@"FriendList"];
+            BaseNavigationController *nav = [[BaseNavigationController alloc]initWithRootViewController:friendList];
             [self.drawer replaceCenterViewControllerWithViewController:nav];
             break;
         }

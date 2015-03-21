@@ -126,6 +126,8 @@
 		D16457071ABD74A200BE99C9 /* LocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D16457061ABD74A200BE99C9 /* LocationsViewController.m */; };
 		D16457091ABD771100BE99C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16457081ABD771100BE99C9 /* CoreLocation.framework */; };
 		D16457491ABD85AC00BE99C9 /* RepowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D16457481ABD85AC00BE99C9 /* RepowerViewController.m */; };
+		D164574D1ABD8A7200BE99C9 /* FriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D164574C1ABD8A7200BE99C9 /* FriendListViewController.m */; };
+		D16457511ABD8EB600BE99C9 /* FriendFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D16457501ABD8EB600BE99C9 /* FriendFieldCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -306,6 +308,10 @@
 		D16457081ABD771100BE99C9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D16457471ABD85AC00BE99C9 /* RepowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepowerViewController.h; sourceTree = "<group>"; };
 		D16457481ABD85AC00BE99C9 /* RepowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepowerViewController.m; sourceTree = "<group>"; };
+		D164574B1ABD8A7200BE99C9 /* FriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListViewController.h; sourceTree = "<group>"; };
+		D164574C1ABD8A7200BE99C9 /* FriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListViewController.m; sourceTree = "<group>"; };
+		D164574F1ABD8EB600BE99C9 /* FriendFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendFieldCell.h; sourceTree = "<group>"; };
+		D16457501ABD8EB600BE99C9 /* FriendFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendFieldCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -524,6 +530,7 @@
 		C38B3AFD191A776000FBB01C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D164574A1ABD8A6000BE99C9 /* FriendList */,
 				D16457461ABD859C00BE99C9 /* rePower */,
 				D16457041ABD746F00BE99C9 /* Locations */,
 				C3F7E6461A30078300AF5245 /* Registration */,
@@ -578,6 +585,7 @@
 		C38B3B03191A77B700FBB01C /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				D164574E1ABD8E8B00BE99C9 /* FriendField Cell */,
 				C34455A81A38A9D4007941F0 /* ShippingSelect */,
 				C3F5173C195209470035570A /* TextViewRightImage */,
 				C3F516F5194638D40035570A /* Bold Total Item */,
@@ -926,6 +934,24 @@
 			name = rePower;
 			sourceTree = "<group>";
 		};
+		D164574A1ABD8A6000BE99C9 /* FriendList */ = {
+			isa = PBXGroup;
+			children = (
+				D164574B1ABD8A7200BE99C9 /* FriendListViewController.h */,
+				D164574C1ABD8A7200BE99C9 /* FriendListViewController.m */,
+			);
+			name = FriendList;
+			sourceTree = "<group>";
+		};
+		D164574E1ABD8E8B00BE99C9 /* FriendField Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D164574F1ABD8EB600BE99C9 /* FriendFieldCell.h */,
+				D16457501ABD8EB600BE99C9 /* FriendFieldCell.m */,
+			);
+			name = "FriendField Cell";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1141,8 +1167,10 @@
 				C3B1075B192279710045EBC0 /* ICSDrawerController.m in Sources */,
 				C3900824192645A100902B6E /* TextFieldCell.m in Sources */,
 				C3F7E60E1A26A27500AF5245 /* OrderHeader+NormalizedTotals.m in Sources */,
+				D164574D1ABD8A7200BE99C9 /* FriendListViewController.m in Sources */,
 				C3D909431922265600F6630D /* CartProductCell.m in Sources */,
 				C31C83A7192D15990093751D /* MPLearnMoreCell.m in Sources */,
+				D16457511ABD8EB600BE99C9 /* FriendFieldCell.m in Sources */,
 				C3212D3D1906BE460072BA80 /* AppDelegate.m in Sources */,
 				C3F516F9194639000035570A /* BoldTotalItemCell.m in Sources */,
 				C38B36D7190E5F2D00FBB01C /* UserProfileViewController.m in Sources */,
