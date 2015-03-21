@@ -36,9 +36,20 @@
         self.sendButton.frame = CGRectMake(200.0, 20.0, 80.0, 40.0);
         self.sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:14];
         [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
+        [self.sendButton addTarget:self action:@selector(sendMoney:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:self.sendButton];
     };
     return self;
+}
+
+- (IBAction)sendMoney:(id)sender
+{
+    NSLog(@"Send Money");
+    
+    SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Message" andMessage:@"Your account is no longer paired with your MasterPass wallet. Please pair again."];
+    [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+    alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+    [alert show];
 }
 
 @end
