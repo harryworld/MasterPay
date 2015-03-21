@@ -33,15 +33,40 @@
     
     MKPointAnnotation *myAnnotation = [[MKPointAnnotation alloc] init];
     myAnnotation.coordinate = CLLocationCoordinate2DMake(22.284681, 114.158177);
-    myAnnotation.title = @"Matthews Pizza";
-    myAnnotation.subtitle = @"Best Pizza in Town";
+    myAnnotation.title = @"ATM";
+    myAnnotation.subtitle = @"Hang Seng Bank";
     [self.mapView addAnnotation:myAnnotation];
 
+//    MKPointAnnotation *myAnnotation1 = [[MKPointAnnotation alloc] init];
+//    myAnnotation1.coordinate = CLLocationCoordinate2DMake(22.284681, 114.168177);
+//    myAnnotation1.title = @"Cocoon";
+//    myAnnotation1.subtitle = @"Best co-working space";
+//    [self.mapView addAnnotation:myAnnotation1];
+    
+    
     MKPointAnnotation *myAnnotation1 = [[MKPointAnnotation alloc] init];
-    myAnnotation1.coordinate = CLLocationCoordinate2DMake(22.284681, 114.168177);
-    myAnnotation1.title = @"Cocoon Pizza";
-    myAnnotation1.subtitle = @"Best co-working space";
+    myAnnotation1.coordinate = CLLocationCoordinate2DMake(22.281532, 114.159598);
+    myAnnotation1.title = @"7-Eleven - Shop CEN K7b - MTR Central Station";
+    myAnnotation1.subtitle = @"7-Eleven";
     [self.mapView addAnnotation:myAnnotation1];
+    
+    MKPointAnnotation *myAnnotation2 = [[MKPointAnnotation alloc] init];
+    myAnnotation2.coordinate = CLLocationCoordinate2DMake(22.277967, 114.171016);
+    myAnnotation2.title = @"7-Eleven Food Store";
+    myAnnotation2.subtitle = @"7-Eleven";
+    [self.mapView addAnnotation:myAnnotation2];
+    
+    MKPointAnnotation *myAnnotation3 = [[MKPointAnnotation alloc] init];
+    myAnnotation3.coordinate = CLLocationCoordinate2DMake(22.279489, 114.182961);
+    myAnnotation3.title = @"7-eleven - Percival Street";
+    myAnnotation3.subtitle = @"7-Eleven";
+    [self.mapView addAnnotation:myAnnotation3];
+    
+    MKPointAnnotation *myAnnotation4 = [[MKPointAnnotation alloc] init];
+    myAnnotation4.coordinate = CLLocationCoordinate2DMake(22.284965, 114.191711);
+    myAnnotation4.title = @"7-Eleven - Electric Road 2";
+    myAnnotation4.subtitle = @"7-Eleven";
+    [self.mapView addAnnotation:myAnnotation4];
     
     [self loadData];
     
