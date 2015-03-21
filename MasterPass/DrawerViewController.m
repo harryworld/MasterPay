@@ -32,7 +32,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -84,6 +84,13 @@
             cell.iconView.image = [gearIcon imageWithSize:CGSizeMake(20, 20)];
             break;
         }
+        case 4:{
+            cell.itemLabel.text = @"rePower";
+            FAKFontAwesome *gearIcon = [FAKFontAwesome cogsIconWithSize:20];
+            [gearIcon addAttribute:NSForegroundColorAttributeName value:[UIColor superGreyColor]];
+            cell.iconView.image = [gearIcon imageWithSize:CGSizeMake(20, 20)];
+            break;
+        }
         default:
             cell.itemLabel.text = nil;
             cell.iconView.image = nil;
@@ -119,6 +126,12 @@
         case 3:{
             UIViewController *map = [storyboard instantiateViewControllerWithIdentifier:@"Map"];
             BaseNavigationController *nav = [[BaseNavigationController alloc]initWithRootViewController:map];
+            [self.drawer replaceCenterViewControllerWithViewController:nav];
+            break;
+        }
+        case 4:{
+            UIViewController *rePower = [storyboard instantiateViewControllerWithIdentifier:@"rePower"];
+            BaseNavigationController *nav = [[BaseNavigationController alloc]initWithRootViewController:rePower];
             [self.drawer replaceCenterViewControllerWithViewController:nav];
             break;
         }
