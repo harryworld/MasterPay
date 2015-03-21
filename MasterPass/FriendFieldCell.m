@@ -44,10 +44,11 @@
 
 - (IBAction)sendMoney:(id)sender
 {
-    NSLog(@"Send Money");
-    
-    SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Message" andMessage:@"Your account is no longer paired with your MasterPass wallet. Please pair again."];
-    [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+    SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Message" andMessage:@"You are transferring $100 to Harry"];
+    [alert addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
+    [alert addButtonWithTitle:@"Confirm" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alert) {
+        NSLog(@"Confirm");
+    }];
     alert.transitionStyle = SIAlertViewTransitionStyleBounce;
     [alert show];
 }
