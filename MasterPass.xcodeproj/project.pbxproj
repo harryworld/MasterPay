@@ -122,6 +122,9 @@
 		C3F7E60E1A26A27500AF5245 /* OrderHeader+NormalizedTotals.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F7E60D1A26A27500AF5245 /* OrderHeader+NormalizedTotals.m */; };
 		C3F7E6491A300BFF00AF5245 /* UserRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F7E6481A300BFF00AF5245 /* UserRegistrationViewController.m */; };
 		C3F901971923BE4C00400BF3 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F901961923BE4C00400BF3 /* BaseViewController.m */; };
+		D16457031ABD744D00BE99C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16457021ABD744D00BE99C9 /* MapKit.framework */; };
+		D16457071ABD74A200BE99C9 /* LocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D16457061ABD74A200BE99C9 /* LocationsViewController.m */; };
+		D16457091ABD771100BE99C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D16457081ABD771100BE99C9 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -296,6 +299,10 @@
 		C3F7E6481A300BFF00AF5245 /* UserRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRegistrationViewController.m; sourceTree = "<group>"; };
 		C3F901951923BE4C00400BF3 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		C3F901961923BE4C00400BF3 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		D16457021ABD744D00BE99C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D16457051ABD74A200BE99C9 /* LocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsViewController.h; sourceTree = "<group>"; };
+		D16457061ABD74A200BE99C9 /* LocationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsViewController.m; sourceTree = "<group>"; };
+		D16457081ABD771100BE99C9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +310,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D16457091ABD771100BE99C9 /* CoreLocation.framework in Frameworks */,
+				D16457031ABD744D00BE99C9 /* MapKit.framework in Frameworks */,
 				C35E06071A00A4B000D93415 /* CoreData.framework in Frameworks */,
 				C3212D2F1906BE460072BA80 /* CoreGraphics.framework in Frameworks */,
 				C3212D311906BE460072BA80 /* UIKit.framework in Frameworks */,
@@ -431,6 +440,8 @@
 		C3212D2B1906BE460072BA80 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D16457081ABD771100BE99C9 /* CoreLocation.framework */,
+				D16457021ABD744D00BE99C9 /* MapKit.framework */,
 				C35E06061A00A4B000D93415 /* CoreData.framework */,
 				C35E05FE19FDEBB600D93415 /* APResources.bundle */,
 				C35E05FF19FDEBB600D93415 /* APSDK.framework */,
@@ -510,6 +521,7 @@
 		C38B3AFD191A776000FBB01C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D16457041ABD746F00BE99C9 /* Locations */,
 				C3F7E6461A30078300AF5245 /* Registration */,
 				C3F901941923BE1300400BF3 /* Base */,
 				C38B3AFF191A778000FBB01C /* Cart */,
@@ -892,6 +904,15 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		D16457041ABD746F00BE99C9 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				D16457051ABD74A200BE99C9 /* LocationsViewController.h */,
+				D16457061ABD74A200BE99C9 /* LocationsViewController.m */,
+			);
+			name = Locations;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1123,6 +1144,7 @@
 				C3F516F41946152A0035570A /* TableTitleCell.m in Sources */,
 				C364DE981A26A0780041ACF2 /* OrderDetail+NormalizedPrice.m in Sources */,
 				C3900830192691B500902B6E /* MPConnectCell.m in Sources */,
+				D16457071ABD74A200BE99C9 /* LocationsViewController.m in Sources */,
 				C38B36CB190DDD6000FBB01C /* CartViewController.m in Sources */,
 				C39007E51924EDE100902B6E /* TotalItemCell.m in Sources */,
 				C3212D391906BE460072BA80 /* main.m in Sources */,

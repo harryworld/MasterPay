@@ -32,7 +32,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 4;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -78,7 +78,7 @@
             break;
         }
         case 3:{
-            cell.itemLabel.text = @"Settings";
+            cell.itemLabel.text = @"Map";
             FAKFontAwesome *gearIcon = [FAKFontAwesome cogsIconWithSize:20];
             [gearIcon addAttribute:NSForegroundColorAttributeName value:[UIColor superGreyColor]];
             cell.iconView.image = [gearIcon imageWithSize:CGSizeMake(20, 20)];
@@ -117,8 +117,8 @@
             break;
         }
         case 3:{
-            UIViewController *settings = [storyboard instantiateViewControllerWithIdentifier:@"Settings"];
-            BaseNavigationController *nav = [[BaseNavigationController alloc]initWithRootViewController:settings];
+            UIViewController *map = [storyboard instantiateViewControllerWithIdentifier:@"Map"];
+            BaseNavigationController *nav = [[BaseNavigationController alloc]initWithRootViewController:map];
             [self.drawer replaceCenterViewControllerWithViewController:nav];
             break;
         }
