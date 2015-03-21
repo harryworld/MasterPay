@@ -43,6 +43,8 @@
     myAnnotation1.subtitle = @"Best co-working space";
     [self.mapView addAnnotation:myAnnotation1];
     
+    [self loadData];
+    
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
@@ -57,6 +59,61 @@
     point.subtitle = @"I'm here!!!";
     
     [self.mapView addAnnotation:point];
+}
+
+#pragma mark -
+
+- (void)loadData
+{
+    NSString *serverAddress = [NSString stringWithFormat:@"http://desolate-river-6178.herokuapp.com"];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/locations/China/HongKong", serverAddress]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        
+        if (error) {
+            NSLog(@"error: %@", error);
+        }
+        else{
+            NSError * jsonError;
+            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
+                                                                 options:kNilOptions
+                                                                   error:&jsonError];
+            if (jsonError) {
+                NSLog(@"error: %@", jsonError);
+            }
+            else {
+                NSDictionary *atms = [json objectForKey:@"Atms"];
+                NSArray *atm = [atms objectForKey:@"Atm"];
+                
+                for (NSDictionary *l in atm) {
+                    NSDictionary *location = [l objectForKey:@"Location"];
+                    NSString *name = [location objectForKey:@"Name"];
+                    NSDictionary *address = [location objectForKey:@"Address"];
+                    NSString *street = [address objectForKey:@"Line1"];
+                    NSDictionary *point = [location objectForKey:@"Point"];
+                    NSString *lat = [point objectForKey:@"Latitude"];
+                    NSString *lng = [point objectForKey:@"Longitude"];
+                    
+                    NSLog(@"%@ / %@ / %@", name, lat, lng);
+                    
+                    MKPointAnnotation *myAnnotation = [[MKPointAnnotation alloc] init];
+                    myAnnotation.coordinate = CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
+                    myAnnotation.title = name;
+                    myAnnotation.subtitle = street;
+                    [self.mapView addAnnotation:myAnnotation];
+
+                }
+            }
+            
+        }
+    }];
 }
 
 @end
