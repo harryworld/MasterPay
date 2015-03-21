@@ -26,18 +26,13 @@
 
 - (void)loadData
 {
-    [self.amountToBeAdded resignFirstResponder];
     [self.codeToBeUsed resignFirstResponder];
     
-    self.balance.text = self.amountToBeAdded.text;
+    self.balance.text = @"500.0";
     
     NSString *serverAddress = [NSString stringWithFormat:@"http://desolate-river-6178.herokuapp.com"];
     
-    NSString *amount = self.amountToBeAdded.text;
-    if ([amount isEqualToString:@""]) {
-        amount = @"500";
-    }
-    self.amountToBeAdded.text = @"";
+    NSString *amount = @"500";
     
     NSString *cardNumber = self.codeToBeUsed.text;
     if ([cardNumber isEqualToString:@""]) {
