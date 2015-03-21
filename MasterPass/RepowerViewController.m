@@ -29,6 +29,8 @@
     [self.amountToBeAdded resignFirstResponder];
     [self.codeToBeUsed resignFirstResponder];
     
+    self.balance.text = self.amountToBeAdded.text;
+    
     NSString *serverAddress = [NSString stringWithFormat:@"http://desolate-river-6178.herokuapp.com"];
     
     NSString *amount = self.amountToBeAdded.text;
