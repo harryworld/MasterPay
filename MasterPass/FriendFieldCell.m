@@ -85,7 +85,11 @@
             }
             else {
                 NSString *value = [json objectForKey:@"value"];
-                NSLog(@"success: %@", value);
+                
+                SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Success" andMessage:[NSString stringWithFormat:@"Transfer done to Harry: $%@", value]];
+                [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+                alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+                [alert show];
             }
             
         }
