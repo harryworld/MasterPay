@@ -84,12 +84,14 @@
                 NSLog(@"error: %@", jsonError);
             }
             else {
-                NSString *value = [json objectForKey:@"value"];
-                
-                SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Success" andMessage:[NSString stringWithFormat:@"Transfer done to Harry: $%@", value]];
-                [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
-                alert.transitionStyle = SIAlertViewTransitionStyleBounce;
-                [alert show];
+                dispatch_async (dispatch_get_main_queue(), ^{
+                    NSString *value = [json objectForKey:@"value"];
+                    
+                    SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Success" andMessage:[NSString stringWithFormat:@"Transfer done to Harry: $%@", value]];
+                    [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+                    alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+                    [alert show];
+                });
             }
             
         }

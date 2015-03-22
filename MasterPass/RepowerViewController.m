@@ -64,14 +64,18 @@
                 NSLog(@"error: %@", jsonError);
             }
             else {
-                self.balance.text = [json objectForKey:@"value"];
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                
-                SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Success" andMessage:[NSString stringWithFormat:@"rePower Done."]];
-                [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
-                alert.transitionStyle = SIAlertViewTransitionStyleBounce;
-                [alert show];
-
+                dispatch_async (dispatch_get_main_queue(), ^{
+                    
+                    self.balance.text = [json objectForKey:@"value"];
+                    
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    
+                    SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Success" andMessage:[NSString stringWithFormat:@"rePower Done."]];
+                    [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+                    alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+                    [alert show];
+                    
+                });
            }
             
         }
