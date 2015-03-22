@@ -64,6 +64,8 @@
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/moneysend/transfer/%@/%@/%@", serverAddress, fromNumber, toNumber, amount]];
     
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"showProgress" object:nil userInfo:nil];
+
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -85,6 +87,8 @@
             }
             else {
                 dispatch_async (dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"hideProgress" object:nil userInfo:nil];
+
                     NSString *value = [json objectForKey:@"value"];
                     
                     SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Success" andMessage:[NSString stringWithFormat:@"Transfer done to Harry: $%@", value]];

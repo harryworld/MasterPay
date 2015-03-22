@@ -21,8 +21,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showProgress:) name:@"showProgress" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideProgress:) name:@"hideProgress" object:nil];
+    
     NSLog(@"Friend List");
 }
+
+#pragma mark - Progress
+
+- (void)showProgress:(NSNotification *)notification
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+}
+
+- (void)hideProgress:(NSNotification *)notification
+{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+#pragma mark - Table
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
