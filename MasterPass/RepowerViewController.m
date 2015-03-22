@@ -66,6 +66,12 @@
             else {
                 self.balance.text = [json objectForKey:@"value"];
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                
+                SIAlertView *alert = [[SIAlertView alloc] initWithTitle:@"Success" andMessage:[NSString stringWithFormat:@"rePower Done."]];
+                [alert addButtonWithTitle:@"OK" type:SIAlertViewButtonTypeCancel handler:nil];
+                alert.transitionStyle = SIAlertViewTransitionStyleBounce;
+                [alert show];
+
            }
             
         }
