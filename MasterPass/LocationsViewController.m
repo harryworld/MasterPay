@@ -68,6 +68,36 @@
     myAnnotation4.subtitle = @"7-Eleven";
     [self.mapView addAnnotation:myAnnotation4];
     
+    MKPointAnnotation *myAnnotation5 = [[MKPointAnnotation alloc] init];
+    myAnnotation5.coordinate = CLLocationCoordinate2DMake(22.277683, 114.164381);
+    myAnnotation5.title = @"Starbucks";
+    myAnnotation5.subtitle = @"Coffee shop";
+    [self.mapView addAnnotation:myAnnotation5];
+    
+    MKPointAnnotation *myAnnotation6 = [[MKPointAnnotation alloc] init];
+    myAnnotation6.coordinate = CLLocationCoordinate2DMake(22.278855, 114.176514);
+    myAnnotation6.title = @"Novotel Century Hong Hong";
+    myAnnotation6.subtitle = @"Hotel";
+    [self.mapView addAnnotation:myAnnotation6];
+    
+    MKPointAnnotation *myAnnotation7 = [[MKPointAnnotation alloc] init];
+    myAnnotation7.coordinate = CLLocationCoordinate2DMake(22.280897, 114.186366);
+    myAnnotation7.title = @"Ikea - Causeway Bay";
+    myAnnotation7.subtitle = @"Swedish Furnitures";
+    [self.mapView addAnnotation:myAnnotation7];
+    
+    MKPointAnnotation *myAnnotation8 = [[MKPointAnnotation alloc] init];
+    myAnnotation8.coordinate = CLLocationCoordinate2DMake(22.284553, 114.159220);
+    myAnnotation8.title = @"Apple Store";
+    myAnnotation8.subtitle = @"Computers and Phones";
+    [self.mapView addAnnotation:myAnnotation8];
+    
+    MKPointAnnotation *myAnnotation9 = [[MKPointAnnotation alloc] init];
+    myAnnotation9.coordinate = CLLocationCoordinate2DMake(22.278536, 114.168626);
+    myAnnotation9.title = @"Hsbc Atm Machine - Arsenal House";
+    myAnnotation9.subtitle = @"ATM";
+    [self.mapView addAnnotation:myAnnotation9];
+    
     [self loadData];
     
 }
